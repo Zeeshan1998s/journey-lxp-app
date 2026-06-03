@@ -9,7 +9,7 @@ export default function AppShell({ children, initialUser }: { children: React.Re
   const [chatOpen, setChatOpen] = useState(false);
   const [videosOpen, setVideosOpen] = useState(false);
   const pathname = usePathname();
-  const isSlim = pathname !== '/';
+  const isSlim = pathname !== '/' && pathname !== '/profile';
   const isLogin = pathname === '/login';
 
   if (isLogin) {

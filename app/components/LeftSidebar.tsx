@@ -14,7 +14,7 @@ export default function LeftSidebar({ user }: { user: any }) {
   const userInitial = userName.substring(0, 2).toUpperCase();
 
   // Determine if we should use the slim sidebar based on path
-  const isSlim = pathname !== '/';
+  const isSlim = pathname !== '/' && pathname !== '/profile';
 
   if (isSlim) {
     return (
