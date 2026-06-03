@@ -12,17 +12,19 @@ export default function AppShell({ children, initialUser }: { children: React.Re
   const isSlim = pathname !== '/';
   const isLogin = pathname === '/login';
 
+  if (isLogin) {
+    return <>{children}</>;
+  }
+
   return (
-    <div className={isSlim && !isLogin ? 'app-shell-pdf' : 'app-shell'}>
-      {!isLogin && <XpToast />}
-      {!isLogin && <LeftSidebar user={initialUser} />}
+    <div className={isSlim ? 'app-shell-pdf' : 'app-shell'}>
+      <XpToast />
+      <LeftSidebar user={initialUser} />
       {children}
-      {!isLogin && (
-        <RightSidebar 
-          onOpenChat={() => setChatOpen(!chatOpen)}
-          onOpenVideos={() => setVideosOpen(!videosOpen)} 
-        />
-      )}
+      <RightSidebar 
+        onOpenChat={() => setChatOpen(!chatOpen)}
+        onOpenVideos={() => setVideosOpen(!videosOpen)} 
+      />
 
       {/* Videos Modal Overlay */}
       {videosOpen && (
