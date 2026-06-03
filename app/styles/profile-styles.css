@@ -1,0 +1,349 @@
+.profile-main {
+  background-color: #1a1b26; /* Dark background matching the screenshot */
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2324283b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: #c0caf5;
+  min-height: 100vh;
+  padding: 40px;
+  font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Grid Layouts */
+.profile-grid-top {
+  display: grid;
+  grid-template-columns: 350px 1fr 1fr;
+  gap: 24px;
+}
+
+.profile-grid-middle {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 24px;
+}
+
+/* Base Card Style */
+.profile-card {
+  background: rgba(26, 27, 38, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Player Card (Avatar + Badge) */
+.player-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.avatar-badge-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 24px;
+}
+
+/* Star/Shield SVG Background for Avatar */
+.avatar-badge-svg {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 160px;
+  height: 160px;
+  color: #3d59a1;
+  filter: drop-shadow(0 0 10px rgba(61, 89, 161, 0.5));
+}
+
+.avatar-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #7aa2f7;
+  object-fit: cover;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.player-info {
+  text-align: center;
+  width: 100%;
+}
+
+.player-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-handle {
+  font-size: 14px;
+  color: #7aa2f7;
+  margin-bottom: 16px;
+}
+
+.player-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.level-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.xp-text {
+  color: #a9b1d6;
+}
+
+/* Edit Icon */
+.edit-icon {
+  cursor: pointer;
+  color: #565f89;
+  transition: color 0.2s;
+}
+.edit-icon:hover { color: #fff; }
+
+/* Social Links Box */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #c0caf5;
+}
+
+.link-item svg {
+  color: #565f89;
+  flex-shrink: 0;
+}
+
+.link-text {
+  flex: 1;
+}
+
+.link-text.active {
+  color: #7aa2f7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Stats Box */
+.stats-box {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+}
+
+.stat-item svg {
+  color: #565f89;
+}
+
+.stat-value {
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* Heatmap */
+.heatmap-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #565f89;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(52, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.heatmap-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background-color: #24283b;
+}
+
+.heatmap-cell.level-1 { background-color: #ff9e64; opacity: 0.4; }
+.heatmap-cell.level-2 { background-color: #ff9e64; opacity: 0.6; }
+.heatmap-cell.level-3 { background-color: #ff9e64; opacity: 0.8; }
+.heatmap-cell.level-4 { background-color: #ff9e64; opacity: 1.0; }
+
+.heatmap-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #565f89;
+}
+
+.heatmap-legend {
+  display: flex;
+  gap: 4px;
+}
+
+/* Section Headings */
+.section-heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+
+/* Achievements */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.achievement-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.achievement-badge {
+  width: 64px;
+  height: 64px;
+  position: relative;
+}
+
+.achievement-badge svg {
+  width: 100%;
+  height: 100%;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.achievement-title span {
+  color: #7aa2f7;
+  font-weight: 400;
+}
+
+.achievement-desc {
+  font-size: 13px;
+  color: #a9b1d6;
+  margin-bottom: 4px;
+}
+
+.achievement-date {
+  font-size: 12px;
+  color: #565f89;
+}
+
+/* Courses */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.course-card {
+  position: relative;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.course-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.course-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(26,27,38,0.9), rgba(26,27,38,0.4));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.course-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.course-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.course-date {
+  font-size: 13px;
+  color: #a9b1d6;
+}
