@@ -1,7 +1,6 @@
 import Header from './components/Header';
 import ViewTabs from './components/dashboard/ViewTabs';
 import NodeMap from './components/dashboard/NodeMap';
-import MapControls from './components/dashboard/MapControls';
 
 export default function Home() {
   return (
@@ -14,7 +13,6 @@ export default function Home() {
       {/* NODE MAP VIEW */}
       <div className="node-map-container" style={{flex: 1, minHeight: 0, position: 'relative', background: '#f8f7f5', overflow: 'hidden'}}>
         <NodeMap />
-        <MapControls />
       </div>
     </main>
   );

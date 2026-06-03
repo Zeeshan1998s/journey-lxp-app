@@ -6,6 +6,7 @@ import './styles/videos-styles.css';
 import AppShell from './components/AppShell';
 import { getUser } from './actions/gamification';
 import AuthProvider from './components/AuthProvider';
+import { JourneyProvider } from './contexts/JourneyContext';
 
 export const runtime = 'nodejs';
 
@@ -27,9 +28,11 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <AppShell initialUser={user}>
-            {children}
-          </AppShell>
+          <JourneyProvider>
+            <AppShell initialUser={user}>
+              {children}
+            </AppShell>
+          </JourneyProvider>
         </AuthProvider>
       </body>
     </html>

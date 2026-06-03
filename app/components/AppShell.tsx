@@ -4,11 +4,12 @@ import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
 import XpToast from './XpToast';
 import { usePathname } from 'next/navigation';
+import { useJourney } from '../contexts/JourneyContext';
 
 export default function AppShell({ children, initialUser }: { children: React.ReactNode, initialUser: any }) {
   const [chatOpen, setChatOpen] = useState(false);
-  const [videosOpen, setVideosOpen] = useState(false);
   const pathname = usePathname();
+  const { selectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded } = useJourney();
   const isSlim = pathname !== '/';
   const isLogin = pathname === '/login';
   const isProfile = pathname === '/profile';
@@ -17,37 +18,39 @@ export default function AppShell({ children, initialUser }: { children: React.Re
     return <>{children}</>;
   }
 
+  const showRightSidebar = pathname !== '/' || selectedNode !== null;
+
   return (
     <div className={isSlim ? 'app-shell-pdf' : 'app-shell'}>
       <XpToast />
       <LeftSidebar user={initialUser} />
       {children}
-      <RightSidebar 
-        onOpenChat={() => setChatOpen(!chatOpen)}
-        onOpenVideos={() => setVideosOpen(!videosOpen)} 
-      />
+      {showRightSidebar && (
+        <RightSidebar 
+          onOpenChat={() => setChatOpen(!chatOpen)}
+        />
+      )}
 
-      {/* Videos Modal Overlay */}
-      {videosOpen && (
-        <div className="videos-overlay-modal">
+      {/* Artifact Modal Overlay */}
+      {activeArtifact && (
+        <div className={`videos-overlay-modal ${isExpanded ? 'expanded' : ''}`} style={isExpanded ? {position: 'fixed', inset: 0, width: '100%', height: '100%', zIndex: 1000, margin: 0, borderRadius: 0, top: 0, right: 0} : {}}>
           <div className="videos-overlay-header">
             <div className="videos-overlay-title">
-              <span className="videos-overlay-title-text" style={{color: 'var(--orange)'}}>YOUTUBE</span>
-              <span className="videos-overlay-title-text">Market Research · 5 videos</span>
+              <span className="videos-overlay-title-text" style={{color: 'var(--orange)', textTransform: 'uppercase'}}>{activeArtifact}</span>
+              <span className="videos-overlay-title-text">{selectedNode?.data?.label || 'Market Research'} · Content</span>
             </div>
             <div className="videos-overlay-actions">
-              <button className="btn-text">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> Regenerate
+              <button className="btn-text" onClick={() => setIsExpanded(!isExpanded)}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> {isExpanded ? 'Collapse' : 'Expand'}
               </button>
-              <button className="icon-btn" onClick={() => setVideosOpen(false)}>
+              <button className="icon-btn" onClick={() => { setActiveArtifact(null); setIsExpanded(false); }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
             </div>
           </div>
-          <div className="videos-overlay-list">
-            <div className="videos-overlay-top">
-              <span className="videos-overlay-list-title">Youtube Videos</span>
-              <span style={{fontSize: '12px', color: 'var(--gray-500)'}}>8 / 8</span>
+          <div className="videos-overlay-list" style={isExpanded ? {display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px'} : {}}>
+            <div className="videos-overlay-top" style={isExpanded ? {gridColumn: '1 / -1'} : {}}>
+              <span className="videos-overlay-list-title">{activeArtifact} Content</span>
             </div>
             <div className="videos-overlay-search">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
