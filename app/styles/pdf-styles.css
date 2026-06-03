@@ -1,0 +1,408 @@
+/* ================================================
+   Journey LXP — PDF View Page Styles
+   ================================================ */
+
+/* Compact left sidebar (icon-only) for PDF view */
+.app-shell-pdf {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.left-sidebar-slim {
+  width: 56px;
+  min-width: 56px;
+  height: 100vh;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.slim-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 8px;
+}
+
+.slim-logo-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--orange);
+  cursor: pointer;
+}
+
+.slim-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.slim-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: background 0.15s, color 0.15s;
+}
+
+.slim-nav-btn:hover {
+  background: var(--gray-50);
+  color: var(--gray-900);
+}
+
+.slim-nav-btn.active {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+.slim-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 16px;
+  gap: 8px;
+}
+
+.slim-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50px;
+  background: var(--orange-bg-2);
+  color: #ea7112;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.slim-bottom-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slim-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: background 0.15s;
+}
+
+.slim-action-btn:hover {
+  background: var(--gray-50);
+}
+
+/* PDF Main Content */
+.pdf-main {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--white);
+}
+
+/* PDF Header */
+.pdf-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.pdf-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pdf-course-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 9px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #111;
+}
+
+.pdf-course-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pdf-course-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+/* PDF toolbar */
+.pdf-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  flex-shrink: 0;
+  min-height: 48px;
+}
+
+.pdf-type-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: var(--orange-bg);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--orange);
+}
+
+.pdf-breadcrumb {
+  font-size: 12px;
+  color: var(--gray-600);
+  flex: 1;
+}
+
+.pdf-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-700);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.15s;
+}
+
+.btn-text:hover {
+  background: var(--gray-50);
+}
+
+/* PDF Content Area */
+.pdf-content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pdf-count-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.pdf-count {
+  font-size: 12px;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+/* Search Bar */
+.pdf-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.pdf-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--gray-900);
+  background: transparent;
+}
+
+.pdf-search input::placeholder {
+  color: var(--gray-400);
+}
+
+/* PDF List */
+.pdf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  transition: background 0.12s;
+  border-radius: 8px;
+}
+
+.pdf-item:hover {
+  background: var(--gray-50);
+}
+
+.pdf-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.pdf-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pdf-item-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.pdf-item-meta {
+  font-size: 11px;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pdf-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gray-400);
+  display: inline-block;
+}
+
+.pdf-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pdf-checkbox.checked {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: white;
+}
+
+.pdf-checkbox:hover:not(.checked) {
+  border-color: var(--orange);
+}
+
+/* Mark Complete Button */
+.mark-complete-bar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 0;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(to top, white 60%, transparent);
+}
+
+.mark-complete-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--gray-900);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.mark-complete-btn:hover {
+  background: #111;
+  transform: translateY(-1px);
+}
+
+.mark-complete-btn:active {
+  transform: translateY(0);
+}

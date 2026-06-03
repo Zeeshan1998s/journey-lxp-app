@@ -1,0 +1,92 @@
+'use client';
+import { useState } from 'react';
+import Header from '../components/Header';
+import Link from 'next/link';
+
+export default function ArticlesPage() {
+  const [search, setSearch] = useState('');
+  const [completed, setCompleted] = useState<number[]>([]);
+
+  const articles = [
+    { id: 1, title: 'The Complete Guide to Market Research in 2024', author: 'Dr. John Smith', duration: '30 min', type: 'ARTICLE', tags: ['Beginner', 'Frameworks'] },
+    { id: 2, title: 'Understanding Consumer Behavior', author: 'Dr. John Smith', duration: '45 min', type: 'ARTICLE', tags: ['Intermediate', 'Psychology'] },
+    { id: 3, title: 'Data Analysis Techniques', author: 'Dr. John Smith', duration: '60 min', type: 'ARTICLE', tags: ['Advanced', 'Data'] }
+  ];
+
+  const filtered = articles.filter(a => a.title.toLowerCase().includes(search.toLowerCase()));
+
+  const toggleComplete = (id: number) => {
+    setCompleted(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
+
+  return (
+    <main className="pdf-main">
+      <Header />
+      <div className="pdf-toolbar">
+        <div className="articles-type-tag" style={{ background: '#f5f5f5', color: '#333', borderRadius: '6px', padding: '5px 10px', fontSize: '12px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          ARTICLES
+        </div>
+        <span className="pdf-breadcrumb">Market Research · {articles.length} articles</span>
+        <div className="pdf-toolbar-actions">
+          <button className="btn-text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> Regenerate</button>
+          <Link href="/">
+            <button className="btn-text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> Back to view</button>
+          </Link>
+          <button className="icon-btn" style={{width: '32px', height: '32px'}}><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+        </div>
+      </div>
+
+      <div className="pdf-content-area" style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
+        <div className="pdf-count-row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
+          <h2 className="pdf-section-title" style={{ fontSize: '20px', fontWeight: 600 }}>Articles</h2>
+          <span className="pdf-count" style={{ color: 'var(--gray-500)', fontSize: '13px' }}>{completed.length} / {articles.length}</span>
+        </div>
+        <div className="pdf-search" style={{ position: 'relative', marginBottom: '24px' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ position: 'absolute', left: '12px', top: '12px', color: '#aaa' }}><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <input 
+            type="text" 
+            placeholder="Search documents" 
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            style={{ width: '100%', padding: '10px 16px 10px 36px', border: '1px solid var(--gray-200)', borderRadius: '8px' }} 
+          />
+        </div>
+        <div className="article-list" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {filtered.map(article => (
+            <div key={article.id} className="article-item" style={{ border: '1px solid var(--gray-200)', borderRadius: '12px', padding: '20px', background: 'var(--white)' }}>
+              <div className="article-top" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+                <div className="article-badge" style={{ background: '#f5f5f5', padding: '4px 8px', borderRadius: '4px', fontSize: '11px', fontWeight: 600 }}>{article.type}</div>
+                <div 
+                  className={`radio-circle ${completed.includes(article.id) ? 'checked' : ''}`} 
+                  onClick={() => toggleComplete(article.id)}
+                  style={{ width: '20px', height: '20px', borderRadius: '50%', border: '2px solid var(--gray-300)', cursor: 'pointer', background: completed.includes(article.id) ? 'var(--orange)' : 'transparent' }}
+                ></div>
+              </div>
+              <h3 className="article-title" style={{ fontSize: '16px', fontWeight: 600, marginBottom: '8px' }}>{article.title}</h3>
+              <p className="article-author" style={{ fontSize: '13px', color: 'var(--gray-600)', marginBottom: '16px' }}>By {article.author}</p>
+              <div className="article-meta-row" style={{ display: 'flex', gap: '12px' }}>
+                <span className="article-duration" style={{ fontSize: '12px', color: 'var(--gray-500)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  {article.duration}
+                </span>
+                {article.tags.map(t => (
+                  <span key={t} className="article-tag" style={{ fontSize: '12px', color: 'var(--gray-500)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V8a5 5 0 015-5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mark-complete-bar">
+        <button className="mark-complete-btn" onClick={() => setCompleted(articles.map(a => a.id))}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          Mark as Complete
+        </button>
+      </div>
+    </main>
+  );
+}

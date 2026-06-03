@@ -1,0 +1,108 @@
+/* ================================================
+   Journey LXP — Video / YouTube Page Styles
+   (extends pdf-styles.css)
+   ================================================ */
+
+/* ── Video Thumbnail ──────────────────────────── */
+.video-thumb {
+  width: 72px;
+  height: 54px;
+  border-radius: 6px;
+  background: #1a1a1a;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark overlay so play button is always legible */
+.video-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+
+/* YouTube red play button */
+.yt-play-btn {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yt-play-btn svg {
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+}
+
+/* Duration badge */
+.video-duration {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 3px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+
+/* ── Video List Item ──────────────────────────── */
+.video-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  transition: background 0.12s;
+  border-radius: 8px;
+}
+
+.video-item:hover {
+  background: var(--gray-50);
+}
+
+.video-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.video-item-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-item-sub {
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+/* ── Video page tag variant ───────────────────── */
+.pdf-type-tag.tag-video {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+/* ── Checkbox (reuse pdf-checkbox, just alias) ── */
+/* Already defined in pdf-styles.css — nothing extra needed */
