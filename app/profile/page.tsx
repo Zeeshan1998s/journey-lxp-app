@@ -138,7 +138,7 @@ export default async function ProfilePage() {
 
             {/* Heatmap */}
             <div className="profile-card heatmap-container">
-              <div style={{ minWidth: 'max-content' }}>
+              <div>
                 <div className="heatmap-header" style={{ display: 'grid', gridTemplateColumns: 'repeat(11, 1fr)', textAlign: 'left' }}>
                   <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
                 </div>
