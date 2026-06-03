@@ -28,7 +28,7 @@ export default async function ProfilePage() {
     <main className="profile-main">
       <div className="profile-container">
         
-        <Link href="/" style={{ color: '#7aa2f7', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px', fontWeight: 500 }}>
+        <Link href="/" style={{ color: 'var(--gray-600)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gray-900)')} onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--gray-600)')}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Back to Dashboard
         </Link>
@@ -91,32 +91,32 @@ export default async function ProfilePage() {
             <div className="profile-card" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="stat-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                <span style={{ color: '#a9b1d6' }}>Lessons solved:</span>
+                <span style={{ color: 'var(--gray-600)' }}>Lessons solved:</span>
                 <span className="stat-value">{user.progress.length}</span>
               </div>
               <div className="stat-item" style={{ fontSize: '14px' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span style={{ color: '#a9b1d6' }}>Leaderboard rank: <span style={{color: '#fff', fontWeight: 600}}>1</span></span>
+                <span style={{ color: 'var(--gray-600)' }}>Leaderboard rank: <span style={{color: 'var(--gray-900)', fontWeight: 700}}>1</span></span>
               </div>
               <div className="stat-item" style={{ fontSize: '14px' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span style={{ color: '#a9b1d6' }}>Joined: <span style={{color: '#fff', fontWeight: 600}}>Oct 24, 2024</span></span>
+                <span style={{ color: 'var(--gray-600)' }}>Joined: <span style={{color: 'var(--gray-900)', fontWeight: 700}}>Oct 24, 2024</span></span>
               </div>
             </div>
             
             <div className="profile-card" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="stat-item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span style={{ color: '#a9b1d6' }}>Karma:</span>
+                <span style={{ color: 'var(--gray-600)' }}>Karma:</span>
                 <span className="stat-value">133</span>
               </div>
               <div className="stat-item" style={{ fontSize: '14px' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-                <span style={{ color: '#a9b1d6' }}>Upvotes: <span style={{color: '#fff', fontWeight: 600}}>0</span></span>
+                <span style={{ color: 'var(--gray-600)' }}>Upvotes: <span style={{color: 'var(--gray-900)', fontWeight: 700}}>0</span></span>
               </div>
               <div className="stat-item" style={{ fontSize: '14px' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                <span style={{ color: '#a9b1d6' }}>Thanks received: <span style={{color: '#fff', fontWeight: 600}}>0</span></span>
+                <span style={{ color: 'var(--gray-600)' }}>Thanks received: <span style={{color: 'var(--gray-900)', fontWeight: 700}}>0</span></span>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default async function ProfilePage() {
         <div className="profile-grid-middle">
           <div className="profile-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: '#c0caf5', fontSize: '15px' }}>A little something about me</span>
+              <span style={{ color: 'var(--gray-600)', fontSize: '15px', fontWeight: 500 }}>A little something about me</span>
               <svg className="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default async function ProfilePage() {
               <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
             </div>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', fontSize: '11px', color: '#565f89', paddingBottom: '16px', paddingTop: '4px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', fontSize: '11px', color: 'var(--gray-500)', paddingBottom: '16px', paddingTop: '4px' }}>
                 <span>Mon</span><span>Wed</span><span>Fri</span>
               </div>
               <div className="heatmap-grid">
@@ -164,10 +164,10 @@ export default async function ProfilePage() {
         <h2 className="section-heading">Achievements</h2>
         <div className="achievements-grid">
           <div className="profile-card achievement-card">
-            <div className="achievement-badge" style={{ color: '#7aa2f7' }}>
+            <div className="achievement-badge" style={{ color: 'var(--orange-light)' }}>
               <svg viewBox="0 0 100 100" fill="currentColor">
                 <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
-                <circle cx="50" cy="50" r="20" fill="#fff" />
+                <circle cx="50" cy="50" r="20" fill="var(--white)" />
               </svg>
             </div>
             <div className="achievement-info">
@@ -178,10 +178,10 @@ export default async function ProfilePage() {
           </div>
 
           <div className="profile-card achievement-card">
-            <div className="achievement-badge" style={{ color: '#e0af68' }}>
+            <div className="achievement-badge" style={{ color: '#f59e0b' }}>
               <svg viewBox="0 0 100 100" fill="currentColor">
                 <circle cx="50" cy="50" r="40" />
-                <circle cx="50" cy="50" r="25" fill="#f7768e" />
+                <circle cx="50" cy="50" r="25" fill="#fcd34d" />
               </svg>
             </div>
             <div className="achievement-info">
@@ -192,10 +192,10 @@ export default async function ProfilePage() {
           </div>
 
           <div className="profile-card achievement-card">
-            <div className="achievement-badge" style={{ color: '#bb9af7' }}>
+            <div className="achievement-badge" style={{ color: '#8b5cf6' }}>
               <svg viewBox="0 0 100 100" fill="currentColor">
                 <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
-                <rect x="40" y="40" width="20" height="30" fill="#fff" />
+                <rect x="40" y="40" width="20" height="30" fill="var(--white)" />
               </svg>
             </div>
             <div className="achievement-info">
