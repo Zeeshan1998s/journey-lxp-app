@@ -1,16 +1,15 @@
 .profile-main {
-  background-color: #1a1b26; /* Dark background matching the screenshot */
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2324283b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  color: #c0caf5;
+  background-color: var(--gray-50);
+  color: var(--gray-900);
   min-height: 100vh;
   padding: 40px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font);
   overflow-y: auto;
   flex: 1;
 }
 
 .profile-container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -20,24 +19,32 @@
 /* Grid Layouts */
 .profile-grid-top {
   display: grid;
-  grid-template-columns: 350px 1fr 1fr;
+  grid-template-columns: 320px 1fr 1fr;
   gap: 24px;
 }
 
 .profile-grid-middle {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 320px 1fr;
   gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .profile-grid-top {
+    grid-template-columns: 1fr;
+  }
+  .profile-grid-middle {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Base Card Style */
 .profile-card {
-  background: rgba(26, 27, 38, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 /* Player Card (Avatar + Badge) */
@@ -50,32 +57,34 @@
 
 .avatar-badge-container {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   margin-bottom: 24px;
 }
 
 /* Star/Shield SVG Background for Avatar */
 .avatar-badge-svg {
   position: absolute;
-  top: -10px;
-  left: -10px;
-  width: 160px;
-  height: 160px;
-  color: #3d59a1;
-  filter: drop-shadow(0 0 10px rgba(61, 89, 161, 0.5));
+  top: -15px;
+  left: -15px;
+  width: 150px;
+  height: 150px;
+  color: var(--orange-bg);
+  filter: drop-shadow(0 0 10px rgba(241, 89, 32, 0.2));
 }
 
 .avatar-image {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 3px solid #7aa2f7;
+  border: 3px solid var(--white);
+  box-shadow: 0 4px 12px rgba(241, 89, 32, 0.15);
   object-fit: cover;
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 2;
+  background-color: var(--orange-bg-2);
 }
 
 .player-info {
@@ -84,9 +93,9 @@
 }
 
 .player-name {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  color: #fff;
+  color: var(--gray-900);
   margin-bottom: 4px;
   display: flex;
   justify-content: center;
@@ -96,7 +105,7 @@
 
 .player-handle {
   font-size: 14px;
-  color: #7aa2f7;
+  color: var(--gray-600);
   margin-bottom: 16px;
 }
 
@@ -106,25 +115,29 @@
   justify-content: center;
   gap: 8px;
   font-size: 14px;
+  background: var(--orange-bg);
+  padding: 6px 12px;
+  border-radius: 20px;
 }
 
 .level-text {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 700;
-  color: #fff;
+  color: var(--orange);
 }
 
 .xp-text {
-  color: #a9b1d6;
+  color: var(--orange-muted);
+  font-weight: 600;
 }
 
 /* Edit Icon */
 .edit-icon {
   cursor: pointer;
-  color: #565f89;
+  color: var(--gray-400);
   transition: color 0.2s;
 }
-.edit-icon:hover { color: #fff; }
+.edit-icon:hover { color: var(--gray-700); }
 
 /* Social Links Box */
 .links-list {
@@ -137,12 +150,13 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 15px;
-  color: #c0caf5;
+  font-size: 14px;
+  color: var(--gray-700);
+  font-weight: 500;
 }
 
 .link-item svg {
-  color: #565f89;
+  color: var(--gray-400);
   flex-shrink: 0;
 }
 
@@ -151,9 +165,12 @@
 }
 
 .link-text.active {
-  color: #7aa2f7;
-  text-decoration: underline;
+  color: var(--orange);
   cursor: pointer;
+}
+
+.link-text.active:hover {
+  text-decoration: underline;
 }
 
 /* Stats Box */
@@ -167,17 +184,17 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .stat-item svg {
-  color: #565f89;
+  color: var(--gray-400);
 }
 
 .stat-value {
-  color: #fff;
+  color: var(--gray-900);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 /* Heatmap */
@@ -191,7 +208,7 @@
   justify-content: space-between;
   margin-bottom: 16px;
   font-size: 12px;
-  color: #565f89;
+  color: var(--gray-500);
 }
 
 .heatmap-grid {
@@ -204,14 +221,14 @@
 .heatmap-cell {
   width: 12px;
   height: 12px;
-  border-radius: 2px;
-  background-color: #24283b;
+  border-radius: 3px;
+  background-color: var(--gray-100);
 }
 
-.heatmap-cell.level-1 { background-color: #ff9e64; opacity: 0.4; }
-.heatmap-cell.level-2 { background-color: #ff9e64; opacity: 0.6; }
-.heatmap-cell.level-3 { background-color: #ff9e64; opacity: 0.8; }
-.heatmap-cell.level-4 { background-color: #ff9e64; opacity: 1.0; }
+.heatmap-cell.level-1 { background-color: var(--orange-bg); }
+.heatmap-cell.level-2 { background-color: #ffb885; }
+.heatmap-cell.level-3 { background-color: var(--orange-light); }
+.heatmap-cell.level-4 { background-color: var(--orange); }
 
 .heatmap-footer {
   display: flex;
@@ -220,7 +237,7 @@
   gap: 8px;
   margin-top: 12px;
   font-size: 12px;
-  color: #565f89;
+  color: var(--gray-500);
 }
 
 .heatmap-legend {
@@ -231,8 +248,8 @@
 /* Section Headings */
 .section-heading {
   font-size: 18px;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 700;
+  color: var(--gray-900);
   margin-bottom: 16px;
   margin-top: 24px;
 }
@@ -240,7 +257,7 @@
 /* Achievements */
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
 
@@ -252,8 +269,8 @@
 }
 
 .achievement-badge {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   position: relative;
 }
 
@@ -267,41 +284,42 @@
 }
 
 .achievement-title {
-  color: #fff;
+  color: var(--gray-900);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   margin-bottom: 4px;
 }
 
 .achievement-title span {
-  color: #7aa2f7;
-  font-weight: 400;
+  color: var(--orange);
+  font-weight: 600;
 }
 
 .achievement-desc {
-  font-size: 13px;
-  color: #a9b1d6;
+  font-size: 12px;
+  color: var(--gray-600);
   margin-bottom: 4px;
 }
 
 .achievement-date {
-  font-size: 12px;
-  color: #565f89;
+  font-size: 11px;
+  color: var(--gray-400);
 }
 
 /* Courses */
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
 
 .course-card {
   position: relative;
-  height: 200px;
-  border-radius: 8px;
+  height: 180px;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .course-bg {
@@ -320,30 +338,22 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(26,27,38,0.9), rgba(26,27,38,0.4));
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: flex-end;
   padding: 24px;
 }
 
-.course-logo {
-  width: 140px;
-  height: auto;
-  margin-bottom: 16px;
-}
-
 .course-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
 }
 
 .course-date {
-  font-size: 13px;
-  color: #a9b1d6;
+  font-size: 12px;
+  color: #ddd;
 }
