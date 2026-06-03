@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
+import { completeContent } from '../actions/gamification';
 
 export default function VideosPage() {
   const [search, setSearch] = useState('');
@@ -15,8 +16,18 @@ export default function VideosPage() {
 
   const filtered = videos.filter(v => v.title.toLowerCase().includes(search.toLowerCase()));
 
-  const toggleComplete = (id: number) => {
-    setCompleted(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  const toggleComplete = async (id: number) => {
+    if (completed.includes(id)) return; // Don't uncheck or award XP twice
+    
+    // Optimistic UI update
+    setCompleted(prev => [...prev, id]);
+
+    // Call Server Action
+    const res = await completeContent(`video-${id}`, 'VIDEO');
+    if (res.success && res.xpEarned > 0) {
+      // Dispatch custom event to trigger toast
+      window.dispatchEvent(new CustomEvent('show-xp-toast', { detail: { xp: res.xpEarned } }));
+    }
   };
 
   return (

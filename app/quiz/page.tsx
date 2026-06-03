@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
+import { completeContent } from '../actions/gamification';
 
 export default function QuizPage() {
   const [selected, setSelected] = useState<number | null>(null);
@@ -22,9 +23,15 @@ export default function QuizPage() {
     setSelected(id);
   };
 
-  const handleSubmit = () => {
-    if (selected === null) return;
+  const handleSubmit = async () => {
+    if (selected === null || submitted) return;
     setSubmitted(true);
+    
+    // Call Server Action
+    const res = await completeContent(`quiz-${currentQ}`, 'QUIZ');
+    if (res.success && res.xpEarned > 0) {
+      window.dispatchEvent(new CustomEvent('show-xp-toast', { detail: { xp: res.xpEarned } }));
+    }
   };
 
   return (

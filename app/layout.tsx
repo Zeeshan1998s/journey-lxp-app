@@ -4,6 +4,7 @@ import './styles/styles.css';
 import './styles/pdf-styles.css';
 import './styles/videos-styles.css';
 import AppShell from './components/AppShell';
+import { getUser } from './actions/gamification';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,15 +13,17 @@ export const metadata: Metadata = {
   description: 'Journey Learning Experience Platform built with Next.js',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getUser();
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppShell>
+        <AppShell initialUser={user}>
           {children}
         </AppShell>
       </body>

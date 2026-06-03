@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
+import XpToast from './XpToast';
 import { usePathname } from 'next/navigation';
 
-export default function AppShell({ children }: { children: React.ReactNode }) {
+export default function AppShell({ children, initialUser }: { children: React.ReactNode, initialUser: any }) {
   const [chatOpen, setChatOpen] = useState(false);
   const [videosOpen, setVideosOpen] = useState(false);
   const pathname = usePathname();
@@ -12,7 +13,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={isSlim ? 'app-shell-pdf' : 'app-shell'}>
-      <LeftSidebar />
+      <XpToast />
+      <LeftSidebar user={initialUser} />
       {children}
       <RightSidebar 
         onOpenChat={() => setChatOpen(!chatOpen)}

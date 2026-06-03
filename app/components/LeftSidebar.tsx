@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function LeftSidebar() {
+export default function LeftSidebar({ user }: { user: any }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -97,10 +97,10 @@ export default function LeftSidebar() {
         {menuOpen && (
           <div className="user-menu-popup">
             <div className="user-menu-group">
-              <div className="user-menu-stat-row"><span>Points</span><span className="val">2,340</span></div>
-              <div className="user-menu-divider-line"><div className="fill" style={{width: '70%'}}></div></div>
-              <div className="user-menu-stat-row"><span>Daily streak</span><span className="val">12</span></div>
-              <div className="user-menu-divider-line"><div className="fill" style={{width: '40%'}}></div></div>
+              <div className="user-menu-stat-row"><span>Points</span><span className="val">{user?.xp || 0} XP</span></div>
+              <div className="user-menu-divider-line"><div className="fill" style={{width: `${Math.min(((user?.xp || 0) % 100), 100)}%`}}></div></div>
+              <div className="user-menu-stat-row"><span>Daily streak</span><span className="val">{user?.streak || 0} 🔥</span></div>
+              <div className="user-menu-divider-line"><div className="fill" style={{width: `${Math.min(((user?.streak || 0) * 10), 100)}%`}}></div></div>
             </div>
             <div className="user-menu-group">
               <div className="user-menu-item">
