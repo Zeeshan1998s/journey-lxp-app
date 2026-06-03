@@ -124,16 +124,19 @@ export default async function ProfilePage() {
 
         {/* Middle Grid */}
         <div className="profile-grid-middle">
-          <div className="profile-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--gray-600)', fontSize: '15px', fontWeight: 500 }}>A little something about me</span>
+          <div className="profile-card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span style={{ color: 'var(--gray-900)', fontSize: '16px', fontWeight: 600 }}>A little something about me</span>
               <svg className="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
             </div>
+            <p style={{ color: 'var(--gray-600)', fontSize: '14px', lineHeight: 1.6, flex: 1 }}>
+              Passionate learner and aspiring developer. I love diving into new technologies and exploring the world of web development. Currently focusing on React, Next.js, and building beautiful user interfaces! 🚀
+            </p>
           </div>
 
           {/* Heatmap */}
           <div className="profile-card heatmap-container">
-            <div className="heatmap-header">
+            <div className="heatmap-header" style={{ display: 'grid', gridTemplateColumns: 'repeat(11, 1fr)', textAlign: 'left' }}>
               <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
             </div>
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -164,7 +167,7 @@ export default async function ProfilePage() {
         <h2 className="section-heading">Achievements</h2>
         <div className="achievements-grid">
           <div className="profile-card achievement-card">
-            <div className="achievement-badge" style={{ color: 'var(--orange-light)' }}>
+            <div className="achievement-badge" style={{ color: '#3b82f6' }}>
               <svg viewBox="0 0 100 100" fill="currentColor">
                 <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
                 <circle cx="50" cy="50" r="20" fill="var(--white)" />
@@ -192,7 +195,7 @@ export default async function ProfilePage() {
           </div>
 
           <div className="profile-card achievement-card">
-            <div className="achievement-badge" style={{ color: '#8b5cf6' }}>
+            <div className="achievement-badge" style={{ color: '#b45309' }}>
               <svg viewBox="0 0 100 100" fill="currentColor">
                 <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" />
                 <rect x="40" y="40" width="20" height="30" fill="var(--white)" />
