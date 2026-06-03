@@ -1,8 +1,14 @@
 import { getUser } from '../actions/gamification';
 import '../styles/profile-styles.css';
 
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+
 export default async function ProfilePage() {
+  const session = await getServerSession(authOptions);
   const user = await getUser();
+  
+  if (!user || !session?.user) return null;
   
   // Calculate Level (e.g. 1 level per 100 XP)
   const level = Math.floor(user.xp / 100) + 1;
@@ -34,8 +40,8 @@ export default async function ProfilePage() {
               <img src="/images/avatar.png" alt="Avatar" className="avatar-image" />
             </div>
             <div className="player-info">
-              <h1 className="player-name">Zeeshan <svg className="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></h1>
-              <p className="player-handle">@heartywon...</p>
+              <h1 className="player-name">{session.user.name || session.user.email?.split('@')[0] || 'Guest'} <svg className="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></h1>
+              <p className="player-handle">@{session.user.email || 'guest'}</p>
               <div className="player-level">
                 <span className="level-text">Level {level}</span>
                 <span className="xp-text">{user.xp.toLocaleString()} XP</span>

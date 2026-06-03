@@ -3,32 +3,32 @@
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
-// Hardcoded userId for prototype since there's no auth
-const DEMO_USER_ID = 'demo-user-1';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function getUser() {
+  const session = await getServerSession(authOptions);
+  
+  if (!session || !session.user || !(session.user as any).id) {
+    return null;
+  }
+
+  const userId = (session.user as any).id;
+
   let user = await prisma.user.findUnique({
-    where: { id: DEMO_USER_ID },
+    where: { id: userId },
     include: { progress: true }
   });
-
-  if (!user) {
-    user = await prisma.user.create({
-      data: {
-        id: DEMO_USER_ID,
-        xp: 0,
-        streak: 0,
-        longestStreak: 0,
-      },
-      include: { progress: true }
-    });
-  }
 
   return user;
 }
 
 export async function completeContent(contentId: string, type: string) {
   const user = await getUser();
+  
+  if (!user) {
+    return { success: false, message: 'Not authenticated', xpEarned: 0 };
+  }
 
   // Check if already completed
   const existing = await prisma.userProgress.findUnique({

@@ -5,6 +5,9 @@ import './styles/pdf-styles.css';
 import './styles/videos-styles.css';
 import AppShell from './components/AppShell';
 import { getUser } from './actions/gamification';
+import AuthProvider from './components/AuthProvider';
+
+export const runtime = 'nodejs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,9 +26,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppShell initialUser={user}>
-          {children}
-        </AppShell>
+        <AuthProvider>
+          <AppShell initialUser={user}>
+            {children}
+          </AppShell>
+        </AuthProvider>
       </body>
     </html>
   );

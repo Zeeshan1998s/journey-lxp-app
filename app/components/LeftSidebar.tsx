@@ -3,9 +3,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { signOut } from 'next-auth/react';
+
 export default function LeftSidebar({ user }: { user: any }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  // Extract user details or fallback
+  const userName = user?.name || user?.email?.split('@')[0] || 'Guest';
+  const userInitial = userName.substring(0, 2).toUpperCase();
 
   // Determine if we should use the slim sidebar based on path
   const isSlim = pathname !== '/';
@@ -38,7 +44,7 @@ export default function LeftSidebar({ user }: { user: any }) {
           </nav>
         </div>
         <div className="slim-bottom">
-          <div className="slim-user-avatar">Ze</div>
+          <div className="slim-user-avatar">{userInitial}</div>
           <div className="slim-bottom-actions">
             <button className="slim-action-btn" title="Feedback"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
             <button className="slim-action-btn" title="Help"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
@@ -119,7 +125,7 @@ export default function LeftSidebar({ user }: { user: any }) {
               </div>
             </div>
             <div className="user-menu-group" style={{borderBottom: 'none'}}>
-              <div className="user-menu-item logout">
+              <div className="user-menu-item logout" onClick={() => signOut({ callbackUrl: '/login' })}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 Logout
               </div>
@@ -128,8 +134,8 @@ export default function LeftSidebar({ user }: { user: any }) {
         )}
 
         <div className="user-card" onClick={() => setMenuOpen(!menuOpen)}>
-          <div className="user-avatar">Ze</div>
-          <span className="user-name">Zeeshan</span>
+          <div className="user-avatar">{userInitial}</div>
+          <span className="user-name">{userName}</span>
           <svg className="user-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M5 15l7-7 7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
