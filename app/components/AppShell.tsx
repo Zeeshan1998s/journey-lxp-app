@@ -9,19 +9,21 @@ import { useJourney } from '../contexts/JourneyContext';
 export default function AppShell({ children, initialUser }: { children: React.ReactNode, initialUser: any }) {
   const [chatOpen, setChatOpen] = useState(false);
   const pathname = usePathname();
-  const { selectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded } = useJourney();
-  const isSlim = pathname !== '/';
+  const { selectedNode } = useJourney();
+
   const isLogin = pathname === '/login';
   const isProfile = pathname === '/profile';
+  const isMapPage = pathname.startsWith('/journey');
 
   if (isLogin || isProfile) {
     return <>{children}</>;
   }
 
-  const showRightSidebar = pathname !== '/' || selectedNode !== null;
+  // Only show the right sidebar on the journey map page when a node is selected
+  const showRightSidebar = isMapPage && selectedNode !== null;
 
   return (
-    <div className={isSlim ? 'app-shell-pdf' : 'app-shell'}>
+    <div className="app-shell">
       <XpToast />
       <TopNavbar user={initialUser} />
       <div className="main-content-row">

@@ -28,7 +28,7 @@ export default function TopNavbar({ user }: { user: any }) {
         
         {/* Left Side: Logo & Upgrade */}
         <div style={{display: 'flex', alignItems: 'center', gap: '24px'}}>
-          <Link href="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px'}}>
+          <Link href="/dashboard" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px'}}>
             <span style={{color: 'var(--orange)', fontSize: '20px', lineHeight: 1}}>•</span>
             <span style={{fontSize: '18px', color: '#222', letterSpacing: '0px'}}>
               <strong>Journey</strong><span style={{fontWeight: 400, color: '#555'}}>builder</span>

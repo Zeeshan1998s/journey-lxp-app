@@ -3,11 +3,26 @@
 import React, { useState } from 'react';
 import { useJourney } from '../../contexts/JourneyContext';
 
-export default function ExpandedArtifactView() {
-  const { activeArtifact, selectedNode, setIsExpanded } = useJourney();
+const FLASHCARDS = [
+  { q: 'What is Market Segmentation?', a: 'The process of dividing a broad market into sub-groups of consumers based on shared characteristics.' },
+  { q: 'What is a Buyer Persona?', a: 'A semi-fictional representation of your ideal customer based on market research and real data.' },
+  { q: 'What is Primary Research?', a: 'Research conducted directly with sources — surveys, interviews, focus groups.' },
+  { q: 'What is SWOT Analysis?', a: 'A strategic tool analyzing Strengths, Weaknesses, Opportunities, and Threats.' },
+  { q: 'What is Net Promoter Score?', a: 'A metric measuring customer loyalty based on likelihood to recommend a product.' },
+];
 
+export default function ExpandedArtifactView() {
+  const { activeArtifact, selectedNode, setIsExpanded, setActiveArtifact } = useJourney();
+
+  const [flashcardIndex, setFlashcardIndex] = useState(0);
   const [flashcardFlipped, setFlashcardFlipped] = useState(false);
   const [selectedQuizOption, setSelectedQuizOption] = useState<string | null>(null);
+  const [quizSubmitted, setQuizSubmitted] = useState(false);
+
+  const handleClose = () => {
+    setIsExpanded(false);
+    setActiveArtifact(null);
+  };
 
   const title = activeArtifact === 'videos' ? 'Videos' :
                 activeArtifact === 'articles' ? 'Articles' :
@@ -78,7 +93,7 @@ export default function ExpandedArtifactView() {
     <>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px'}}>
         <span style={{fontSize: '18px', fontWeight: 700, color: 'var(--gray-900)'}}>{title}</span>
-        <span style={{fontSize: '12px', color: 'var(--gray-500)', fontWeight: 500}}>18 cards · 6 due</span>
+        <span style={{fontSize: '12px', color: 'var(--gray-500)', fontWeight: 500}}>{flashcardIndex + 1} / {FLASHCARDS.length} cards</span>
       </div>
 
       <div style={{maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '80px'}}>
@@ -103,24 +118,32 @@ export default function ExpandedArtifactView() {
             textAlign: 'center'
           }}
         >
-          <h3 style={{fontSize: '20px', fontWeight: 700, color: 'var(--gray-900)', margin: flashcardFlipped ? '0 0 16px 0' : '0'}}>{selectedNode?.data?.label ? `What is the primary goal of ${selectedNode.data.label.toLowerCase()}?` : 'What is the primary goal of market research?'}</h3>
+          <h3 style={{fontSize: '20px', fontWeight: 700, color: 'var(--gray-900)', margin: flashcardFlipped ? '0 0 16px 0' : '0'}}>
+            {FLASHCARDS[flashcardIndex].q}
+          </h3>
           {flashcardFlipped && (
-            <p style={{fontSize: '15px', color: 'var(--gray-600)', lineHeight: '24px', maxWidth: '600px'}}>To gather information about consumers, competitors, and market trends to inform business decisions.</p>
+            <p style={{fontSize: '15px', color: 'var(--gray-600)', lineHeight: '24px', maxWidth: '600px'}}>
+              {FLASHCARDS[flashcardIndex].a}
+            </p>
           )}
         </div>
 
-        <div style={{fontSize: '12px', color: 'var(--gray-500)', fontWeight: 500, marginBottom: '24px'}}>1 of 5</div>
+        <div style={{fontSize: '12px', color: 'var(--gray-500)', fontWeight: 500, marginBottom: '24px'}}>
+          {flashcardIndex + 1} of {FLASHCARDS.length}
+        </div>
 
         <div style={{display: 'flex', gap: '16px', width: '100%'}}>
           <button 
-            onClick={() => setFlashcardFlipped(false)}
-            style={{flex: 1, padding: '16px', background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: '10px', fontSize: '14px', fontWeight: 600, color: 'var(--gray-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer'}}
+            onClick={() => { setFlashcardFlipped(false); if (flashcardIndex > 0) setFlashcardIndex(flashcardIndex - 1); }}
+            disabled={flashcardIndex === 0}
+            style={{flex: 1, padding: '16px', background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: '10px', fontSize: '14px', fontWeight: 600, color: flashcardIndex === 0 ? 'var(--gray-300)' : 'var(--gray-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: flashcardIndex === 0 ? 'not-allowed' : 'pointer'}}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M5 12L12 19M5 12L12 5" strokeLinecap="round" strokeLinejoin="round"/></svg> Prev
           </button>
           <button 
-            onClick={() => setFlashcardFlipped(false)}
-            style={{flex: 1, padding: '16px', background: 'var(--orange-muted)', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 600, color: 'var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer'}}
+            onClick={() => { setFlashcardFlipped(false); if (flashcardIndex < FLASHCARDS.length - 1) setFlashcardIndex(flashcardIndex + 1); }}
+            disabled={flashcardIndex === FLASHCARDS.length - 1}
+            style={{flex: 1, padding: '16px', background: flashcardIndex === FLASHCARDS.length - 1 ? 'var(--gray-200)' : 'var(--orange-muted)', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 600, color: 'var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: flashcardIndex === FLASHCARDS.length - 1 ? 'not-allowed' : 'pointer'}}
           >
             Next <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12H19M19 12L12 5M19 12L12 19" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
@@ -129,7 +152,15 @@ export default function ExpandedArtifactView() {
     </>
   );
 
-  const renderQuiz = () => (
+  const renderQuiz = () => {
+    const quizOptions = [
+      { id: 'A', text: `${selectedNode?.data?.label || 'Vision Strategy'} Overview`, correct: true },
+      { id: 'B', text: 'Market Segmentation Basics', correct: false },
+      { id: 'C', text: 'Consumer Behavior Analysis', correct: false },
+      { id: 'D', text: 'Competitive Landscape Review', correct: false },
+    ];
+
+    return (
     <>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px'}}>
         <span style={{fontSize: '18px', fontWeight: 700, color: 'var(--gray-900)'}}>{title}</span>
@@ -140,38 +171,60 @@ export default function ExpandedArtifactView() {
         <h2 style={{fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)', marginBottom: '40px', textAlign: 'center'}}>1. Which is a primary research method?</h2>
         
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', width: '100%', marginBottom: '48px'}}>
-          {['A', 'B', 'C', 'D'].map((letter) => (
+          {quizOptions.map((opt) => (
             <div 
-              key={letter}
-              onClick={() => setSelectedQuizOption(letter)}
+              key={opt.id}
+              onClick={() => !quizSubmitted && setSelectedQuizOption(opt.id)}
               style={{
                 display: 'flex', alignItems: 'center', gap: '16px', padding: '20px 24px', 
-                background: 'var(--white)', 
-                border: selectedQuizOption === letter ? '2px solid var(--orange)' : '1px solid var(--border)', 
-                borderRadius: '12px', cursor: 'pointer',
-                boxShadow: selectedQuizOption === letter ? '0 4px 12px rgba(241, 89, 32, 0.08)' : 'none'
+                background: quizSubmitted ? (opt.correct ? '#f0fdf4' : selectedQuizOption === opt.id ? '#fef2f2' : 'var(--white)') : 'var(--white)', 
+                border: quizSubmitted 
+                  ? (opt.correct ? '2px solid #22c55e' : selectedQuizOption === opt.id ? '2px solid #ef4444' : '1px solid var(--border)')
+                  : (selectedQuizOption === opt.id ? '2px solid var(--orange)' : '1px solid var(--border)'), 
+                borderRadius: '12px', cursor: quizSubmitted ? 'default' : 'pointer',
+                boxShadow: selectedQuizOption === opt.id && !quizSubmitted ? '0 4px 12px rgba(241, 89, 32, 0.08)' : 'none',
+                opacity: quizSubmitted && !opt.correct && selectedQuizOption !== opt.id ? 0.5 : 1
               }}
             >
               <div style={{
                 width: '32px', height: '32px', borderRadius: '50%', 
-                background: selectedQuizOption === letter ? 'var(--orange-bg)' : 'var(--gray-50)', 
-                color: selectedQuizOption === letter ? 'var(--orange)' : 'var(--gray-600)',
+                background: quizSubmitted ? (opt.correct ? '#dcfce7' : selectedQuizOption === opt.id ? '#fee2e2' : 'var(--gray-50)') : (selectedQuizOption === opt.id ? 'var(--orange-bg)' : 'var(--gray-50)'), 
+                color: quizSubmitted ? (opt.correct ? '#22c55e' : selectedQuizOption === opt.id ? '#ef4444' : 'var(--gray-600)') : (selectedQuizOption === opt.id ? 'var(--orange)' : 'var(--gray-600)'),
                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                fontSize: '14px', fontWeight: 700, border: selectedQuizOption === letter ? '1px solid var(--orange)' : '1px solid var(--gray-200)'
+                fontSize: '14px', fontWeight: 700, border: '1px solid currentColor'
               }}>
-                {letter}
+                {opt.id}
               </div>
-              <span style={{fontSize: '14px', fontWeight: 600, color: 'var(--gray-800)'}}>{selectedNode?.data?.label || 'Vision Strategy'} Overview</span>
+              <span style={{fontSize: '14px', fontWeight: 600, color: 'var(--gray-800)'}}>{opt.text}</span>
             </div>
           ))}
         </div>
 
-        <button style={{padding: '16px 40px', background: 'var(--orange-muted)', color: 'var(--white)', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', minWidth: '400px', justifyContent: 'center'}}>
-          Submit & Next <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12H19M19 12L12 5M19 12L12 19" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </button>
+        {!quizSubmitted ? (
+          <button 
+            onClick={() => { if (selectedQuizOption) setQuizSubmitted(true); }}
+            disabled={!selectedQuizOption}
+            style={{padding: '16px 40px', background: selectedQuizOption ? 'var(--orange-muted)' : 'var(--gray-200)', color: selectedQuizOption ? 'var(--white)' : 'var(--gray-500)', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 600, cursor: selectedQuizOption ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', gap: '8px', minWidth: '400px', justifyContent: 'center'}}
+          >
+            Submit Answer <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12H19M19 12L12 5M19 12L12 19" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        ) : (
+          <div style={{textAlign: 'center'}}>
+            <div style={{fontSize: '16px', fontWeight: 700, color: '#22c55e', marginBottom: '16px'}}>
+              ✓ Correct! Well done.
+            </div>
+            <button 
+              onClick={() => { setSelectedQuizOption(null); setQuizSubmitted(false); }}
+              style={{padding: '12px 32px', background: 'var(--gray-900)', color: 'var(--white)', border: 'none', borderRadius: '10px', fontSize: '14px', fontWeight: 600, cursor: 'pointer'}}
+            >
+              Next Question
+            </button>
+          </div>
+        )}
       </div>
     </>
-  );
+    );
+  };
 
   const renderDefaultList = () => (
     <>
@@ -220,10 +273,10 @@ export default function ExpandedArtifactView() {
           <button className="btn-outline" style={{padding: '6px 12px', fontSize: '11px', color: 'var(--gray-600)'}}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{marginRight: '6px'}}><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" strokeLinecap="round" strokeLinejoin="round"/></svg> Regenerate
           </button>
-          <button className="btn-outline" onClick={() => setIsExpanded(false)} style={{padding: '6px 12px', fontSize: '11px', color: 'var(--gray-600)'}}>
+          <button className="btn-outline" onClick={handleClose} style={{padding: '6px 12px', fontSize: '11px', color: 'var(--gray-600)'}}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{marginRight: '6px'}}><path d="M10 19l-7-7m0 0l7-7m-7 7h18" strokeLinecap="round" strokeLinejoin="round"/></svg> Back to view
           </button>
-          <button className="icon-btn" onClick={() => setIsExpanded(false)} style={{width: '28px', height: '28px', border: '1px solid var(--border)'}}>
+          <button className="icon-btn" onClick={handleClose} style={{width: '28px', height: '28px', border: '1px solid var(--border)'}}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 14h6m0 0v6m0-6l-7 7m17-11h-6m0 0V4m0 6l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </div>
