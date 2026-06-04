@@ -1281,12 +1281,9 @@ html, body {
    VIDEOS MODAL OVERLAY
    ================================================ */
 .videos-overlay-modal {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  max-height: calc(100% - 100px);
+  width: 800px;
+  max-width: 90vw;
+  max-height: calc(100vh - 120px);
   background: var(--white);
   border: 1px solid var(--gray-200);
   border-radius: 12px;
