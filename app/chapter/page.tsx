@@ -282,24 +282,25 @@ function ChapterContent() {
               )}
             </div>
 
+          </div>
+
+          {/* BOTTOM INTERFACE (STICKY) */}
+          <div style={{ padding: '16px 32px 24px', borderTop: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+            
             {/* View Tabs */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '40px' }}>
-              <div style={{ background: '#f1f5f9', borderRadius: '32px', padding: '4px', display: 'inline-flex' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+              <div style={{ background: '#e2e8f0', borderRadius: '32px', padding: '4px', display: 'inline-flex' }}>
                 {['Logos', 'Spellbook', 'Lessons'].map(tab => (
                   <button 
                     key={tab}
                     onClick={() => setLeftTab(tab)}
-                    style={{ background: leftTab === tab ? '#fff' : 'transparent', color: leftTab === tab ? '#0f172a' : '#64748b', border: 'none', padding: '6px 16px', borderRadius: '32px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', boxShadow: leftTab === tab ? '0 1px 3px rgba(0,0,0,0.1)' : 'none' }}
+                    style={{ background: leftTab === tab ? '#fff' : 'transparent', color: leftTab === tab ? '#0f172a' : '#64748b', border: 'none', padding: '6px 16px', borderRadius: '32px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', boxShadow: leftTab === tab ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', transition: 'all 0.2s' }}
                   >
                     {tab}
                   </button>
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* CHAT INTERFACE */}
-          <div style={{ padding: '24px 32px', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <div style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', border: '2px solid #e2e8f0', background: '#fff' }}>
                 <img src="/images/game/mascot_avatar.png" alt="Logos" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
