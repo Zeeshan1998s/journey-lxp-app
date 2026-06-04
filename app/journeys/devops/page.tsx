@@ -254,7 +254,7 @@ export default function ModulesPage() {
         </div>
       </div>
 
-      {/* COURSE LIST */}
+      {/* JOURNEY LIST */}
       <div style={{ padding: '80px 24px', background: 'var(--white)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           

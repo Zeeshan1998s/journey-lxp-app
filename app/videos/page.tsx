@@ -50,14 +50,14 @@ export default function VideosPage() {
 
       <div className="pdf-content-area" style={{ flex: 1, padding: '32px 40px', overflowY: 'auto' }}>
         <div className="pdf-count-row" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
-          <h2 className="pdf-section-title" style={{ fontSize: '20px', fontWeight: 600 }}>Course Videos</h2>
+          <h2 className="pdf-section-title" style={{ fontSize: '20px', fontWeight: 600 }}>Journey Videos</h2>
           <span className="pdf-count" style={{ color: 'var(--gray-500)', fontSize: '13px' }}>{completed.length} / {videos.length}</span>
         </div>
         <div className="pdf-search" style={{ position: 'relative', marginBottom: '24px' }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ position: 'absolute', left: '12px', top: '12px', color: '#aaa' }}><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <input 
             type="text" 
-            placeholder="Search course videos" 
+            placeholder="Search journey videos" 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={{ width: '100%', padding: '10px 16px 10px 36px', border: '1px solid var(--gray-200)', borderRadius: '8px' }} 

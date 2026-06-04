@@ -153,7 +153,7 @@ export default function NodeMap() {
   const title = activeArtifact === 'videos' ? 'Videos' :
                 activeArtifact === 'articles' ? 'Articles' :
                 activeArtifact === 'pdfs' ? 'PDFs' :
-                activeArtifact === 'course' ? 'Course' :
+                activeArtifact === 'journey' ? 'Journey' :
                 activeArtifact === 'flashcards' ? 'Flashcards' :
                 activeArtifact === 'faq' ? 'FAQ' :
                 activeArtifact === 'quiz' ? 'Quizzes' :

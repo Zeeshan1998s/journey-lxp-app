@@ -92,7 +92,7 @@ export default function LeaderboardPage() {
         {/* Center: Nav Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px', fontSize: '14px', fontWeight: 600, color: '#475569' }}>
           <Link href="/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>Dashboard</Link>
-          <Link href="/courses" style={{ color: 'inherit', textDecoration: 'none' }}>Courses</Link>
+          <Link href="/journeys" style={{ color: 'inherit', textDecoration: 'none' }}>Journeys</Link>
           <Link href="/community" style={{ color: 'inherit', textDecoration: 'none' }}>Community</Link>
           <Link href="/leaderboard" style={{ color: '#0f172a', textDecoration: 'none' }}>Leaderboard</Link>
         </div>

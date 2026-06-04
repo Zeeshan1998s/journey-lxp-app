@@ -316,14 +316,14 @@
   color: var(--gray-400);
 }
 
-/* Courses */
-.courses-grid {
+/* Journeys */
+.journeys-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
 
-.course-card {
+.journey-card {
   position: relative;
   height: 180px;
   border-radius: 12px;
@@ -332,7 +332,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.course-bg {
+.journey-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -342,7 +342,7 @@
   z-index: 1;
 }
 
-.course-overlay {
+.journey-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -356,14 +356,14 @@
   padding: 24px;
 }
 
-.course-title {
+.journey-title {
   font-size: 18px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
 }
 
-.course-date {
+.journey-date {
   font-size: 12px;
   color: #ddd;
 }

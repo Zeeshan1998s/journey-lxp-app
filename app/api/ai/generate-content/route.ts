@@ -46,7 +46,7 @@ Return ONLY valid JSON:
     { "id": 1, "title": "Video Title", "channel": "Channel Name", "duration": "10:00", "thumbnail": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80" }
   ]
 }`,
-  videos: `Generate a list of 5 course videos for the module "{topic}".
+  videos: `Generate a list of 5 journey videos for the module "{topic}".
 Return ONLY valid JSON:
 {
   "items": [

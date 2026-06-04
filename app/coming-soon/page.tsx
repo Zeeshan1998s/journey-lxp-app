@@ -12,7 +12,7 @@ export default function ComingSoonPage() {
         <p style={{ fontSize: '18px', color: 'var(--gray-600)', marginBottom: '40px', lineHeight: 1.6 }}>
           We're working hard to bring you this feature. Check back soon or continue your learning journey in the meantime!
         </p>
-        <Link href="/courses">
+        <Link href="/journeys">
           <button style={{
             background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '8px',
             padding: '12px 28px', fontSize: '15px', fontWeight: 700, cursor: 'pointer',
@@ -21,7 +21,7 @@ export default function ComingSoonPage() {
           onMouseOver={e => e.currentTarget.style.transform = 'translateY(-2px)'}
           onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
           >
-            Explore Courses
+            Explore Journeys
           </button>
         </Link>
       </div>

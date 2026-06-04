@@ -32,10 +32,10 @@ export default function Dashboard() {
     { num: 5, title: 'Inheritance', progress: '0 / 15', pct: 0, active: false },
   ];
 
-  // We can just take the first 4 nodes to mock courses, or use defaults
-  const courses = dynamicNodes.length > 3 ? dynamicNodes.slice(0, 4).map((n: any, i) => ({
+  // We can just take the first 4 nodes to mock journeys, or use defaults
+  const journeys = dynamicNodes.length > 3 ? dynamicNodes.slice(0, 4).map((n: any, i) => ({
     num: i + 1,
-    title: n.data?.label || n.label || `Course ${i+1}`,
+    title: n.data?.label || n.label || `Journey ${i+1}`,
     progress: i === 0 ? '135 / 191' : (i === 1 ? '66 / 67' : (i === 2 ? '12 / 12' : '75 / 75')),
     pct: i === 0 ? 70 : (i === 1 ? 98 : (i === 2 ? 100 : 100)),
     icon: i === 0 ? '🐍' : (i === 1 ? '🐧' : (i === 2 ? '🛠️' : '🎋'))
@@ -47,8 +47,8 @@ export default function Dashboard() {
   ];
 
   const faqs = [
-    { q: "What's coming out next?", a: "You can see the courses and projects we're releasing next on our roadmap on GitHub. Do not wait for more content before you start! This is a living learning path that will always be growing and improving." },
-    { q: "Can I skip ahead?", a: "We highly recommend completing the courses in order, but you are free to skip around if you already have experience with certain topics." },
+    { q: "What's coming out next?", a: "You can see the journeys and projects we're releasing next on our roadmap on GitHub. Do not wait for more content before you start! This is a living learning path that will always be growing and improving." },
+    { q: "Can I skip ahead?", a: "We highly recommend completing the journeys in order, but you are free to skip around if you already have experience with certain topics." },
     { q: "Why these programming languages?", a: "Python and Go are the most in-demand backend languages today, offering a perfect blend of developer productivity and high-performance execution." },
   ];
 
@@ -213,35 +213,35 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* COURSES & ACCORDION */}
+        {/* JOURNEYS & ACCORDION */}
         <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
           
-          {/* Courses List */}
+          {/* Journeys List */}
           <div style={{ flex: 1, minWidth: '400px' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px' }}>
               <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gray-900)' }}>{journeyTitle}</h2>
-              <span style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase' }}>Courses</span>
+              <span style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase' }}>Journeys</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {courses.map((course, i) => (
-                <Link href="/courses" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {journeys.map((journey, i) => (
+                <Link href="/journeys" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div style={{ 
                     background: 'var(--white)', border: '1px solid var(--border)', borderRadius: '12px', padding: '20px',
                     display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer'
                   }} className="card-hover">
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>Course</div>
+                      <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>Journey</div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                        <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)' }}>{course.num}. {course.title}</div>
-                        <div style={{ fontSize: '13px', color: 'var(--gray-500)', fontWeight: 600 }}>{course.progress}</div>
+                        <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)' }}>{journey.num}. {journey.title}</div>
+                        <div style={{ fontSize: '13px', color: 'var(--gray-500)', fontWeight: 600 }}>{journey.progress}</div>
                       </div>
                       <div style={{ height: '8px', background: 'var(--gray-100)', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ height: '100%', background: course.pct === 100 ? '#10b981' : 'var(--orange)', width: `${course.pct}%`, borderRadius: '4px' }}></div>
+                        <div style={{ height: '100%', background: journey.pct === 100 ? '#10b981' : 'var(--orange)', width: `${journey.pct}%`, borderRadius: '4px' }}></div>
                       </div>
                     </div>
                     <div style={{ fontSize: '24px', flexShrink: 0 }}>
-                      {course.icon}
+                      {journey.icon}
                     </div>
                   </div>
                 </Link>

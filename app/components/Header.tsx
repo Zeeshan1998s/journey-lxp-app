@@ -2,20 +2,20 @@ export default function Header() {
   return (
     <header className="content-header" style={{borderBottom: '1px solid var(--border)', background: 'var(--white)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '24px', padding: '20px 12px', zIndex: 6, flexShrink: 0}}>
       <div className="header-left" style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flex: 1, minWidth: 0}}>
-        <div className="course-thumb" style={{width: '128px', height: '72px', borderRadius: '9px', overflow: 'hidden', flexShrink: 0, position: 'relative', background: '#111'}}>
+        <div className="journey-thumb" style={{width: '128px', height: '72px', borderRadius: '9px', overflow: 'hidden', flexShrink: 0, position: 'relative', background: '#111'}}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=128&h=72&fit=crop" alt="Vision Strategy course thumbnail" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=128&h=72&fit=crop" alt="Vision Strategy journey thumbnail" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}} />
         </div>
-        <div className="course-info" style={{display: 'flex', flexDirection: 'column', gap: '12px', flex: 1, minWidth: 0}}>
-          <div className="course-title-row" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-            <h1 className="course-title" style={{fontSize: '16px', fontWeight: 700, color: 'var(--black)', letterSpacing: '-0.02em'}}>Vision Strategy</h1>
+        <div className="journey-info" style={{display: 'flex', flexDirection: 'column', gap: '12px', flex: 1, minWidth: 0}}>
+          <div className="journey-title-row" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+            <h1 className="journey-title" style={{fontSize: '16px', fontWeight: 700, color: 'var(--black)', letterSpacing: '-0.02em'}}>Vision Strategy</h1>
             <button className="icon-btn edit-inline-btn" title="Edit title" style={{width: '24px', height: '24px', color: 'var(--gray-500)', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>
-          <p className="course-desc" style={{fontSize: '12px', fontWeight: 400, color: 'var(--gray-800)', lineHeight: '18px', letterSpacing: '0.02em'}}>Vision Strategy outlines a company&apos;s long-term goals and direction. It serves as a roadmap, guiding decision-making and aligning resources to achieve desired outcomes.</p>
+          <p className="journey-desc" style={{fontSize: '12px', fontWeight: 400, color: 'var(--gray-800)', lineHeight: '18px', letterSpacing: '0.02em'}}>Vision Strategy outlines a company&apos;s long-term goals and direction. It serves as a roadmap, guiding decision-making and aligning resources to achieve desired outcomes.</p>
         </div>
       </div>
       <div className="header-actions" style={{display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0}}>

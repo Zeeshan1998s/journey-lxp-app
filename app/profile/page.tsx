@@ -11,7 +11,7 @@ import SocialLinks from '../components/profile/SocialLinks';
 import StatsBox from '../components/profile/StatsBox';
 import Heatmap from '../components/profile/Heatmap';
 import AchievementCard from '../components/profile/AchievementCard';
-import CourseCard from '../components/profile/CourseCard';
+import JourneyCard from '../components/profile/JourneyCard';
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -105,17 +105,17 @@ export default async function ProfilePage() {
               />
             </div>
 
-            {/* Courses Section */}
-            <h2 className="section-heading">2 Courses Completed</h2>
-            <div className="courses-grid">
-              <CourseCard title="Learn Market Research" date="Apr 29, 2026" imageSrc="/images/course.png" />
-              <CourseCard title="Consumer Behavior" date="May 19, 2026" imageSrc="/images/course.png" />
+            {/* Journeys Section */}
+            <h2 className="section-heading">2 Journeys Completed</h2>
+            <div className="journeys-grid">
+              <JourneyCard title="Learn Market Research" date="Apr 29, 2026" imageSrc="/images/journey.png" />
+              <JourneyCard title="Consumer Behavior" date="May 19, 2026" imageSrc="/images/journey.png" />
             </div>
 
             {/* Projects Section */}
             <h2 className="section-heading">1 Projects Completed</h2>
-            <div className="courses-grid">
-              <CourseCard title="Build a Persona Dashboard" date="May 1, 2026" imageSrc="/images/course.png" />
+            <div className="journeys-grid">
+              <JourneyCard title="Build a Persona Dashboard" date="May 1, 2026" imageSrc="/images/journey.png" />
             </div>
           </div>
         </div>

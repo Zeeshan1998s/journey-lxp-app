@@ -51,7 +51,7 @@ export default function TopNavbar({ user }: { user: any }) {
 
         {/* Center: Navigation Links */}
         <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
-          {['Dashboard', 'Courses', 'Training', 'Pricing', 'Community', 'Leaderboard'].map((item) => {
+          {['Dashboard', 'Journeys', 'Training', 'Pricing', 'Community', 'Leaderboard'].map((item) => {
             const itemPath = `/${item.toLowerCase()}`;
             const isActive = pathname.startsWith(itemPath);
             return (
@@ -152,19 +152,19 @@ export default function TopNavbar({ user }: { user: any }) {
       }}>
         {(pathname.startsWith('/community') 
           ? ['Community', 'Guilds', 'Boss', 'Youtube', 'Podcast', 'Lore', 'Blog']
-          : ['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths']
+          : ['Journeys', 'Backend Path', 'DevOps Path', 'Custom Paths']
         ).map((item, idx) => {
           let href = '/';
-          if (item === 'Courses') href = '/courses';
-          if (item === 'Backend Path') href = '/courses/backend';
-          if (item === 'DevOps Path') href = '/courses/devops';
+          if (item === 'Journeys') href = '/journeys';
+          if (item === 'Backend Path') href = '/journeys/backend';
+          if (item === 'DevOps Path') href = '/journeys/devops';
           if (item === 'Custom Paths') href = '/';
           if (item === 'Community') href = '/community';
 
-          const isActive = (item === 'Backend Path' && pathname.includes('/courses/backend')) ||
-                           (item === 'DevOps Path' && pathname.includes('/courses/devops')) ||
+          const isActive = (item === 'Backend Path' && pathname.includes('/journeys/backend')) ||
+                           (item === 'DevOps Path' && pathname.includes('/journeys/devops')) ||
                            (item === 'Community' && pathname === '/community') ||
-                           (item === 'Courses' && pathname === '/courses');
+                           (item === 'Journeys' && pathname === '/journeys');
           
           return (
           <Link key={item} href={href} style={{

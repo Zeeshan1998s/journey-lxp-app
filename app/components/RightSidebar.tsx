@@ -15,7 +15,7 @@ export default function RightSidebar({ onOpenChat }: { onOpenChat?: () => void }
         </button>
       </div>
 
-      <div className="rs-panel rs-course-info">
+      <div className="rs-panel rs-journey-info">
         <div className="rs-content-for">
           <div>
             <div className="rs-label" style={{marginBottom: '10px'}}>Content for</div>
@@ -68,11 +68,11 @@ export default function RightSidebar({ onOpenChat }: { onOpenChat?: () => void }
               <div className="ci-status"><div className="radio-circle"></div></div>
             </li>
           </div>
-          <div onClick={() => setActiveArtifact('course')} style={{cursor: 'pointer'}}>
+          <div onClick={() => setActiveArtifact('journey')} style={{cursor: 'pointer'}}>
             <li className="content-item">
               <div className="ci-icon-wrap"><svg className="ci-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
               <div className="ci-info">
-                <div className="ci-title-row"><span className="ci-title">Course</span><span className="ci-badge">4</span></div>
+                <div className="ci-title-row"><span className="ci-title">Journey</span><span className="ci-badge">4</span></div>
                 <div className="ci-meta">8 Videos</div>
               </div>
               <div className="ci-status check-done"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></div>

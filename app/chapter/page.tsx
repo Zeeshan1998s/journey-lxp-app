@@ -226,7 +226,7 @@ function ChapterContent() {
         {/* Center: Nav Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px', fontSize: '14px', fontWeight: 600, color: '#475569' }}>
           <Link href="/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>Dashboard</Link>
-          <Link href="/courses" style={{ color: 'inherit', textDecoration: 'none' }}>Courses</Link>
+          <Link href="/journeys" style={{ color: 'inherit', textDecoration: 'none' }}>Journeys</Link>
           <span style={{ cursor: 'pointer' }} onClick={() => setShowQuests(true)}>Quests</span>
           <span style={{ cursor: 'pointer' }} onClick={() => setShowShop(true)}>Shop</span>
           <Link href="/community" style={{ color: 'inherit', textDecoration: 'none' }}>Community</Link>

@@ -81,7 +81,7 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
               Dashboard
             </Link>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-            <span style={{ color: 'var(--gray-800)', fontWeight: 600 }}>Course Overview</span>
+            <span style={{ color: 'var(--gray-800)', fontWeight: 600 }}>Journey Overview</span>
           </div>
 
           {/* Badge */}

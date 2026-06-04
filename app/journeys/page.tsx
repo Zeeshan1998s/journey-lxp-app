@@ -33,7 +33,7 @@ export default function AllJourneysPage() {
     { q: "What learning journeys does Journeybuilder offer?", a: "Journeybuilder offers dynamic, AI-generated learning paths and curated featured journeys across a variety of languages and domains like Python, Go, Cloud, and Data Structures." },
     { q: "Are Journeybuilder paths free?", a: "Yep. You can generate custom paths and demo the early chapters for free." },
     { q: "Which programming language should I learn first?", a: "We recommend starting with Python for general programming concepts before moving on to typed languages like Go or TypeScript." },
-    { q: "What makes Journeybuilder different from video courses?", a: "Journeybuilder uses AI to tailor the exact curriculum you need, focusing on text, interactive quizzes, and projects rather than passive video consumption." }
+    { q: "What makes Journeybuilder different from video journeys?", a: "Journeybuilder uses AI to tailor the exact curriculum you need, focusing on text, interactive quizzes, and projects rather than passive video consumption." }
   ];
 
   const handleJourneyClick = async (e: React.MouseEvent, prompt: string) => {
