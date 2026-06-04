@@ -63,6 +63,10 @@ const Dashboard = () => {
       overflowY: 'auto'
     }}>
       
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+      `}</style>
+      
       {/* LEFT SIDEBAR - Journey Hub */}
       <div style={{
         width: '260px',
@@ -144,8 +148,8 @@ const Dashboard = () => {
           <div style={{width: '48px', height: '48px', borderRadius: '50%', backgroundColor: theme.card, border: `2px solid ${theme.primary}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}}>
             🧙‍♂️
           </div>
-          <h1 style={{fontSize: '18px', fontWeight: 500, color: theme.textMuted}}>
-            Welcome back, <span style={{color: theme.text, fontWeight: 700}}>Zeeshan</span>! Let's get to it!
+          <h1 style={{fontSize: '28px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text}}>
+            Welcome back, Zeeshan! Let's get to it!
           </h1>
         </div>
 
@@ -176,8 +180,8 @@ const Dashboard = () => {
                 <div style={{display: 'flex', alignItems: 'flex-end', gap: '16px', marginTop: '24px'}}>
                   <div style={{fontSize: '64px', lineHeight: 1}}>🔥</div>
                   <div>
-                    <div style={{fontSize: '12px', color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em'}}>Current streak</div>
-                    <div style={{fontSize: '32px', fontWeight: 800, color: theme.text, lineHeight: 1}}>2</div>
+                    <div style={{fontSize: '14px', color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600}}>Current streak</div>
+                    <div style={{fontSize: '48px', fontWeight: 800, color: theme.text, lineHeight: 1, marginTop: '4px'}}>2 Days</div>
                   </div>
                 </div>
               </div>
@@ -196,8 +200,8 @@ const Dashboard = () => {
           }}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px'}}>
               <div>
-                <h2 style={{fontSize: '24px', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
-                  Back-end Developer Path <span style={{fontSize: '16px', color: theme.textMuted, fontWeight: 400}}>(Python & Go)</span>
+                <h2 style={{fontSize: '28px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
+                  Back-end Developer Path <span style={{fontSize: '16px', fontFamily: 'system-ui, sans-serif', color: theme.textMuted, fontWeight: 400}}>(Python & Go)</span>
                 </h2>
                 <p style={{fontSize: '15px', color: theme.textMuted}}>Learn Object Oriented Programming - Chapter 2. Classes</p>
               </div>
@@ -255,7 +259,7 @@ const Dashboard = () => {
 
         {/* Current Course Chapters */}
         <div style={{marginBottom: '48px'}}>
-          <h2 style={{fontSize: '20px', fontWeight: 700, fontFamily: 'serif', color: theme.text, marginBottom: '8px'}}>
+          <h2 style={{fontSize: '24px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
             Learn Object Oriented Programming in Python 🔄
           </h2>
           <p style={{fontSize: '14px', color: theme.textMuted, marginBottom: '24px'}}>Chapters</p>
@@ -289,7 +293,7 @@ const Dashboard = () => {
           
           {/* Left: Path Courses */}
           <div style={{flex: 1}}>
-            <h2 style={{fontSize: '20px', fontWeight: 700, fontFamily: 'serif', color: theme.text, marginBottom: '8px'}}>
+            <h2 style={{fontSize: '24px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
               Back-end Developer Path
             </h2>
             <p style={{fontSize: '14px', color: theme.textMuted, marginBottom: '24px'}}>Courses</p>
@@ -311,24 +315,26 @@ const Dashboard = () => {
                     boxShadow: course.active ? `0 0 10px ${theme.progressFill}` : 'none'
                   }}></div>
                   <div style={{flex: 1}}>
-                    <div style={{fontSize: '12px', color: theme.textMuted, marginBottom: '4px'}}>
+                    <div style={{fontSize: '12px', fontWeight: 700, color: theme.primary, textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em'}}>
                       {course.title.includes('Guided') ? 'Guided Project' : 'Course'}
                     </div>
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px'}}>
-                      <h3 style={{fontSize: '18px', fontWeight: 600, color: course.current > 0 ? theme.text : theme.textMuted}}>{course.title}</h3>
-                      <span style={{fontSize: '13px', color: theme.textMuted}}>🔄 {course.current} / {course.total}</span>
-                    </div>
-                    <div style={{height: '8px', backgroundColor: theme.progressBg, borderRadius: '4px', overflow: 'hidden'}}>
-                      <div style={{
-                        width: `${(course.current / course.total) * 100}%`, 
-                        height: '100%', 
-                        backgroundColor: theme.progressFill,
-                        borderRadius: '4px',
-                        background: course.current === course.total ? 'linear-gradient(90deg, #60a5fa, #93c5fd)' : theme.progressFill
-                      }}></div>
+                    <h3 style={{fontSize: '18px', fontWeight: 700, color: course.current > 0 ? theme.text : theme.textMuted, marginBottom: '16px'}}>
+                      {course.title}
+                    </h3>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
+                      <div style={{flex: 1, height: '12px', backgroundColor: theme.progressBg, borderRadius: '6px', overflow: 'hidden', border: `1px solid ${theme.border}`}}>
+                        <div style={{
+                          width: `${(course.current / course.total) * 100}%`, 
+                          height: '100%', 
+                          backgroundColor: theme.progressFill,
+                          borderRadius: '6px',
+                          background: course.current === course.total ? 'linear-gradient(90deg, #f15920, #ff9e70)' : theme.progressFill
+                        }}></div>
+                      </div>
+                      <span style={{fontSize: '13px', fontWeight: 700, color: theme.textMuted}}>🔄 {course.current} / {course.total}</span>
                     </div>
                   </div>
-                  <div style={{fontSize: '32px', opacity: course.current > 0 ? 1 : 0.5}}>
+                  <div style={{fontSize: '48px', opacity: course.current > 0 ? 1 : 0.5, marginLeft: 'auto'}}>
                     {course.icon}
                   </div>
                 </div>
@@ -448,7 +454,7 @@ const Dashboard = () => {
           </div>
 
           <div style={{textAlign: 'center', color: theme.textMuted, fontSize: '14px'}}>
-            <h2 style={{fontFamily: 'serif', fontSize: '32px', color: theme.primary, marginBottom: '16px'}}>Journeybuilder</h2>
+            <h2 style={{fontFamily: '"Cinzel", serif', fontSize: '32px', fontWeight: 700, color: theme.primary, marginBottom: '16px'}}>Journeybuilder</h2>
             <p>© Journeybuilder 2026</p>
           </div>
         </div>
