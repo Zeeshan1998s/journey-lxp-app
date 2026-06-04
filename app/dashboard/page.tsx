@@ -1,20 +1,45 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useJourney } from '../contexts/JourneyContext';
 
 export default function Dashboard() {
+  const { data: session } = useSession();
+  const { generatedJourney } = useJourney();
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
 
-  const chapters = [
-    { num: 1, title: 'Clean Code', progress: '6 / 6', pct: 100 },
+  const userName = session?.user?.name || session?.user?.email?.split('@')[0] || 'Guest';
+  const userInitial = userName.substring(0, 1).toUpperCase();
+
+  const journeyTitle = generatedJourney?.title || 'Back-end Developer Path';
+  
+  // Extract dynamic chapters from the generated journey
+  const dynamicNodes = generatedJourney?.nodes?.filter((n: any) => n.type === 'branch' || n.type === 'default') || [];
+  const currentTopic = dynamicNodes.length > 1 ? (dynamicNodes[1] as any).data?.label || (dynamicNodes[1] as any).label : 'Chapter 2. Classes';
+
+  const baseChapters = dynamicNodes.length > 0 ? dynamicNodes.map((n: any, i) => ({
+    num: i + 1,
+    title: n.data?.label || n.label || `Module ${i+1}`,
+    progress: i < 2 ? '100%' : (i === 2 ? '45%' : '0%'),
+    pct: i < 2 ? 100 : (i === 2 ? 45 : 0),
+    active: i === 2
+  })) : [
+    { num: 1, title: 'Clean Code', progress: '6 / 6', pct: 100, active: false },
     { num: 2, title: 'Classes', progress: '9 / 12', pct: 75, active: true },
-    { num: 3, title: 'Encapsulation', progress: '0 / 8', pct: 0 },
-    { num: 4, title: 'Abstraction', progress: '0 / 7', pct: 0 },
-    { num: 5, title: 'Inheritance', progress: '0 / 15', pct: 0 },
-    { num: 6, title: 'Polymorphism', progress: '0 / 13', pct: 0 },
+    { num: 3, title: 'Encapsulation', progress: '0 / 8', pct: 0, active: false },
+    { num: 4, title: 'Abstraction', progress: '0 / 7', pct: 0, active: false },
+    { num: 5, title: 'Inheritance', progress: '0 / 15', pct: 0, active: false },
   ];
 
-  const courses = [
+  // We can just take the first 4 nodes to mock courses, or use defaults
+  const courses = dynamicNodes.length > 3 ? dynamicNodes.slice(0, 4).map((n: any, i) => ({
+    num: i + 1,
+    title: n.data?.label || n.label || `Course ${i+1}`,
+    progress: i === 0 ? '135 / 191' : (i === 1 ? '66 / 67' : (i === 2 ? '12 / 12' : '75 / 75')),
+    pct: i === 0 ? 70 : (i === 1 ? 98 : (i === 2 ? 100 : 100)),
+    icon: i === 0 ? '🐍' : (i === 1 ? '🐧' : (i === 2 ? '🛠️' : '🎋'))
+  })) : [
     { num: 1, title: 'Learn to Code in Python', progress: '135 / 191', pct: 70, icon: '🐍' },
     { num: 2, title: 'Learn Linux', progress: '66 / 67', pct: 98, icon: '🐧' },
     { num: 3, title: 'Build a Bookbot', progress: '12 / 12', pct: 100, icon: '🛠️' },
@@ -35,10 +60,10 @@ export default function Dashboard() {
         {/* Greeting */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--orange-bg)', color: 'var(--orange)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: 700, border: '2px solid var(--orange)' }}>
-            Z
+            {userInitial}
           </div>
           <h1 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--gray-700)' }}>
-            Ready to dive into some code, <span style={{ fontWeight: 800, color: 'var(--gray-900)' }}>Zeeshan</span>?
+            Ready to dive into some code, <span style={{ fontWeight: 800, color: 'var(--gray-900)' }}>{userName}</span>?
           </h1>
         </div>
 
@@ -71,10 +96,10 @@ export default function Dashboard() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gray-900)', marginBottom: '4px' }}>
-                  Back-end Developer Path <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--gray-500)' }}>(Python & Go)</span>
+                  {journeyTitle} <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--gray-500)' }}>(Path)</span>
                 </h2>
                 <div style={{ fontSize: '14px', color: 'var(--gray-600)' }}>
-                  Learn Object Oriented Programming - Chapter 2. Classes
+                  Current Node - {currentTopic}
                 </div>
               </div>
               <Link href="/journey/1">
@@ -119,7 +144,7 @@ export default function Dashboard() {
                     </div>
                     {isActive && (
                       <div style={{ position: 'absolute', top: '48px', whiteSpace: 'nowrap', fontSize: '14px', fontWeight: 700, color: 'var(--gray-900)' }}>
-                        Archer Practice
+                        {currentTopic}
                       </div>
                     )}
                   </div>
@@ -133,19 +158,19 @@ export default function Dashboard() {
         {/* CHAPTERS SECTION */}
         <div style={{ marginBottom: '48px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gray-900)' }}>Learn Object Oriented Programming in Python</h2>
+            <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gray-900)' }}>{journeyTitle}</h2>
             <span style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase' }}>Chapters</span>
           </div>
 
           <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '16px', scrollbarWidth: 'none' }}>
-            {chapters.map((ch, i) => (
+            {baseChapters.map((ch, i) => (
               <div key={i} style={{ 
                 minWidth: '220px', background: 'var(--white)', border: ch.active ? '1px solid var(--orange)' : '1px solid var(--border)', 
                 borderRadius: '12px', padding: '16px', boxShadow: ch.active ? '0 4px 12px rgba(241,89,32,0.06)' : 'none',
                 cursor: 'pointer', transition: 'transform 0.2s'
               }} className="card-hover">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: ch.active ? 'var(--orange)' : 'var(--gray-900)' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: ch.active ? 'var(--orange)' : 'var(--gray-900)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '140px' }}>
                     {ch.num}. {ch.title}
                   </div>
                   <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600 }}>{ch.progress}</div>
@@ -164,7 +189,7 @@ export default function Dashboard() {
           {/* Courses List */}
           <div style={{ flex: 1, minWidth: '400px' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '16px' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gray-900)' }}>Back-end Developer Path</h2>
+              <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gray-900)' }}>{journeyTitle}</h2>
               <span style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase' }}>Courses</span>
             </div>
 
