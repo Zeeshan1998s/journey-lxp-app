@@ -295,18 +295,37 @@ function ChapterContent() {
               ) : chapter ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                  {chapter.theory?.map((para: string, i: number) => (
-                    <p key={i} style={{ color: '#475569' }}>{para}</p>
-                  ))}
-                  
-                  <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', borderLeft: '4px solid #f59e0b' }}>
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '12px' }}>Instructions:</h3>
-                    <ul style={{ paddingLeft: '20px', color: '#334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {chapter.instructions?.map((inst: string, i: number) => (
-                        <li key={i}>{inst}</li>
+                  {chapter.theory ? (
+                    <>
+                      {chapter.theory.map((para: string, i: number) => (
+                        <p key={i} style={{ color: '#475569' }}>{para}</p>
                       ))}
-                    </ul>
-                  </div>
+                      
+                      <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', borderLeft: '4px solid #f59e0b' }}>
+                        <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '12px' }}>Instructions:</h3>
+                        <ul style={{ paddingLeft: '20px', color: '#334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {chapter.instructions?.map((inst: string, i: number) => (
+                            <li key={i}>{inst}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  ) : chapter.sections ? (
+                    <>
+                      <p>Complete the assignment below based on the reading:</p>
+                      {chapter.sections.map((sec: any, i: number) => (
+                        <div key={i} style={{ display: 'flex', gap: '12px' }}>
+                          <span style={{ color: '#94a3b8', fontWeight: 700 }}>{i+1}.</span>
+                          <div>
+                            <div style={{ color: '#0f172a', fontWeight: 600, marginBottom: '4px' }}>{sec.heading}</div>
+                            <div style={{ color: '#475569' }}>{sec.content}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <p style={{ color: '#475569' }}>Failed to parse assignment content. Please try regenerating.</p>
+                  )}
                 </div>
                 </div>
               ) : (
