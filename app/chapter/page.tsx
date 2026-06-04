@@ -27,6 +27,34 @@ function ChapterContent() {
   // Confetti/Alert state
   const [alertMsg, setAlertMsg] = useState('');
 
+  // Resizer state
+  const [leftPaneWidth, setLeftPaneWidth] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      const newWidth = (e.clientX / window.innerWidth) * 100;
+      if (newWidth > 20 && newWidth < 80) {
+        setLeftPaneWidth(newWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   useEffect(() => {
     if (!artifactCache[cacheKey]) {
       handleRegenerate();
@@ -134,7 +162,7 @@ function ChapterContent() {
   const levelProgress = (xpInLevel / 1000) * 100;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#ffffff', color: '#0f172a', fontFamily: 'var(--font-sans)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#ffffff', color: '#0f172a', fontFamily: 'var(--font-sans)', userSelect: isDragging ? 'none' : 'auto' }}>
       {alertMsg && (
         <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', background: '#f59e0b', color: '#fff', padding: '12px 24px', borderRadius: '8px', zIndex: 9999, fontWeight: 800, boxShadow: '0 4px 12px rgba(0,0,0,0.1)', animation: 'slideDown 0.3s ease-out' }}>
           {alertMsg}
@@ -238,9 +266,9 @@ function ChapterContent() {
       </div>
 
       {/* SPLIT PANE */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: 0, flexDirection: 'row' }}>
         {/* LEFT PANE - ASSIGNMENT (LIGHT MODE) */}
-        <div style={{ flex: 1, borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
+        <div style={{ width: `${leftPaneWidth}%`, borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', background: '#ffffff', flexShrink: 0 }}>
           
           <div style={{ padding: '24px 32px', flex: 1, overflowY: 'auto' }}>
             {/* Header Tools */}
@@ -333,8 +361,14 @@ function ChapterContent() {
           </div>
         </div>
 
+        {/* RESIZER DRAGGER */}
+        <div 
+          onMouseDown={() => setIsDragging(true)}
+          style={{ width: '4px', cursor: 'col-resize', background: isDragging ? '#3b82f6' : 'transparent', zIndex: 10, transition: 'background 0.2s', margin: '0 -2px' }}
+        />
+
         {/* RIGHT PANE - EDITOR (LIGHT MODE) */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#ffffff', pointerEvents: isDragging ? 'none' : 'auto', minWidth: 0 }}>
           {/* FILE TABS */}
           <div style={{ display: 'flex', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
             {['main.py', 'main_test.py'].map(tab => (
