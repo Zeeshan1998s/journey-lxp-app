@@ -155,7 +155,7 @@ export default function TopNavbar({ user }: { user: any }) {
           : ['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths']
         ).map((item, idx) => {
           let href = '/';
-          if (item === 'Courses') href = '/courses/backend'; // default courses to backend for now
+          if (item === 'Courses') href = '/courses';
           if (item === 'Backend Path') href = '/courses/backend';
           if (item === 'DevOps Path') href = '/courses/devops';
           if (item === 'Custom Paths') href = '/';
@@ -163,7 +163,8 @@ export default function TopNavbar({ user }: { user: any }) {
 
           const isActive = (item === 'Backend Path' && pathname.includes('/courses/backend')) ||
                            (item === 'DevOps Path' && pathname.includes('/courses/devops')) ||
-                           (item === 'Community' && pathname === '/community');
+                           (item === 'Community' && pathname === '/community') ||
+                           (item === 'Courses' && pathname === '/courses');
           
           return (
           <Link key={item} href={href} style={{
