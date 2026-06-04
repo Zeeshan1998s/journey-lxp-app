@@ -7,17 +7,16 @@ const Dashboard = () => {
   const { generatedJourney } = useJourney();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Dark mode colors for Boot.dev aesthetic
   const theme = {
-    bg: '#131422',
-    card: '#1a1b2d',
-    border: '#2c2e43',
-    text: '#e2e8f0',
-    textMuted: '#94a3b8',
-    primary: '#fcd34d', // Gold
-    primaryHover: '#fde68a',
-    progressBg: '#1e293b',
-    progressFill: '#60a5fa', // Blue progress like Boot.dev
+    bg: 'var(--gray-50)',
+    card: 'var(--white)',
+    border: 'var(--border, #e6e6e6)',
+    text: 'var(--gray-900)',
+    textMuted: 'var(--gray-600)',
+    primary: 'var(--orange)',
+    primaryHover: 'var(--orange-light)',
+    progressBg: 'var(--gray-100)',
+    progressFill: 'var(--orange)', 
   };
 
   const faqs = [
@@ -61,16 +60,14 @@ const Dashboard = () => {
       color: theme.text,
       minHeight: '100vh',
       fontFamily: 'var(--font, system-ui, sans-serif)',
-      overflowY: 'auto',
-      backgroundImage: 'radial-gradient(circle at 50% 0%, #1c1d33 0%, transparent 70%)'
+      overflowY: 'auto'
     }}>
       
       {/* LEFT SIDEBAR - Journey Hub */}
       <div style={{
         width: '260px',
         borderRight: `1px solid ${theme.border}`,
-        backgroundColor: 'rgba(19, 20, 34, 0.8)',
-        backdropFilter: 'blur(10px)',
+        backgroundColor: theme.card,
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',
@@ -82,7 +79,7 @@ const Dashboard = () => {
             <button style={{
               width: '100%',
               backgroundColor: theme.primary,
-              color: '#000',
+              color: 'var(--white)',
               border: 'none',
               borderRadius: '8px',
               padding: '12px 16px',
@@ -207,7 +204,7 @@ const Dashboard = () => {
               <Link href="/journey/1">
                 <button style={{
                   backgroundColor: theme.primary,
-                  color: '#000',
+                  color: 'var(--white)',
                   border: 'none',
                   borderRadius: '24px',
                   padding: '10px 24px',
@@ -215,7 +212,7 @@ const Dashboard = () => {
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'background-color 0.2s',
-                  boxShadow: '0 0 20px rgba(252, 211, 77, 0.2)'
+                  boxShadow: '0 4px 12px rgba(241, 89, 32, 0.2)'
                 }}
                 onMouseOver={(e) => e.currentTarget.style.backgroundColor = theme.primaryHover}
                 onMouseOut={(e) => e.currentTarget.style.backgroundColor = theme.primary}
@@ -235,12 +232,12 @@ const Dashboard = () => {
                   <div key={num} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <div style={{
                       width: '48px', height: '48px', borderRadius: '50%', 
-                      backgroundColor: i < 2 ? theme.primary : (i === 2 ? '#2563eb' : theme.bg),
-                      border: `2px solid ${i < 2 ? theme.primary : (i === 2 ? '#3b82f6' : theme.border)}`,
+                      backgroundColor: i < 2 ? theme.primary : (i === 2 ? theme.card : theme.bg),
+                      border: `2px solid ${i < 2 ? theme.primary : (i === 2 ? theme.primary : theme.border)}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: i < 2 ? '#000' : theme.text,
+                      color: i < 2 ? 'var(--white)' : theme.text,
                       fontSize: '18px', fontWeight: 700,
-                      boxShadow: i === 2 ? '0 0 15px rgba(59, 130, 246, 0.5)' : 'none'
+                      boxShadow: i === 2 ? '0 0 15px rgba(241, 89, 32, 0.3)' : 'none'
                     }}>
                       {num}
                     </div>
