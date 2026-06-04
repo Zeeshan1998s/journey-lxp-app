@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import {
   ReactFlow,
   useNodesState,
@@ -12,41 +12,125 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import CustomMapNode from './CustomMapNode';
-import { useJourney } from '../../contexts/JourneyContext';
+import { useJourney, JourneyNode } from '../../contexts/JourneyContext';
 
 const nodeTypes = {
   customNode: CustomMapNode,
 };
 
-const initialNodes = [
+// Default fallback nodes (Becoming a Product Manager demo)
+const defaultNodes = [
   { id: '1', type: 'customNode', position: { x: 500, y: 60 }, data: { label: 'Becoming a Product Manager', typeClass: 'root-node' } },
-  { id: '2', type: 'customNode', position: { x: 380, y: 160 }, data: { label: 'Core Responsibilities', typeClass: 'branch-node' } },
-  { id: '3', type: 'customNode', position: { x: 120, y: 215 }, data: { label: 'Define Product Vision', typeClass: 'leaf-node' } },
-  { id: '4', type: 'customNode', position: { x: 620, y: 215 }, data: { label: 'Develop Product Roadmap', typeClass: 'leaf-node' } },
-  { id: '5', type: 'customNode', position: { x: 380, y: 340 }, data: { label: 'Stakeholder Collaboration', typeClass: 'branch-node' } },
-  { id: '6', type: 'customNode', position: { x: 80, y: 340 }, data: { label: 'Facilitate Cross-functional Communication', typeClass: 'leaf-node' } },
-  { id: '7', type: 'customNode', position: { x: 620, y: 340 }, data: { label: 'Handle Stakeholder Feedback', typeClass: 'leaf-node' } },
-  { id: '8', type: 'customNode', position: { x: 380, y: 470 }, data: { label: 'Market Analysis', typeClass: 'branch-node' } },
-  { id: '9', type: 'customNode', position: { x: 140, y: 470 }, data: { label: 'Conduct Competitor Research', typeClass: 'leaf-node' } },
-  { id: '10', type: 'customNode', position: { x: 620, y: 470 }, data: { label: 'Analyze Customer Needs', typeClass: 'leaf-node' } },
+  { id: '2', type: 'customNode', position: { x: 200, y: 200 }, data: { label: 'Core Responsibilities', typeClass: 'branch-node' } },
+  { id: '3', type: 'customNode', position: { x: 500, y: 200 }, data: { label: 'Stakeholder Collaboration', typeClass: 'branch-node' } },
+  { id: '4', type: 'customNode', position: { x: 800, y: 200 }, data: { label: 'Market Analysis', typeClass: 'branch-node' } },
+  { id: '5', type: 'customNode', position: { x: 80, y: 350 }, data: { label: 'Define Product Vision', typeClass: 'leaf-node' } },
+  { id: '6', type: 'customNode', position: { x: 280, y: 350 }, data: { label: 'Develop Product Roadmap', typeClass: 'leaf-node' } },
+  { id: '7', type: 'customNode', position: { x: 420, y: 350 }, data: { label: 'Cross-functional Communication', typeClass: 'leaf-node' } },
+  { id: '8', type: 'customNode', position: { x: 580, y: 350 }, data: { label: 'Handle Stakeholder Feedback', typeClass: 'leaf-node' } },
+  { id: '9', type: 'customNode', position: { x: 730, y: 350 }, data: { label: 'Competitor Research', typeClass: 'leaf-node' } },
+  { id: '10', type: 'customNode', position: { x: 920, y: 350 }, data: { label: 'Analyze Customer Needs', typeClass: 'leaf-node' } },
 ];
 
-const initialEdges: Edge[] = [
+const defaultEdges: Edge[] = [
   { id: 'e1-2', source: '1', target: '2', animated: true, style: { stroke: 'var(--orange-muted)', strokeWidth: 2 } },
-  { id: 'e2-3', source: '2', target: '3', style: { stroke: '#ccc', strokeWidth: 2 } },
-  { id: 'e2-4', source: '2', target: '4', style: { stroke: '#ccc', strokeWidth: 2 } },
-  { id: 'e2-5', source: '2', target: '5', animated: true, style: { stroke: 'var(--orange-muted)', strokeWidth: 2 } },
-  { id: 'e5-6', source: '5', target: '6', style: { stroke: '#ccc', strokeWidth: 2 } },
-  { id: 'e5-7', source: '5', target: '7', style: { stroke: '#ccc', strokeWidth: 2 } },
-  { id: 'e5-8', source: '5', target: '8', animated: true, style: { stroke: 'var(--orange-muted)', strokeWidth: 2 } },
-  { id: 'e8-9', source: '8', target: '9', style: { stroke: '#ccc', strokeWidth: 2 } },
-  { id: 'e8-10', source: '8', target: '10', style: { stroke: '#ccc', strokeWidth: 2 } },
+  { id: 'e1-3', source: '1', target: '3', animated: true, style: { stroke: 'var(--orange-muted)', strokeWidth: 2 } },
+  { id: 'e1-4', source: '1', target: '4', animated: true, style: { stroke: 'var(--orange-muted)', strokeWidth: 2 } },
+  { id: 'e2-5', source: '2', target: '5', style: { stroke: '#ccc', strokeWidth: 2 } },
+  { id: 'e2-6', source: '2', target: '6', style: { stroke: '#ccc', strokeWidth: 2 } },
+  { id: 'e3-7', source: '3', target: '7', style: { stroke: '#ccc', strokeWidth: 2 } },
+  { id: 'e3-8', source: '3', target: '8', style: { stroke: '#ccc', strokeWidth: 2 } },
+  { id: 'e4-9', source: '4', target: '9', style: { stroke: '#ccc', strokeWidth: 2 } },
+  { id: 'e4-10', source: '4', target: '10', style: { stroke: '#ccc', strokeWidth: 2 } },
 ];
+
+// Convert AI-generated nodes to ReactFlow node positions
+function buildFlowGraph(aiNodes: JourneyNode[]) {
+  const root = aiNodes.find(n => n.type === 'root');
+  const branches = aiNodes.filter(n => n.type === 'branch');
+  const leaves = aiNodes.filter(n => n.type === 'leaf');
+
+  const flowNodes: any[] = [];
+  const flowEdges: Edge[] = [];
+
+  const canvasWidth = 1000;
+  const rootX = canvasWidth / 2;
+
+  // Root
+  if (root) {
+    flowNodes.push({
+      id: root.id,
+      type: 'customNode',
+      position: { x: rootX - 100, y: 40 },
+      data: { label: root.label, typeClass: 'root-node' },
+    });
+  }
+
+  // Branches — spread evenly across width
+  const branchSpacing = canvasWidth / (branches.length + 1);
+  branches.forEach((branch, i) => {
+    const x = branchSpacing * (i + 1) - 100;
+    flowNodes.push({
+      id: branch.id,
+      type: 'customNode',
+      position: { x, y: 200 },
+      data: { label: branch.label, typeClass: 'branch-node' },
+    });
+    if (branch.parentId) {
+      flowEdges.push({
+        id: `e${branch.parentId}-${branch.id}`,
+        source: branch.parentId,
+        target: branch.id,
+        animated: true,
+        style: { stroke: 'var(--orange-muted)', strokeWidth: 2 },
+      });
+    }
+  });
+
+  // Leaves — group under their parent branch
+  branches.forEach((branch, bi) => {
+    const branchLeaves = leaves.filter(l => l.parentId === branch.id);
+    const branchX = branchSpacing * (bi + 1);
+    const leafSpacing = 160;
+    const startX = branchX - ((branchLeaves.length - 1) * leafSpacing) / 2;
+
+    branchLeaves.forEach((leaf, li) => {
+      flowNodes.push({
+        id: leaf.id,
+        type: 'customNode',
+        position: { x: startX + li * leafSpacing - 80, y: 380 },
+        data: { label: leaf.label, typeClass: 'leaf-node' },
+      });
+      flowEdges.push({
+        id: `e${leaf.parentId}-${leaf.id}`,
+        source: leaf.parentId!,
+        target: leaf.id,
+        style: { stroke: '#ccc', strokeWidth: 2 },
+      });
+    });
+  });
+
+  return { flowNodes, flowEdges };
+}
 
 export default function NodeMap() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const { selectedNode, setSelectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded } = useJourney();
+  const { selectedNode, setSelectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded, generatedJourney } = useJourney();
+
+  const { flowNodes: computedNodes, flowEdges: computedEdges } = useMemo(() => {
+    if (generatedJourney?.nodes?.length) {
+      return buildFlowGraph(generatedJourney.nodes);
+    }
+    return { flowNodes: defaultNodes, flowEdges: defaultEdges };
+  }, [generatedJourney]);
+
+  const [nodes, setNodes, onNodesChange] = useNodesState(computedNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(computedEdges);
+
+  // Update nodes/edges when journey changes
+  useEffect(() => {
+    setNodes(computedNodes);
+    setEdges(computedEdges);
+  }, [computedNodes, computedEdges, setNodes, setEdges]);
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
