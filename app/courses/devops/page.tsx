@@ -11,34 +11,123 @@ export default function ModulesPage() {
 
   const modules = [
     {
-      title: 'Learn to Code in Python',
-      type: 'Module',
-      icon: '🐍',
-      chapters: [
-        'Ch 1. Introduction', 'Ch 5. Testing and Debugging', 'Ch 9. Lists', 'Ch 13. Type Hints',
-        'Ch 2. Variables', 'Ch 6. Computing', 'Ch 10. Dictionaries', 'Ch 14. Practice',
-        'Ch 3. Functions', 'Ch 7. Comparisons', 'Ch 11. Sets', 'Ch 15. Quiz',
-        'Ch 4. Scope', 'Ch 8. Loops', 'Ch 12. Errors'
-      ]
-    },
-    {
       title: 'Learn Linux',
-      type: 'Module',
-      icon: '🐧',
+      type: 'Guided Project',
+      icon: '⚙️',
       chapters: [
-        'Ch 1. Terminals and Shells', 'Ch 4. Programs',
-        'Ch 2. Filesystems', 'Ch 5. Input/Output',
-        'Ch 3. Permissions', 'Ch 6. Packages'
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
       ]
     },
     {
-      title: 'Build a Bookbot',
-      type: 'Guided Project',
-      icon: '🛠️',
+      title: 'Learn Docker',
+      type: 'Module',
+      icon: '⚙️',
       chapters: [
-        'Ch 1. Setup',
-        'Ch 2. Data Analysis',
-        'Ch 3. Report'
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Kubernetes',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Terraform',
+      type: 'Guided Project',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Ansible',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Jenkins',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn GitHub Actions',
+      type: 'Guided Project',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Prometheus',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Grafana',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn AWS',
+      type: 'Guided Project',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn GCP',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
+      ]
+    },
+    {
+      title: 'Learn Azure',
+      type: 'Module',
+      icon: '⚙️',
+      chapters: [
+        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
+        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
+        'Ch 3. Implementation', 'Ch 6. Capstone'
       ]
     }
   ];

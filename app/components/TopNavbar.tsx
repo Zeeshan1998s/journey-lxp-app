@@ -150,15 +150,20 @@ export default function TopNavbar({ user }: { user: any }) {
         borderBottom: '1px solid var(--border)',
         gap: '32px'
       }}>
-        {['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths'].map((item, idx) => {
+        {(pathname.startsWith('/community') 
+          ? ['Community', 'Guilds', 'Boss', 'Youtube', 'Podcast', 'Lore', 'Blog']
+          : ['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths']
+        ).map((item, idx) => {
           let href = '/';
           if (item === 'Courses') href = '/courses/backend'; // default courses to backend for now
           if (item === 'Backend Path') href = '/courses/backend';
           if (item === 'DevOps Path') href = '/courses/devops';
           if (item === 'Custom Paths') href = '/';
+          if (item === 'Community') href = '/community';
 
           const isActive = (item === 'Backend Path' && pathname.includes('/courses/backend')) ||
-                           (item === 'DevOps Path' && pathname.includes('/courses/devops'));
+                           (item === 'DevOps Path' && pathname.includes('/courses/devops')) ||
+                           (item === 'Community' && pathname === '/community');
           
           return (
           <Link key={item} href={href} style={{
