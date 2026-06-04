@@ -74,52 +74,7 @@ export default function LeaderboardPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column' }}>
       
-      {/* HEADER (Reused from Chapter) */}
-      <header style={{ height: '56px', background: '#ffffff', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', flexShrink: 0, position: 'sticky', top: 0, zIndex: 100 }}>
-        {/* Left: Logo & Upgrade */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <Link href="/dashboard" style={{ color: '#0f172a', textDecoration: 'none', fontWeight: 800, fontSize: '18px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            LXP
-          </Link>
-          <button style={{ background: '#fef3c7', color: '#b45309', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: '16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
-            Upgrade
-          </button>
-        </div>
-
-        {/* Center: Nav Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', fontSize: '14px', fontWeight: 600, color: '#475569' }}>
-          <Link href="/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>Dashboard</Link>
-          <Link href="/journeys" style={{ color: 'inherit', textDecoration: 'none' }}>Journeys</Link>
-          <Link href="/community" style={{ color: 'inherit', textDecoration: 'none' }}>Community</Link>
-          <Link href="/leaderboard" style={{ color: '#0f172a', textDecoration: 'none' }}>Leaderboard</Link>
-        </div>
-
-        {/* Right: User Profile & Level */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button style={{ background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/></svg>
-          </button>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-              <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>Acolyte</span>
-              <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>Level {calcLevel(xp)}</span>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '80px', height: '6px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ width: `${levelProgress}%`, height: '100%', background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }} />
-              </div>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#e2e8f0', overflow: 'hidden', border: '2px solid #fff', boxShadow: '0 0 0 1px #cbd5e1' }}>
-                <img src="/images/game/rpg_avatar.png" alt="User" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* HEADER removed to avoid duplicating AppShell */}
 
       {/* PAGE HEADER */}
       <div style={{ padding: '48px 24px', textAlign: 'center', background: 'linear-gradient(to bottom, #ffffff, #f8fafc)', borderBottom: '1px solid #e2e8f0' }}>
