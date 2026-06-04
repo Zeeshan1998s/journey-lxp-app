@@ -607,6 +607,18 @@ html, body {
   z-index: 10;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-200) transparent;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .right-sidebar::-webkit-scrollbar {
