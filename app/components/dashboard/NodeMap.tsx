@@ -63,6 +63,40 @@ export default function NodeMap() {
     setIsExpanded(false);
   };
 
+  const title = activeArtifact === 'videos' ? 'Videos' :
+                activeArtifact === 'articles' ? 'Articles' :
+                activeArtifact === 'pdfs' ? 'PDFs' :
+                activeArtifact === 'course' ? 'Course' :
+                activeArtifact === 'flashcards' ? 'Flashcards' :
+                activeArtifact === 'faq' ? 'FAQ' :
+                activeArtifact === 'quiz' ? 'Quizzes' :
+                activeArtifact?.toUpperCase();
+
+  const getTag = () => {
+    if (activeArtifact === 'videos') {
+      return (
+        <span style={{display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--orange-bg)', color: 'var(--orange)', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.04em'}}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><rect x="3" y="6" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          VIDEO
+        </span>
+      );
+    }
+    if (activeArtifact === 'pdfs') {
+      return (
+        <span style={{display: 'flex', alignItems: 'center', gap: '4px', background: '#fef2f2', color: '#ef4444', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.04em'}}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          PDFs
+        </span>
+      );
+    }
+    return (
+      <span style={{display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--gray-100)', color: 'var(--gray-800)', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.04em'}}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        {title}
+      </span>
+    );
+  };
+
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <ReactFlow
@@ -98,11 +132,8 @@ export default function NodeMap() {
           >
             <div className="videos-overlay-header" style={{padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--gray-100)'}}>
               <div className="videos-overlay-title" style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-                <span style={{display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--orange-bg)', color: 'var(--orange)', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.04em'}}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><rect x="3" y="6" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  {activeArtifact === 'videos' ? 'VIDEO' : activeArtifact?.toUpperCase()}
-                </span>
-                <span className="videos-overlay-title-text" style={{fontSize: '13px', color: 'var(--gray-700)'}}>{selectedNode?.data?.label || 'Market Research'} · 8 videos</span>
+                {getTag()}
+                <span className="videos-overlay-title-text" style={{fontSize: '13px', color: 'var(--gray-700)'}}>{selectedNode?.data?.label || 'Market Research'} · 8 {title}</span>
               </div>
               <div className="videos-overlay-actions" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                 <button className="btn-outline" onClick={() => setIsExpanded(!isExpanded)} style={{padding: '6px 12px', fontSize: '11px', color: 'var(--gray-600)'}}>
@@ -115,7 +146,7 @@ export default function NodeMap() {
             </div>
             <div className="videos-overlay-list" style={isExpanded ? {display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', padding: '24px'} : {padding: '24px'}}>
               <div className="videos-overlay-top" style={isExpanded ? {gridColumn: '1 / -1', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'} : {display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'}}>
-                <span className="videos-overlay-list-title" style={{fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)'}}>Videos</span>
+                <span className="videos-overlay-list-title" style={{fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)'}}>{title}</span>
                 <span style={{fontSize: '12px', color: 'var(--gray-500)'}}>8/8</span>
               </div>
               <div className="videos-overlay-search" style={isExpanded ? {gridColumn: '1 / -1', marginBottom: '16px', position: 'relative'} : {marginBottom: '16px', position: 'relative'}}>
@@ -124,9 +155,8 @@ export default function NodeMap() {
               </div>
               {[1, 2, 3, 4, 5].map(i => (
                 <div key={i} className="videos-modal-item" style={{display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', border: '1px solid var(--gray-100)', borderRadius: '8px', marginBottom: '8px'}}>
-                  <div className="videos-modal-item-thumb" style={{width: '72px', height: '54px', background: '#111', borderRadius: '6px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-                    <span style={{position: 'absolute', bottom: '4px', right: '4px', background: 'rgba(0,0,0,0.8)', color: '#fff', fontSize: '9px', padding: '2px 4px', borderRadius: '3px'}}>6:10</span>
+                  <div className="videos-modal-item-thumb" style={{width: '72px', height: '54px', background: activeArtifact === 'pdfs' ? '#fef2f2' : activeArtifact === 'videos' ? '#111' : 'var(--gray-100)', color: activeArtifact === 'pdfs' ? '#ef4444' : activeArtifact === 'videos' ? '#fff' : 'var(--gray-700)', borderRadius: '6px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 700}}>
+                    {activeArtifact === 'pdfs' ? 'PDF' : activeArtifact === 'videos' ? <><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg><span style={{position: 'absolute', bottom: '4px', right: '4px', background: 'rgba(0,0,0,0.8)', color: '#fff', fontSize: '9px', padding: '2px 4px', borderRadius: '3px'}}>6:10</span></> : title?.substring(0, 3).toUpperCase()}
                   </div>
                   <div className="videos-modal-item-info" style={{flex: 1}}>
                     <div className="videos-modal-item-title" style={{fontSize: '13px', fontWeight: 600, color: 'var(--gray-900)'}}>Market Research Fundamentals</div>

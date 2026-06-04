@@ -8,6 +8,10 @@ export default function ExpandedArtifactView() {
   const title = activeArtifact === 'videos' ? 'Videos' :
                 activeArtifact === 'articles' ? 'Articles' :
                 activeArtifact === 'pdfs' ? 'PDFs' :
+                activeArtifact === 'course' ? 'Course' :
+                activeArtifact === 'flashcards' ? 'Flashcards' :
+                activeArtifact === 'faq' ? 'FAQ' :
+                activeArtifact === 'quiz' ? 'Quizzes' :
                 activeArtifact?.toUpperCase();
 
   const getTag = () => {
@@ -73,8 +77,8 @@ export default function ExpandedArtifactView() {
           <div style={{display: 'flex', flexDirection: 'column', gap: '12px', paddingBottom: '80px'}}>
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} style={{display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 20px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: '10px', cursor: 'pointer', transition: 'box-shadow 0.15s'}} className="video-item">
-                <div style={{width: '42px', height: '42px', background: activeArtifact === 'pdfs' ? '#fef2f2' : activeArtifact === 'videos' ? '#111' : '#f3f4f6', color: activeArtifact === 'pdfs' ? '#ef4444' : '#fff', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 700, position: 'relative', flexShrink: 0}}>
-                  {activeArtifact === 'pdfs' ? 'PDF' : activeArtifact === 'videos' ? <><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg><span style={{position: 'absolute', bottom: '2px', right: '4px', background: 'rgba(0,0,0,0.8)', color: '#fff', fontSize: '8px', padding: '1px 3px', borderRadius: '2px'}}>6:10</span></> : 'DOC'}
+                <div style={{width: '42px', height: '42px', background: activeArtifact === 'pdfs' ? '#fef2f2' : activeArtifact === 'videos' ? '#111' : 'var(--gray-100)', color: activeArtifact === 'pdfs' ? '#ef4444' : activeArtifact === 'videos' ? '#fff' : 'var(--gray-700)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 700, position: 'relative', flexShrink: 0}}>
+                  {activeArtifact === 'pdfs' ? 'PDF' : activeArtifact === 'videos' ? <><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg><span style={{position: 'absolute', bottom: '2px', right: '4px', background: 'rgba(0,0,0,0.8)', color: '#fff', fontSize: '8px', padding: '1px 3px', borderRadius: '2px'}}>6:10</span></> : title?.substring(0, 3).toUpperCase()}
                 </div>
                 <div style={{flex: 1}}>
                   <div style={{fontSize: '14px', fontWeight: 600, color: 'var(--gray-900)', marginBottom: '4px'}}>{selectedNode?.data?.label || 'Vision Strategy'} Overview</div>
