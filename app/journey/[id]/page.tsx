@@ -5,9 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useJourney } from '../../contexts/JourneyContext';
 
 export default function JourneyLandingPage({ params }: { params: { id: string } }) {
-  const { generatedJourney } = useJourney();
+  const { generatedJourney, setGeneratedJourney } = useJourney();
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [showRegenerate, setShowRegenerate] = useState(false);
+  const [regenPrompt, setRegenPrompt] = useState('');
+  const [isRegenerating, setIsRegenerating] = useState(false);
 
   const title = generatedJourney?.title || 'Learn to Code in Python';
 
@@ -58,6 +61,37 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
     { q: "Will I get a certificate when I finish?", a: "Yes! A completion certificate is generated automatically when you complete all nodes on your journey map." },
     { q: "What if the content doesn't fit my level?", a: "Regenerate from the home page with a more specific prompt (e.g. 'advanced' or 'beginner-friendly'). The AI will tailor it." },
   ];
+
+  const handleRegenerate = async () => {
+    setIsRegenerating(true);
+    try {
+      const basePrompt = generatedJourney?.prompt || title;
+      const finalPrompt = regenPrompt ? `${basePrompt}. Additional instructions: ${regenPrompt}` : basePrompt;
+      
+      const res = await fetch('/api/ai/generate-journey', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: finalPrompt }),
+      });
+      const data = await res.json();
+      
+      if (data.success && data.journey) {
+        setGeneratedJourney({
+          ...data.journey,
+          prompt: finalPrompt
+        });
+        setShowRegenerate(false);
+        setRegenPrompt('');
+      } else {
+        alert('Failed to regenerate journey: ' + data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred during regeneration.');
+    } finally {
+      setIsRegenerating(false);
+    }
+  };
 
   const s = {
     section: { padding: '72px 24px', borderBottom: '1px solid var(--border)' } as React.CSSProperties,
@@ -127,6 +161,13 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
             >
               Start the Journey
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12H19M19 12L12 5M19 12L12 19"/></svg>
+            </button>
+            <button
+              onClick={() => setShowRegenerate(true)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--white)', color: 'var(--orange)', border: '1px solid var(--orange)', borderRadius: '12px', padding: '15px 24px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font)' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              Regenerate
             </button>
             <Link href="/dashboard">
               <button style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--white)', color: 'var(--gray-700)', border: '1px solid var(--gray-200)', borderRadius: '12px', padding: '15px 24px', fontSize: '15px', fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font)' }}>
@@ -275,6 +316,53 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
           </Link>
         </div>
       </div>
+
+      {/* ── REGENERATE MODAL ── */}
+      {showRegenerate && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+          <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', width: '500px', overflow: 'hidden', boxShadow: '0 24px 50px rgba(0,0,0,0.1)' }}>
+            <div style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>Regenerate Journey</h2>
+              <button onClick={() => setShowRegenerate(false)} style={{ background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+            
+            <div style={{ padding: '24px' }}>
+              <p style={{ fontSize: '14px', color: '#475569', marginBottom: '16px', lineHeight: 1.6 }}>
+                Want to tweak this journey? Tell Logos what you want to change (e.g. "Add a chapter on Docker", "Make it more advanced", "Include more frontend focus").
+              </p>
+              
+              <textarea 
+                value={regenPrompt}
+                onChange={e => setRegenPrompt(e.target.value)}
+                placeholder="E.g., Add a chapter on Docker..."
+                style={{ width: '100%', height: '100px', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', color: '#0f172a', fontFamily: 'inherit', resize: 'none', marginBottom: '24px', outline: 'none' }}
+              />
+              
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                <button onClick={() => setShowRegenerate(false)} style={{ padding: '10px 20px', borderRadius: '8px', border: '1px solid #cbd5e1', background: '#fff', color: '#475569', fontWeight: 600, cursor: 'pointer' }}>
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleRegenerate} 
+                  disabled={isRegenerating}
+                  style={{ padding: '10px 20px', borderRadius: '8px', border: 'none', background: 'var(--orange)', color: '#fff', fontWeight: 700, cursor: isRegenerating ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px', opacity: isRegenerating ? 0.7 : 1 }}
+                >
+                  {isRegenerating ? (
+                    <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ animation: 'spin 1s linear infinite' }}><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" strokeLinecap="round" strokeLinejoin="round"/></svg> Regenerating...</>
+                  ) : (
+                    'Regenerate'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+          <style dangerouslySetInnerHTML={{__html: `
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          `}} />
+        </div>
+      )}
 
     </div>
   );
