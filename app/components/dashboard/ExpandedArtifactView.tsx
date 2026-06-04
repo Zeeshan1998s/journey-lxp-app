@@ -57,8 +57,8 @@ export default function ExpandedArtifactView() {
       </div>
 
       {/* CONTENT LIST */}
-      <div style={{flex: 1, overflowY: 'auto', padding: '32px 0'}}>
-        <div style={{maxWidth: '800px', margin: '0 auto', background: 'var(--gray-50)', position: 'relative'}}>
+      <div style={{flex: 1, overflowY: 'auto', padding: '32px 24px'}}>
+        <div style={{position: 'relative'}}>
           
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px'}}>
             <span style={{fontSize: '18px', fontWeight: 700, color: 'var(--gray-900)'}}>{title}</span>
