@@ -1,8 +1,6 @@
 import Groq from 'groq-sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 const CONTENT_PROMPTS: Record<string, string> = {
   articles: `Generate 3 article summaries for learning about "{topic}".
 Return ONLY valid JSON:
@@ -44,6 +42,8 @@ Return ONLY valid JSON:
 };
 
 export async function POST(req: NextRequest) {
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || 'dummy_key_for_build' });
+
   try {
     const { topic, contentType } = await req.json();
 
