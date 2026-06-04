@@ -37,9 +37,8 @@ export default function AppShell({ children, initialUser }: { children: React.Re
           className="artifact-modal-backdrop"
           onClick={() => { setActiveArtifact(null); setIsExpanded(false); }}
           style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', 
-            zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center',
-            backdropFilter: 'blur(3px)'
+            position: 'fixed', inset: 0, background: 'transparent', 
+            zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}
         >
           <div 
