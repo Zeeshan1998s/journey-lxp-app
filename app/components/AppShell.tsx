@@ -24,7 +24,7 @@ export default function AppShell({ children, initialUser }: { children: React.Re
 
   const isLogin = pathname === '/login';
   const isProfile = pathname === '/profile';
-  const isMapPage = pathname.startsWith('/journey');
+  const isMapPage = pathname.includes('/journey') && pathname.endsWith('/map');
 
   // Auto-scroll to bottom of chat
   useEffect(() => {
