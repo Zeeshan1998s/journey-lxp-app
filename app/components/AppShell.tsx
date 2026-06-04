@@ -33,44 +33,58 @@ export default function AppShell({ children, initialUser }: { children: React.Re
 
       {/* Artifact Modal Overlay */}
       {activeArtifact && (
-        <div className={`videos-overlay-modal ${isExpanded ? 'expanded' : ''}`} style={isExpanded ? {position: 'fixed', inset: 0, width: '100%', height: '100%', zIndex: 1000, margin: 0, borderRadius: 0, top: 0, right: 0} : {}}>
-          <div className="videos-overlay-header">
-            <div className="videos-overlay-title">
-              <span className="videos-overlay-title-text" style={{color: 'var(--orange)', textTransform: 'uppercase'}}>{activeArtifact}</span>
-              <span className="videos-overlay-title-text">{selectedNode?.data?.label || 'Market Research'} · Content</span>
-            </div>
-            <div className="videos-overlay-actions">
-              <button className="btn-text" onClick={() => setIsExpanded(!isExpanded)}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> {isExpanded ? 'Collapse' : 'Expand'}
-              </button>
-              <button className="icon-btn" onClick={() => { setActiveArtifact(null); setIsExpanded(false); }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-          <div className="videos-overlay-list" style={isExpanded ? {display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px'} : {}}>
-            <div className="videos-overlay-top" style={isExpanded ? {gridColumn: '1 / -1'} : {}}>
-              <span className="videos-overlay-list-title">{activeArtifact} Content</span>
-            </div>
-            <div className="videos-overlay-search">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <input type="text" placeholder="Search a specific class" />
-            </div>
-            <div className="videos-modal-item">
-              <div className="videos-modal-item-thumb"></div>
-              <div className="videos-modal-item-info">
-                <div className="videos-modal-item-title">Market Research Fundamentals</div>
-                <div className="videos-modal-item-sub">Starweaver Academy</div>
+        <div 
+          className="artifact-modal-backdrop"
+          onClick={() => { setActiveArtifact(null); setIsExpanded(false); }}
+          style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', 
+            zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backdropFilter: 'blur(3px)'
+          }}
+        >
+          <div 
+            className={`videos-overlay-modal ${isExpanded ? 'expanded' : ''}`} 
+            onClick={(e) => e.stopPropagation()}
+            style={isExpanded ? {position: 'fixed', inset: 0, width: '100%', height: '100%', zIndex: 1000, margin: 0, borderRadius: 0, top: 0, left: 0} : { position: 'relative', top: 'auto', right: 'auto', bottom: 'auto', left: 'auto', margin: 0, zIndex: 1000, maxHeight: '90vh', overflowY: 'auto', width: '500px', maxWidth: '90vw' }}
+          >
+            <div className="videos-overlay-header">
+              <div className="videos-overlay-title">
+                <span className="videos-overlay-title-text" style={{color: 'var(--orange)', textTransform: 'uppercase'}}>{activeArtifact}</span>
+                <span className="videos-overlay-title-text">{selectedNode?.data?.label || 'Market Research'} · Content</span>
               </div>
-              <div className="radio-circle"></div>
-            </div>
-            <div className="videos-modal-item">
-              <div className="videos-modal-item-thumb"></div>
-              <div className="videos-modal-item-info">
-                <div className="videos-modal-item-title">Market Research Fundamentals</div>
-                <div className="videos-modal-item-sub">Starweaver Academy</div>
+              <div className="videos-overlay-actions">
+                <button className="btn-text" onClick={() => setIsExpanded(!isExpanded)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> {isExpanded ? 'Collapse' : 'Expand'}
+                </button>
+                <button className="icon-btn" onClick={() => { setActiveArtifact(null); setIsExpanded(false); }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </button>
               </div>
-              <div className="radio-circle"></div>
+            </div>
+            <div className="videos-overlay-list" style={isExpanded ? {display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px'} : {}}>
+              <div className="videos-overlay-top" style={isExpanded ? {gridColumn: '1 / -1'} : {}}>
+                <span className="videos-overlay-list-title">{activeArtifact} Content</span>
+              </div>
+              <div className="videos-overlay-search" style={isExpanded ? {gridColumn: '1 / -1'} : {}}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <input type="text" placeholder="Search a specific class" />
+              </div>
+              <div className="videos-modal-item">
+                <div className="videos-modal-item-thumb"></div>
+                <div className="videos-modal-item-info">
+                  <div className="videos-modal-item-title">Market Research Fundamentals</div>
+                  <div className="videos-modal-item-sub">Starweaver Academy</div>
+                </div>
+                <div className="radio-circle"></div>
+              </div>
+              <div className="videos-modal-item">
+                <div className="videos-modal-item-thumb"></div>
+                <div className="videos-modal-item-info">
+                  <div className="videos-modal-item-title">Market Research Fundamentals</div>
+                  <div className="videos-modal-item-sub">Starweaver Academy</div>
+                </div>
+                <div className="radio-circle"></div>
+              </div>
             </div>
           </div>
         </div>
