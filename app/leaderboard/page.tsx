@@ -72,7 +72,7 @@ export default function LeaderboardPage() {
   ];
 
   return (
-    <div style={{ flex: 1, width: '100%', minHeight: '100vh', background: '#f8fafc', color: '#0f172a', fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, width: '100%', minHeight: '100vh', overflowY: 'auto', background: '#f8fafc', color: '#0f172a', fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column' }}>
       
       {/* HEADER removed to avoid duplicating AppShell */}
 
@@ -110,8 +110,15 @@ export default function LeaderboardPage() {
           
           {/* League Section */}
           <section>
-            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', marginBottom: '8px' }}>League Leaderboards</h2>
-            <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '24px' }}>You are in the <strong style={{ color: '#0f172a' }}>Quartz Griffin League!</strong> League expires in 11 days</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+              <div style={{ width: '80px', height: '80px', flexShrink: 0, borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                <img src="/images/game/quartz_griffin.png" alt="Quartz Griffin" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div>
+                <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', marginBottom: '4px' }}>Quartz Griffin League</h2>
+                <p style={{ fontSize: '14px', color: '#64748b' }}>League expires in <strong style={{ color: '#0f172a' }}>11 days</strong></p>
+              </div>
+            </div>
             
             <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>Top Daily Learners</h3>
             <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '16px' }}>Gain some XP to get on the daily leaderboard</p>
@@ -120,7 +127,9 @@ export default function LeaderboardPage() {
               {topDaily.map((user, i) => (
                 <div key={i} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 600, width: '16px' }}>{user.rank}</div>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#f1f5f9', border: '2px solid #e2e8f0' }} />
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#e0e7ff', color: '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '12px' }}>
+                    {user.name.substring(0, 2).toUpperCase()}
+                  </div>
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a' }}>{user.name}</div>
                     <div style={{ fontSize: '12px', color: '#64748b' }}>{user.xp}</div>
@@ -136,8 +145,8 @@ export default function LeaderboardPage() {
               {topLeague.map((user, i) => (
                 <div key={i} style={{ background: user.highlight ? '#fffbeb' : '#ffffff', border: user.highlight ? '2px solid #f59e0b' : '1px solid #e2e8f0', borderRadius: '8px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '12px', boxShadow: user.highlight ? '0 4px 12px rgba(245, 158, 11, 0.15)' : 'none' }}>
                   <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 600, width: '16px' }}>{user.rank}</div>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#f1f5f9', border: '2px solid #cbd5e1', overflow: 'hidden' }}>
-                    {user.highlight && <img src="/images/game/rpg_avatar.png" alt="Zeeshan" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: user.highlight ? '#fef3c7' : '#e0e7ff', border: '2px solid ' + (user.highlight ? '#f59e0b' : '#c7d2fe'), overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', color: user.highlight ? '#b45309' : '#4f46e5', fontWeight: 700, fontSize: '12px' }}>
+                    {user.highlight ? <img src="/images/game/rpg_avatar.png" alt="Zeeshan" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : user.name.substring(0, 2).toUpperCase()}
                   </div>
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 700, color: user.highlight ? '#b45309' : '#0f172a' }}>{user.name}</div>
