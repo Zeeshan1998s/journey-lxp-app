@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import LeftSidebar from './LeftSidebar';
+import TopNavbar from './TopNavbar';
 import RightSidebar from './RightSidebar';
 import XpToast from './XpToast';
 import { usePathname } from 'next/navigation';
@@ -23,13 +23,15 @@ export default function AppShell({ children, initialUser }: { children: React.Re
   return (
     <div className={isSlim ? 'app-shell-pdf' : 'app-shell'}>
       <XpToast />
-      <LeftSidebar user={initialUser} />
-      {children}
-      {showRightSidebar && (
-        <RightSidebar 
-          onOpenChat={() => setChatOpen(!chatOpen)}
-        />
-      )}
+      <TopNavbar user={initialUser} />
+      <div className="main-content-row">
+        {children}
+        {showRightSidebar && (
+          <RightSidebar 
+            onOpenChat={() => setChatOpen(!chatOpen)}
+          />
+        )}
+      </div>
 
       {/* AI Chat Overlay */}
       {chatOpen && (

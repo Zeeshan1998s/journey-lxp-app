@@ -5,6 +5,7 @@
 /* Compact left sidebar (icon-only) for PDF view */
 .app-shell-pdf {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   overflow: hidden;
 }
@@ -123,7 +124,7 @@
 .pdf-main {
   flex: 1;
   min-width: 0;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
