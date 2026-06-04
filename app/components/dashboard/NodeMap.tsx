@@ -81,8 +81,8 @@ export default function NodeMap() {
         <Controls />
       </ReactFlow>
 
-      {/* Artifact Modal Overlay - Map Area Only */}
-      {activeArtifact && (
+      {/* Artifact Modal Overlay - Map Area Only (Hidden when Expanded) */}
+      {activeArtifact && !isExpanded && (
         <div 
           className="artifact-modal-backdrop"
           onClick={() => { setActiveArtifact(null); setIsExpanded(false); }}

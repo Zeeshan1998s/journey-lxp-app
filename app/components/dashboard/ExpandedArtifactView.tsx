@@ -36,7 +36,7 @@ export default function ExpandedArtifactView() {
   };
 
   return (
-    <div style={{position: 'absolute', top: '81px', left: 0, right: 0, bottom: 0, zIndex: 20, background: 'var(--gray-50)', display: 'flex', flexDirection: 'column'}}>
+    <div style={{position: 'absolute', top: '113px', left: 0, right: 0, bottom: 0, zIndex: 20, background: 'var(--white)', display: 'flex', flexDirection: 'column'}}>
       {/* TOOLBAR */}
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 24px', background: 'var(--white)', borderBottom: '1px solid var(--border)', flexShrink: 0}}>
         <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
