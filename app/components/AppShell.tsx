@@ -94,7 +94,7 @@ export default function AppShell({ children, initialUser }: { children: React.Re
     }
   };
 
-  if (isLogin || isProfile) {
+  if (isLogin) {
     return <>{children}</>;
   }
 

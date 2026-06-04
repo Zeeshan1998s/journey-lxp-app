@@ -1,4 +1,11 @@
+'use client';
+import { useJourney } from '../contexts/JourneyContext';
+
 export default function Header() {
+  const { selectedNode, generatedJourney } = useJourney();
+  const title = selectedNode?.data?.label || generatedJourney?.title || 'Learning Resource';
+  const description = generatedJourney?.description || 'Continue your learning journey with this resource.';
+  
   return (
     <header className="content-header" style={{borderBottom: '1px solid var(--border)', background: 'var(--white)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '24px', padding: '20px 12px', zIndex: 6, flexShrink: 0}}>
       <div className="header-left" style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flex: 1, minWidth: 0}}>
@@ -8,14 +15,14 @@ export default function Header() {
         </div>
         <div className="journey-info" style={{display: 'flex', flexDirection: 'column', gap: '12px', flex: 1, minWidth: 0}}>
           <div className="journey-title-row" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-            <h1 className="journey-title" style={{fontSize: '16px', fontWeight: 700, color: 'var(--black)', letterSpacing: '-0.02em'}}>Vision Strategy</h1>
+            <h1 className="journey-title" style={{fontSize: '16px', fontWeight: 700, color: 'var(--black)', letterSpacing: '-0.02em'}}>{title}</h1>
             <button className="icon-btn edit-inline-btn" title="Edit title" style={{width: '24px', height: '24px', color: 'var(--gray-500)', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>
-          <p className="journey-desc" style={{fontSize: '12px', fontWeight: 400, color: 'var(--gray-800)', lineHeight: '18px', letterSpacing: '0.02em'}}>Vision Strategy outlines a company&apos;s long-term goals and direction. It serves as a roadmap, guiding decision-making and aligning resources to achieve desired outcomes.</p>
+          <p className="journey-desc" style={{fontSize: '12px', fontWeight: 400, color: 'var(--gray-800)', lineHeight: '18px', letterSpacing: '0.02em'}}>{description}</p>
         </div>
       </div>
       <div className="header-actions" style={{display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0}}>

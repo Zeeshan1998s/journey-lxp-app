@@ -320,7 +320,7 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
       {/* ── REGENERATE MODAL ── */}
       {showRegenerate && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.4)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
-          <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', width: '500px', overflow: 'hidden', boxShadow: '0 24px 50px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', width: '100%', maxWidth: '500px', overflow: 'hidden', boxShadow: '0 24px 50px rgba(0,0,0,0.1)' }}>
             <div style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', background: '#f8fafc' }}>
               <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a' }}>Regenerate Journey</h2>
               <button onClick={() => setShowRegenerate(false)} style={{ background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer' }}>

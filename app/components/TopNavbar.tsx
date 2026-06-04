@@ -51,7 +51,7 @@ export default function TopNavbar({ user }: { user: any }) {
 
         {/* Center: Navigation Links */}
         <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
-          {['Dashboard', 'Journeys', 'Training', 'Pricing', 'Community', 'Leaderboard'].map((item) => {
+          {['Dashboard', 'Journeys', 'Community', 'Leaderboard'].map((item) => {
             const itemPath = `/${item.toLowerCase()}`;
             const isActive = pathname.startsWith(itemPath);
             return (
