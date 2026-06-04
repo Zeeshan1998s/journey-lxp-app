@@ -115,18 +115,31 @@ export default function Dashboard() {
                   Current Node - {currentTopic}
                 </div>
               </div>
-              <Link href="/chapter">
-                <button style={{ 
-                  background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '10px',
-                  padding: '12px 24px', fontSize: '14px', fontWeight: 700, cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(241,89,32,0.25)', transition: 'transform 0.1s'
-                }}
-                onMouseOver={e => e.currentTarget.style.transform = 'translateY(-1px)'}
-                onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  Continue Learning
-                </button>
-              </Link>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <Link href="/journey/1/map">
+                  <button style={{ 
+                    background: 'var(--white)', color: 'var(--gray-700)', border: '1px solid var(--gray-300)', borderRadius: '10px',
+                    padding: '12px 20px', fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+                    transition: 'all 0.1s'
+                  }}
+                  className="card-hover"
+                  >
+                    View Map
+                  </button>
+                </Link>
+                <Link href="/chapter">
+                  <button style={{ 
+                    background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '10px',
+                    padding: '12px 24px', fontSize: '14px', fontWeight: 700, cursor: 'pointer',
+                    boxShadow: '0 4px 14px rgba(241,89,32,0.25)', transition: 'transform 0.1s'
+                  }}
+                  onMouseOver={e => e.currentTarget.style.transform = 'translateY(-1px)'}
+                  onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
+                  >
+                    Continue Learning
+                  </button>
+                </Link>
+              </div>
             </div>
 
             {/* Path Nodes */}

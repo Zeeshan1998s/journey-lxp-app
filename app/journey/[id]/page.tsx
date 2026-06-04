@@ -120,7 +120,7 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
           {/* CTA */}
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
-              onClick={() => router.push(`/journey/${params.id}/map`)}
+              onClick={() => router.push('/chapter')}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '12px', padding: '15px 32px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font)', boxShadow: '0 4px 18px rgba(241,89,32,0.28)', transition: 'transform 0.1s, box-shadow 0.2s' }}
               onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 22px rgba(241,89,32,0.35)'; }}
               onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 18px rgba(241,89,32,0.28)'; }}
@@ -262,7 +262,7 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
         <p style={{ fontSize: '15px', color: 'var(--gray-600)', marginBottom: '36px', lineHeight: 1.6 }}>Jump into your personalized learning path and start building real skills today.</p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button
-            onClick={() => router.push(`/journey/${params.id}/map`)}
+            onClick={() => router.push('/chapter')}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '12px', padding: '15px 32px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font)', boxShadow: '0 4px 18px rgba(241,89,32,0.28)' }}
           >
             Start the Journey

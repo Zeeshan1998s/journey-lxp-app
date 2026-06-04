@@ -48,7 +48,7 @@ export default function AllJourneysPage() {
       const data = await res.json();
       if (data.success && data.journey) {
         setGeneratedJourney(data.journey);
-        router.push('/dashboard');
+        router.push('/journey/1');
       }
     } catch (err) {
       console.error(err);
