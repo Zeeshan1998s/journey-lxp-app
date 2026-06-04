@@ -2,15 +2,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useJourney } from '../../contexts/JourneyContext';
 
-export default function CoursesPage() {
+export default function ModulesPage() {
   const router = useRouter();
+  const { setGeneratedJourney } = useJourney();
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
 
-  const courses = [
+  const modules = [
     {
       title: 'Learn to Code in Python',
-      type: 'Course',
+      type: 'Module',
       icon: '🐍',
       chapters: [
         'Ch 1. Introduction', 'Ch 5. Testing and Debugging', 'Ch 9. Lists', 'Ch 13. Type Hints',
@@ -21,7 +23,7 @@ export default function CoursesPage() {
     },
     {
       title: 'Learn Linux',
-      type: 'Course',
+      type: 'Module',
       icon: '🐧',
       chapters: [
         'Ch 1. Terminals and Shells', 'Ch 4. Programs',
@@ -44,33 +46,33 @@ export default function CoursesPage() {
   const reviews = [
     {
       text: "I think it was way better than I learned java in university. It was way more fun.",
-      author: "nbross", location: "Munich", course: "Learn to Code in Python"
+      author: "nbross", location: "Munich", module: "Learn to Code in Python"
     },
     {
-      text: "good course, made me catch up on SQL in a few days :)",
-      author: "Ti", location: "France", course: "Learn SQL"
+      text: "good learning path, made me catch up on SQL in a few days :)",
+      author: "Ti", location: "France", module: "Learn SQL"
     },
     {
-      text: "I always thought that i know Go, turns out i know nothing about Go, this course fills on those gaps.",
-      author: "Defhanaya", location: "Indonesia", course: "Learn Go"
+      text: "I always thought that i know Go, turns out i know nothing about Go, this journey fills on those gaps.",
+      author: "Defhanaya", location: "Indonesia", module: "Learn Go"
     },
     {
       text: "SQL is so simple and yet so fundamental!",
-      author: "Francisco", location: "Argentina", course: "Learn SQL"
+      author: "Francisco", location: "Argentina", module: "Learn SQL"
     },
     {
       text: "This platform is amazing! I just completed 'Learn to Code in Python' almost entirely on my own.",
-      author: "Benjamin Wolf", location: "United States", course: "Learn to Code in Python"
+      author: "Benjamin Wolf", location: "United States", module: "Learn to Code in Python"
     },
     {
       text: "This was awesome! I loved it!",
-      author: "Tony DeJesus", location: "United States", course: "Learn to Code in Python"
+      author: "Tony DeJesus", location: "United States", module: "Learn to Code in Python"
     }
   ];
 
   const faqs = [
     { q: "Can I start the backend path for free?", a: "Yep. You can create an account for free and fully demo the early chapters of the path. Once you hit the membership gate, you can still read the remaining lessons in content-only mode until you're ready to upgrade." },
-    { q: "How long does it take to become a backend developer with these courses?", a: "Most students complete the path in 6-12 months depending on how many hours they dedicate per week." },
+    { q: "How long does it take to become a backend developer with these modules?", a: "Most students complete the path in 6-12 months depending on how many hours they dedicate per week." },
     { q: "Why does the backend path teach Python and Golang?", a: "Python is great for fundamentals and data, while Go is the modern standard for high-performance backend systems." },
     { q: "Should I put Boot.dev backend projects on my resume?", a: "Absolutely! The projects are designed to be portfolio-ready and demonstrate real-world backend engineering skills." }
   ];
@@ -104,7 +106,28 @@ export default function CoursesPage() {
           }}
           onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 0 50px rgba(241,89,32,0.6)'; }}
           onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 40px rgba(241,89,32,0.4)'; }}
-          onClick={() => router.push('/dashboard')}
+          onClick={async (e) => {
+            const btn = e.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = 'Generating Journey...';
+            btn.style.opacity = '0.7';
+            try {
+              const res = await fetch('/api/ai/generate-journey', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: 'Back-end Developer Path' })
+              });
+              const data = await res.json();
+              if (data.success && data.journey) {
+                setGeneratedJourney(data.journey);
+                router.push('/dashboard');
+              }
+            } catch (err) {
+              console.error(err);
+              btn.innerText = originalText;
+              btn.style.opacity = '1';
+            }
+          }}
           >
             Continue The Learning Path
           </button>
@@ -135,9 +158,9 @@ export default function CoursesPage() {
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <h2 style={{ fontSize: '36px', fontWeight: 900, color: 'var(--gray-900)', marginBottom: '16px' }}>Course List</h2>
+            <h2 style={{ fontSize: '36px', fontWeight: 900, color: 'var(--gray-900)', marginBottom: '16px' }}>Chapter List</h2>
             <p style={{ fontSize: '18px', color: 'var(--gray-600)', maxWidth: '600px', margin: '0 auto', lineHeight: 1.5 }}>
-              Packed with 15 courses and 8 projects this path takes most beginners about 12 months to complete
+              Packed with 20 chapters and 8 projects this path takes most beginners about 12 months to complete
             </p>
             <p style={{ fontSize: '14px', color: 'var(--gray-500)', maxWidth: '700px', margin: '24px auto 0', lineHeight: 1.6 }}>
               Backend developers build the systems that power the large-scale web applications that you use every day. In this complete learning path you'll start by learning the fundamentals of programming and computer science in Python and C, then you'll learn all about building scalable and secure back-end systems using Golang, SQL and Docker.
@@ -145,24 +168,24 @@ export default function CoursesPage() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {courses.map((course, idx) => (
+            {modules.map((module, idx) => (
               <div key={idx} style={{ 
                 border: '1px solid var(--border)', borderRadius: '16px', padding: '32px', 
                 background: 'var(--white)', display: 'flex', gap: '24px',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.03)', position: 'relative', overflow: 'hidden'
               }}>
-                <div style={{ fontSize: '48px', flexShrink: 0, marginTop: '24px' }}>{course.icon}</div>
+                <div style={{ fontSize: '48px', flexShrink: 0, marginTop: '24px' }}>{module.icon}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gray-500)', textTransform: 'uppercase', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    {course.type}
+                    {module.type}
                   </div>
                   <h3 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--gray-900)', marginBottom: '24px' }}>
-                    {idx + 1}. {course.title}
+                    {idx + 1}. {module.title}
                   </h3>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '32px' }}>
-                    {course.chapters.map((ch, i) => (
+                    {module.chapters.map((ch, i) => (
                       <div key={i} style={{ fontSize: '13px', color: 'var(--gray-600)' }}>{ch}</div>
                     ))}
                   </div>
@@ -175,9 +198,30 @@ export default function CoursesPage() {
                     }}
                     onMouseOver={e => e.currentTarget.style.background = 'var(--gray-200)'}
                     onMouseOut={e => e.currentTarget.style.background = 'var(--gray-100)'}
-                    onClick={() => router.push('/dashboard')}
+                    onClick={async (e) => {
+            const btn = e.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = 'Generating Journey...';
+            btn.style.opacity = '0.7';
+            try {
+              const res = await fetch('/api/ai/generate-journey', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: 'Back-end Developer Path' })
+              });
+              const data = await res.json();
+              if (data.success && data.journey) {
+                setGeneratedJourney(data.journey);
+                router.push('/dashboard');
+              }
+            } catch (err) {
+              console.error(err);
+              btn.innerText = originalText;
+              btn.style.opacity = '1';
+            }
+          }}
                     >
-                      Enter {course.type}
+                      Enter {module.type}
                     </button>
                   </div>
                 </div>
@@ -207,7 +251,7 @@ export default function CoursesPage() {
               </div>
               <div>
                 <div style={{ fontSize: '36px', fontWeight: 900, color: 'var(--gray-900)' }}>208K</div>
-                <div style={{ fontSize: '14px', color: 'var(--gray-500)', textTransform: 'uppercase', fontWeight: 600 }}>courses completed</div>
+                <div style={{ fontSize: '14px', color: 'var(--gray-500)', textTransform: 'uppercase', fontWeight: 600 }}>chapters completed</div>
               </div>
               <div>
                 <div style={{ fontSize: '36px', fontWeight: 900, color: 'var(--gray-900)' }}>7.4B</div>
@@ -242,7 +286,7 @@ export default function CoursesPage() {
                     </div>
                   </div>
                   <div style={{ textAlign: 'center', fontSize: '13px', fontWeight: 600, color: 'var(--gray-500)' }}>
-                    {rev.course}
+                    {rev.module}
                   </div>
                 </div>
               </div>

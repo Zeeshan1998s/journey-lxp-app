@@ -151,11 +151,17 @@ export default function TopNavbar({ user }: { user: any }) {
         gap: '32px'
       }}>
         {['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths'].map((item, idx) => {
-          // For the demo, "Backend Path" is selected on the /courses page, otherwise "Courses" is the default.
-          const isActive = pathname === '/courses' && item === 'Backend Path';
+          let href = '/';
+          if (item === 'Courses') href = '/courses/backend'; // default courses to backend for now
+          if (item === 'Backend Path') href = '/courses/backend';
+          if (item === 'DevOps Path') href = '/courses/devops';
+          if (item === 'Custom Paths') href = '/';
+
+          const isActive = (item === 'Backend Path' && pathname.includes('/courses/backend')) ||
+                           (item === 'DevOps Path' && pathname.includes('/courses/devops'));
           
           return (
-          <Link key={item} href="/courses" style={{
+          <Link key={item} href={href} style={{
             color: isActive ? 'var(--orange)' : 'var(--gray-600)',
             fontSize: '13px',
             fontWeight: isActive ? 700 : 500,
