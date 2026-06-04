@@ -27,9 +27,9 @@ Return ONLY valid JSON in this exact format, no markdown, no explanation:
 
 Rules:
 - Exactly 1 root node
-- 2-3 branch nodes connected to root
-- 2-3 leaf nodes per branch
-- Total 8-12 nodes
+- 4-5 branch nodes connected to root
+- 3-4 leaf nodes per branch
+- Total 15-20 nodes
 - Labels should be concise (3-6 words max)
 - Types must be exactly: "root", "branch", or "leaf"
 - IDs must be sequential strings: "1", "2", "3" etc.`
@@ -40,7 +40,7 @@ Rules:
         }
       ],
       temperature: 0.7,
-      max_tokens: 1000,
+      max_tokens: 2000,
     });
 
     const content = completion.choices[0]?.message?.content || '';
