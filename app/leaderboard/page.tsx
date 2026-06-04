@@ -72,7 +72,7 @@ export default function LeaderboardPage() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ flex: 1, width: '100%', minHeight: '100vh', background: '#f8fafc', color: '#0f172a', fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column' }}>
       
       {/* HEADER removed to avoid duplicating AppShell */}
 
