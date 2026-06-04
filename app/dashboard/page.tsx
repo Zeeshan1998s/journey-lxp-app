@@ -115,7 +115,7 @@ export default function Dashboard() {
                   Current Node - {currentTopic}
                 </div>
               </div>
-              <Link href="/journey/1">
+              <Link href="/chapter">
                 <button style={{ 
                   background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '10px',
                   padding: '12px 24px', fontSize: '14px', fontWeight: 700, cursor: 'pointer',
@@ -142,25 +142,27 @@ export default function Dashboard() {
                 const isActive = i === 2;
                 
                 return (
-                  <div key={node} style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ 
-                      width: isActive ? '40px' : '32px', height: isActive ? '40px' : '32px',
-                      borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      background: isActive ? 'var(--orange)' : (isCompleted ? 'var(--orange-bg)' : 'var(--white)'),
-                      border: isActive ? '3px solid var(--orange-bg)' : (isCompleted ? '2px solid var(--orange)' : '2px solid var(--gray-300)'),
-                      color: isActive ? '#fff' : (isCompleted ? 'var(--orange)' : 'var(--gray-400)'),
-                      fontSize: isActive ? '16px' : '14px', fontWeight: 800,
-                      boxShadow: isActive ? '0 0 0 4px rgba(241,89,32,0.1)' : 'none',
-                      transition: 'all 0.2s'
-                    }}>
-                      {node}
-                    </div>
-                    {isActive && (
-                      <div style={{ position: 'absolute', top: '48px', whiteSpace: 'nowrap', fontSize: '14px', fontWeight: 700, color: 'var(--gray-900)' }}>
-                        {currentTopic}
+                  <Link href="/chapter" key={node} style={{ textDecoration: 'none' }}>
+                    <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <div style={{ 
+                        width: isActive ? '40px' : '32px', height: isActive ? '40px' : '32px',
+                        borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: isActive ? 'var(--orange)' : (isCompleted ? 'var(--orange-bg)' : 'var(--white)'),
+                        border: isActive ? '3px solid var(--orange-bg)' : (isCompleted ? '2px solid var(--orange)' : '2px solid var(--gray-300)'),
+                        color: isActive ? '#fff' : (isCompleted ? 'var(--orange)' : 'var(--gray-400)'),
+                        fontSize: isActive ? '16px' : '14px', fontWeight: 800,
+                        boxShadow: isActive ? '0 0 0 4px rgba(241,89,32,0.1)' : 'none',
+                        transition: 'all 0.2s', cursor: 'pointer'
+                      }}>
+                        {node}
                       </div>
-                    )}
-                  </div>
+                      {isActive && (
+                        <div style={{ position: 'absolute', top: '48px', whiteSpace: 'nowrap', fontSize: '14px', fontWeight: 700, color: 'var(--gray-900)' }}>
+                          {currentTopic}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
                 );
               })}
             </div>
@@ -177,21 +179,23 @@ export default function Dashboard() {
 
           <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '16px', scrollbarWidth: 'none' }}>
             {baseChapters.map((ch, i) => (
-              <div key={i} style={{ 
-                minWidth: '220px', background: 'var(--white)', border: ch.active ? '1px solid var(--orange)' : '1px solid var(--border)', 
-                borderRadius: '12px', padding: '16px', boxShadow: ch.active ? '0 4px 12px rgba(241,89,32,0.06)' : 'none',
-                cursor: 'pointer', transition: 'transform 0.2s'
-              }} className="card-hover">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: ch.active ? 'var(--orange)' : 'var(--gray-900)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '140px' }}>
-                    {ch.num}. {ch.title}
+              <Link href="/chapter" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div style={{ 
+                  minWidth: '220px', background: 'var(--white)', border: ch.active ? '1px solid var(--orange)' : '1px solid var(--border)', 
+                  borderRadius: '12px', padding: '16px', boxShadow: ch.active ? '0 4px 12px rgba(241,89,32,0.06)' : 'none',
+                  cursor: 'pointer', transition: 'transform 0.2s'
+                }} className="card-hover">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 700, color: ch.active ? 'var(--orange)' : 'var(--gray-900)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '140px' }}>
+                      {ch.num}. {ch.title}
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600 }}>{ch.progress}</div>
                   </div>
-                  <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600 }}>{ch.progress}</div>
+                  <div style={{ height: '6px', background: 'var(--gray-100)', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', background: ch.pct === 100 ? '#10b981' : 'var(--orange)', width: `${ch.pct}%`, borderRadius: '3px' }}></div>
+                  </div>
                 </div>
-                <div style={{ height: '6px', background: 'var(--gray-100)', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', background: ch.pct === 100 ? '#10b981' : 'var(--orange)', width: `${ch.pct}%`, borderRadius: '3px' }}></div>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -208,24 +212,26 @@ export default function Dashboard() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {courses.map((course, i) => (
-                <div key={i} style={{ 
-                  background: 'var(--white)', border: '1px solid var(--border)', borderRadius: '12px', padding: '20px',
-                  display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer'
-                }} className="card-hover">
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>Course</div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                      <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)' }}>{course.num}. {course.title}</div>
-                      <div style={{ fontSize: '13px', color: 'var(--gray-500)', fontWeight: 600 }}>{course.progress}</div>
+                <Link href="/courses" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div style={{ 
+                    background: 'var(--white)', border: '1px solid var(--border)', borderRadius: '12px', padding: '20px',
+                    display: 'flex', alignItems: 'center', gap: '20px', cursor: 'pointer'
+                  }} className="card-hover">
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '12px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>Course</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                        <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gray-900)' }}>{course.num}. {course.title}</div>
+                        <div style={{ fontSize: '13px', color: 'var(--gray-500)', fontWeight: 600 }}>{course.progress}</div>
+                      </div>
+                      <div style={{ height: '8px', background: 'var(--gray-100)', borderRadius: '4px', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', background: course.pct === 100 ? '#10b981' : 'var(--orange)', width: `${course.pct}%`, borderRadius: '4px' }}></div>
+                      </div>
                     </div>
-                    <div style={{ height: '8px', background: 'var(--gray-100)', borderRadius: '4px', overflow: 'hidden' }}>
-                      <div style={{ height: '100%', background: course.pct === 100 ? '#10b981' : 'var(--orange)', width: `${course.pct}%`, borderRadius: '4px' }}></div>
+                    <div style={{ fontSize: '24px', flexShrink: 0 }}>
+                      {course.icon}
                     </div>
                   </div>
-                  <div style={{ fontSize: '24px', flexShrink: 0 }}>
-                    {course.icon}
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

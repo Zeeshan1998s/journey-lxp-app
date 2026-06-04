@@ -1,12 +1,16 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
 import { useJourney } from '../contexts/JourneyContext';
+import { useSearchParams } from 'next/navigation';
 
-export default function ChapterPage() {
+function ChapterContent() {
+  const searchParams = useSearchParams();
+  const urlTopic = searchParams.get('topic');
+  
   const { selectedNode, generatedJourney, artifactCache, setArtifactCache } = useJourney();
-  const topic = selectedNode?.data?.label || generatedJourney?.title || 'Market Research';
+  const topic = urlTopic || selectedNode?.data?.label || generatedJourney?.title || 'Market Research';
   const cacheKey = `chapter_${topic}`;
 
   const [chapter, setChapter] = useState<any>(artifactCache[cacheKey] || null);
@@ -88,5 +92,13 @@ export default function ChapterPage() {
       </div>
       <style dangerouslySetInnerHTML={{__html: `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}} />
     </main>
+  );
+}
+
+export default function ChapterPage() {
+  return (
+    <Suspense fallback={<div>Loading chapter...</div>}>
+      <ChapterContent />
+    </Suspense>
   );
 }

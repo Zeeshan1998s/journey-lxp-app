@@ -113,7 +113,10 @@ function buildFlowGraph(aiNodes: JourneyNode[]) {
   return { flowNodes, flowEdges };
 }
 
+import { useRouter } from 'next/navigation';
+
 export default function NodeMap() {
+  const router = useRouter();
   const { selectedNode, setSelectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded, generatedJourney } = useJourney();
 
   const { flowNodes: computedNodes, flowEdges: computedEdges } = useMemo(() => {
@@ -254,6 +257,26 @@ export default function NodeMap() {
               ))}
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Read Chapter Floating Action Button */}
+      {selectedNode && !activeArtifact && (
+        <div style={{ position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)', zIndex: 50 }}>
+          <button 
+            onClick={() => router.push(`/chapter?topic=${encodeURIComponent(selectedNode.data.label)}`)}
+            style={{ 
+              display: 'flex', alignItems: 'center', gap: '12px', padding: '16px 32px', 
+              background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '32px', 
+              fontSize: '16px', fontWeight: 800, cursor: 'pointer', boxShadow: '0 8px 32px rgba(241,89,32,0.3)',
+              transition: 'transform 0.2s'
+            }}
+            onMouseOver={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+            onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
+          >
+            Read Chapter: {selectedNode.data.label}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
         </div>
       )}
     </div>
