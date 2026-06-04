@@ -46,7 +46,7 @@ const initialEdges: Edge[] = [
 export default function NodeMap() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const { selectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded } = useJourney();
+  const { selectedNode, setSelectedNode, activeArtifact, setActiveArtifact, isExpanded, setIsExpanded } = useJourney();
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
