@@ -151,13 +151,14 @@ export default function TopNavbar({ user }: { user: any }) {
         gap: '32px'
       }}>
         {['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths'].map((item, idx) => {
-          // Temporarily just default to no active styling on secondary nav unless it exactly matches a path
-          const isActive = false;
+          // For the demo, "Backend Path" is selected on the /courses page, otherwise "Courses" is the default.
+          const isActive = pathname === '/courses' && item === 'Backend Path';
+          
           return (
-          <Link key={item} href="#" style={{
-            color: isActive ? 'var(--gray-900)' : 'var(--gray-600)',
+          <Link key={item} href="/courses" style={{
+            color: isActive ? 'var(--orange)' : 'var(--gray-600)',
             fontSize: '13px',
-            fontWeight: isActive ? 600 : 500,
+            fontWeight: isActive ? 700 : 500,
             textDecoration: 'none',
             transition: 'color 0.15s'
           }}>
