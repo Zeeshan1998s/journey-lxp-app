@@ -24,6 +24,8 @@ interface JourneyContextType {
   setIsExpanded: (expanded: boolean) => void;
   generatedJourney: GeneratedJourney | null;
   setGeneratedJourney: (journey: GeneratedJourney | null) => void;
+  artifactCache: Record<string, any>;
+  setArtifactCache: React.Dispatch<React.SetStateAction<Record<string, any>>>;
 }
 
 const JourneyContext = createContext<JourneyContextType>({
@@ -35,6 +37,8 @@ const JourneyContext = createContext<JourneyContextType>({
   setIsExpanded: () => {},
   generatedJourney: null,
   setGeneratedJourney: () => {},
+  artifactCache: {},
+  setArtifactCache: () => {},
 });
 
 export function JourneyProvider({ children }: { children: React.ReactNode }) {
@@ -42,13 +46,15 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
   const [activeArtifact, setActiveArtifact] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [generatedJourney, setGeneratedJourney] = useState<GeneratedJourney | null>(null);
+  const [artifactCache, setArtifactCache] = useState<Record<string, any>>({});
 
   return (
     <JourneyContext.Provider value={{ 
       selectedNode, setSelectedNode, 
       activeArtifact, setActiveArtifact, 
       isExpanded, setIsExpanded,
-      generatedJourney, setGeneratedJourney 
+      generatedJourney, setGeneratedJourney,
+      artifactCache, setArtifactCache
     }}>
       {children}
     </JourneyContext.Provider>

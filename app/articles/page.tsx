@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
 import { useJourney } from '../contexts/JourneyContext';
@@ -13,20 +13,16 @@ interface Article {
   tags: string[];
 }
 
-const DEFAULT_ARTICLES: Article[] = [
-  { id: 1, title: 'The Complete Guide to Market Research in 2024', author: 'Dr. John Smith', readTime: '30 min', summary: 'A comprehensive guide covering all aspects of market research methodology.', tags: ['Beginner', 'Frameworks'] },
-  { id: 2, title: 'Understanding Consumer Behavior', author: 'Dr. John Smith', readTime: '45 min', summary: 'Deep dive into psychology behind consumer decision making.', tags: ['Intermediate', 'Psychology'] },
-  { id: 3, title: 'Data Analysis Techniques', author: 'Dr. John Smith', readTime: '60 min', summary: 'Advanced techniques for analyzing market data and deriving insights.', tags: ['Advanced', 'Data'] }
-];
-
 export default function ArticlesPage() {
+  const { selectedNode, generatedJourney, artifactCache, setArtifactCache } = useJourney();
+  const topic = selectedNode?.data?.label || generatedJourney?.title || 'Market Research';
+  const cacheKey = `articles_${topic}`;
+
   const [search, setSearch] = useState('');
   const [completed, setCompleted] = useState<number[]>([]);
-  const [articles, setArticles] = useState<Article[]>(DEFAULT_ARTICLES);
-  const [isRegenerating, setIsRegenerating] = useState(false);
-  const { selectedNode, generatedJourney } = useJourney();
+  const [articles, setArticles] = useState<Article[]>(artifactCache[cacheKey] || []);
+  const [isRegenerating, setIsRegenerating] = useState(!artifactCache[cacheKey]);
 
-  const topic = selectedNode?.data?.label || generatedJourney?.title || 'Market Research';
   const filtered = articles.filter(a => a.title.toLowerCase().includes(search.toLowerCase()));
 
   const toggleComplete = (id: number) => {
@@ -44,6 +40,7 @@ export default function ArticlesPage() {
       const data = await res.json();
       if (data.success && data.data?.items) {
         setArticles(data.data.items);
+        setArtifactCache(prev => ({ ...prev, [cacheKey]: data.data.items }));
         setCompleted([]);
       }
     } catch (err) {
@@ -52,6 +49,12 @@ export default function ArticlesPage() {
       setIsRegenerating(false);
     }
   };
+
+  useEffect(() => {
+    if (!artifactCache[cacheKey]) {
+      handleRegenerate();
+    }
+  }, [topic]);
 
   return (
     <main className="pdf-main">

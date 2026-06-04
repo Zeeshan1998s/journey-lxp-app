@@ -39,6 +39,36 @@ Return ONLY valid JSON:
     { "id": 1, "question": "Question text?", "answer": "Detailed answer (2-3 sentences)." }
   ]
 }`,
+  youtube: `Generate a list of 5 relevant YouTube videos to learn about "{topic}".
+Return ONLY valid JSON:
+{
+  "items": [
+    { "id": 1, "title": "Video Title", "channel": "Channel Name", "duration": "10:00", "thumbnail": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80" }
+  ]
+}`,
+  videos: `Generate a list of 5 course videos for the module "{topic}".
+Return ONLY valid JSON:
+{
+  "items": [
+    { "id": 1, "title": "Video Lesson Title", "instructor": "Instructor Name", "duration": "10:00", "thumbnail": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80" }
+  ]
+}`,
+  pdfs: `Generate a list of 4 PDF resources or worksheets to learn about "{topic}".
+Return ONLY valid JSON:
+{
+  "items": [
+    { "id": 1, "title": "PDF Title", "pages": 10, "size": "1.2 MB", "description": "Short description of the PDF content." }
+  ]
+}`,
+  chapter: `Generate a comprehensive textbook-style chapter explaining "{topic}".
+Return ONLY valid JSON:
+{
+  "title": "Chapter Title",
+  "readTime": "15 min",
+  "sections": [
+    { "id": 1, "heading": "Section Heading", "content": "2-3 paragraphs of detailed explanation." }
+  ]
+}`
 };
 
 export async function POST(req: NextRequest) {
