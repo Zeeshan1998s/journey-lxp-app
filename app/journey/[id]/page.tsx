@@ -1,329 +1,310 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useJourney } from '../../contexts/JourneyContext';
 import { useRouter } from 'next/navigation';
+import { useJourney } from '../../contexts/JourneyContext';
 
 export default function JourneyLandingPage({ params }: { params: { id: string } }) {
   const { generatedJourney } = useJourney();
   const router = useRouter();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const theme = {
-    bg: '#121420',
-    card: '#1a1c29',
-    cardHover: '#1f2233',
-    border: '#2c2e43',
-    gold: '#fcd34d',
-    goldGlow: 'rgba(252, 211, 77, 0.25)',
-    text: '#f8fafc',
-    textMuted: '#94a3b8',
-    bluePrimary: '#38bdf8'
-  };
-
   const reviews = [
-    { text: "This platform is amazing! I just completed the path almost entirely on my phone...", name: "Benjamin Wolf", location: "United States", avatar: "🐺", rating: 5 },
-    { text: "This was awesome! I loved it!", name: "Tony DeJesus", location: "United States", avatar: "🧔", rating: 5 },
-    { text: "Hands down best 101 course", name: "Mateo Milic", location: "Croatia", avatar: "M", rating: 5 },
-    { text: "This is quite an ideal introductory course for programming concepts...", name: "Sinan Akkaya", location: "United States", avatar: "🤖", rating: 5 },
-    { text: "Its clear and easy to start so i would recomend it to anyone...", name: "Rolf Klim", location: "Netherlands", avatar: "R", rating: 5 },
-    { text: "very interactive and engaging", name: "Saaketh Makam", location: "India", avatar: "🧔‍♂️", rating: 4 },
+    { text: "This was an incredibly well-structured journey. I went from zero to building real projects in just a few weeks.", name: "Benjamin Wolf", location: "United States", initials: "BW", rating: 5 },
+    { text: "The AI-generated curriculum was spot on. It knew exactly what I needed to learn and in what order.", name: "Priya Sharma", location: "India", initials: "PS", rating: 5 },
+    { text: "Hands down the best way to structure self-learning. The chapters flow perfectly into each other.", name: "Mateo Milic", location: "Croatia", initials: "MM", rating: 5 },
+    { text: "I loved how the journey adapted to my specific goal. It felt tailor-made, not like a generic course.", name: "Sinan Akkaya", location: "United States", initials: "SA", rating: 5 },
+    { text: "Clear, engaging, and actually fun to work through. Would recommend to anyone serious about learning.", name: "Rolf Klim", location: "Netherlands", initials: "RK", rating: 5 },
+    { text: "Very interactive. I stayed motivated the whole way through because of the gamified structure.", name: "Saaketh Makam", location: "India", initials: "SM", rating: 4 },
   ];
 
   const features = [
-    { icon: '🔥', title: 'Avoid tutorial hell', desc: 'by writing a ton of code' },
-    { icon: '⚡', title: 'Stay motivated with', desc: 'a game-like curriculum' },
-    { icon: '💼', title: 'Build portfolio projects', desc: 'to prove your skills' },
-    { icon: '🎓', title: 'Delve deeper', desc: 'into foundational concepts' },
-    { icon: '☁️', title: 'Learn flexibly online', desc: 'without interrupting your life' },
-    { icon: '💵', title: 'For 1% the price of college', desc: 'to minimize your financial risk' },
+    { icon: '🔥', title: 'Avoid tutorial hell', desc: 'Build real things from day one, not just watch videos.' },
+    { icon: '⚡', title: 'Stay motivated', desc: 'A game-like curriculum keeps you on track and engaged.' },
+    { icon: '💼', title: 'Build portfolio projects', desc: 'Ship real work that proves your skills to employers.' },
+    { icon: '🎓', title: 'Go deep on fundamentals', desc: 'We don\'t skip the hard stuff that makes you a great engineer.' },
+    { icon: '🗓️', title: 'Learn at your own pace', desc: 'No deadlines, no pressure. Study whenever works for you.' },
+    { icon: '🤖', title: 'Powered by Groq AI', desc: 'Your curriculum is generated in seconds, personalized for your exact goal.' },
   ];
 
   const faqs = [
-    { q: "Can I sign up and try for free?", a: "Yes! It's free to create an account and start learning. You'll get all the immersive features for free for a few chapters." },
-    { q: "Hasn't AI made learning to code obsolete?", a: "Not at all. AI is a tool that enhances a developer's workflow, but understanding the core concepts is more important than ever." },
-    { q: "How long will it take to learn enough to be hired?", a: "It depends on your pace, but most dedicated learners can be job-ready in 6-12 months." },
-    { q: "Should I include these projects in my resume?", a: "Absolutely. The portfolio projects you build here are designed to be shown off to employers." },
-    { q: "What makes this different from a bootcamp?", a: "We offer the same depth of curriculum but at a fraction of the cost, fully self-paced, and extremely interactive." },
+    { q: "Is this journey free to start?", a: "Yes! You can begin your journey immediately for free. You'll get access to all the core lessons and projects without needing to enter a credit card." },
+    { q: "How long will this journey take?", a: "It depends on your pace, but most learners complete a full journey in 4-12 weeks spending an hour or two per day. The curriculum is broken into clear milestones to track your progress." },
+    { q: "Can I skip ahead to topics I already know?", a: "Absolutely. The journey map lets you jump to any node directly. We recommend the linear path, but you're in control." },
+    { q: "What if the AI-generated content doesn't fit my level?", a: "You can regenerate your journey from the home page with a more specific prompt (e.g. 'advanced' or 'beginner-friendly'). The AI will tailor it accordingly." },
+    { q: "Will I get a certificate when I finish?", a: "Yes! A completion certificate is generated automatically when you complete all the nodes on your journey map." },
   ];
 
-  const chapters = generatedJourney?.nodes.filter(n => n.type === 'branch') || [
-    { id: '1', label: 'Introduction' },
-    { id: '2', label: 'Variables' },
-    { id: '3', label: 'Functions' },
-    { id: '4', label: 'Scope' },
-    { id: '5', label: 'Testing and Debugging' },
-    { id: '6', label: 'Computing' },
-    { id: '7', label: 'Comparisons' },
-    { id: '8', label: 'Loops' },
-    { id: '9', label: 'Lists' },
-    { id: '10', label: 'Dictionaries' },
+  const defaultChapters = [
+    { label: 'Introduction & Setup' },
+    { label: 'Core Fundamentals' },
+    { label: 'Working with Data' },
+    { label: 'Functions & Scope' },
+    { label: 'Control Flow & Loops' },
+    { label: 'Error Handling & Debugging' },
+    { label: 'Modules & Packages' },
+    { label: 'Object-Oriented Concepts' },
+    { label: 'Real-World Project' },
+    { label: 'Final Assessment' },
   ];
+
+  const chapters = (generatedJourney?.nodes || [])
+    .filter((n: any) => n.type === 'branch' || n.type === 'default')
+    .slice(0, 10);
+  const displayChapters = chapters.length > 0 ? chapters : defaultChapters;
+  const title = generatedJourney?.title || 'Learn to Code in Python';
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: theme.bg,
-      color: theme.text,
-      fontFamily: 'var(--font, system-ui, sans-serif)',
-      backgroundImage: 'radial-gradient(circle at 50% 10%, #1a1c29 0%, transparent 60%)',
-      overflowX: 'hidden'
+    <main style={{
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      background: 'var(--gray-50)',
+      color: 'var(--gray-900)',
+      fontFamily: 'var(--font)',
+      overflowY: 'auto',
     }}>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
-      `}</style>
 
-      {/* TOP GOLD TRIM */}
+      {/* HERO */}
       <div style={{
-        height: '4px',
-        width: '100%',
-        background: 'linear-gradient(90deg, #b45309 0%, #fcd34d 50%, #b45309 100%)',
-        position: 'relative'
+        background: 'linear-gradient(135deg, #fafaf9 0%, #fff7f3 50%, #fafaf9 100%)',
+        borderBottom: '1px solid var(--border)',
+        padding: '80px 24px',
+        position: 'relative',
+        overflow: 'hidden',
       }}>
+        {/* Subtle bg blob */}
         <div style={{
-          position: 'absolute',
-          top: '-14px',
-          left: '50%',
-          transform: 'translateX(-50%) rotate(45deg)',
-          width: '32px',
-          height: '32px',
-          backgroundColor: '#38bdf8',
-          border: '3px solid #fcd34d',
-          boxShadow: '0 0 15px rgba(56, 189, 248, 0.5)'
-        }}></div>
-      </div>
+          position: 'absolute', top: '-100px', right: '-100px',
+          width: '500px', height: '500px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(241,89,32,0.07) 0%, transparent 65%)',
+          pointerEvents: 'none',
+        }} />
 
-      {/* HERO SECTION */}
-      <div style={{padding: '120px 24px 80px', maxWidth: '1200px', margin: '0 auto', textAlign: 'center'}}>
-        <h1 style={{
-          fontFamily: '"Cinzel", serif',
-          fontSize: '56px',
-          fontWeight: 700,
-          color: theme.text,
-          marginBottom: '16px',
-          textShadow: '0 4px 20px rgba(0,0,0,0.5)'
-        }}>
-          {generatedJourney?.title || 'Learn to Code in Python'}
-        </h1>
-        <p style={{
-          fontSize: '18px',
-          color: theme.textMuted,
-          maxWidth: '600px',
-          margin: '0 auto 64px',
-          lineHeight: 1.6
-        }}>
-          Start coding with hands-on lessons that build the habits you'll use in every future course.
-        </p>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          {/* Breadcrumb */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px', fontSize: '13px', color: 'var(--gray-500)' }}>
+            <Link href="/dashboard" style={{ color: 'var(--gray-500)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Dashboard
+            </Link>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+            <span style={{ color: 'var(--gray-900)', fontWeight: 600 }}>Course Overview</span>
+          </div>
 
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '64px', flexWrap: 'wrap'}}>
-          {/* Author */}
-          <div style={{display: 'flex', gap: '16px', textAlign: 'left', maxWidth: '300px'}}>
-            <div style={{
-              width: '64px', height: '64px', borderRadius: '50%', 
-              backgroundColor: '#1e3a8a', border: `2px solid ${theme.gold}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px'
-            }}>
-              🧙‍♂️
-            </div>
-            <div>
-              <div style={{fontSize: '12px', color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em'}}>Author</div>
-              <div style={{fontSize: '18px', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>Journeybuilder Team</div>
-              <div style={{fontSize: '13px', color: theme.textMuted, lineHeight: 1.5}}>
-                Our expert in-house course authors are tenured software developers whose love for coding is only outstripped by a love for teaching.
+          <div style={{ display: 'flex', gap: '80px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            {/* Left: Title + Author + CTA */}
+            <div style={{ flex: 1, minWidth: '320px' }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                background: 'var(--orange-bg)', color: 'var(--orange)',
+                padding: '6px 14px', borderRadius: '24px', fontSize: '12px', fontWeight: 700,
+                marginBottom: '20px',
+              }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                AI-Generated Journey
               </div>
-            </div>
-          </div>
 
-          {/* Center Call to Action */}
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <button 
-              onClick={() => router.push(`/journey/${params.id}/map`)}
-              style={{
-                backgroundColor: 'transparent',
-                color: theme.gold,
-                border: `2px solid ${theme.gold}`,
-                borderRadius: '4px',
-                padding: '16px 48px',
-                fontSize: '16px',
-                fontFamily: '"Cinzel", serif',
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                boxShadow: `0 0 30px ${theme.goldGlow}, inset 0 0 20px ${theme.goldGlow}`,
-                textTransform: 'uppercase',
-                marginBottom: '24px'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = theme.gold;
-                e.currentTarget.style.color = '#000';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = theme.gold;
-              }}
-            >
-              Start the Course
-            </button>
-            <div style={{display: 'flex', alignItems: 'center', gap: '8px', fontSize: '24px', fontWeight: 700}}>
-              4.8 <span style={{color: theme.gold, fontSize: '20px'}}>★★★★★</span> <span style={{fontSize: '14px', color: theme.textMuted, fontWeight: 400}}>9,998</span>
-            </div>
-            <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginTop: '16px'}}>
-              <div style={{display: 'flex'}}>
-                {['👨‍💻', '👩‍🔬', '👨‍🎓'].map((emoji, i) => (
-                  <div key={i} style={{
-                    width: '28px', height: '28px', borderRadius: '50%', backgroundColor: theme.card,
-                    border: `2px solid ${theme.bg}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    marginLeft: i > 0 ? '-10px' : 0, fontSize: '14px'
-                  }}>{emoji}</div>
-                ))}
-              </div>
-              <span style={{fontSize: '14px', color: theme.textMuted}}>Join 752,371 students from companies like</span>
-            </div>
-            <div style={{display: 'flex', gap: '24px', marginTop: '16px', fontSize: '20px', color: theme.textMuted, fontWeight: 700}}>
-              <span>Google</span>
-              <span>HashiCorp</span>
-              <span>stripe</span>
-              <span>Microsoft</span>
-            </div>
-          </div>
+              <h1 style={{
+                fontSize: '40px', fontWeight: 800, color: 'var(--gray-900)',
+                letterSpacing: '-1px', lineHeight: 1.2, marginBottom: '16px',
+              }}>
+                {title}
+              </h1>
 
-          {/* Stats */}
-          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', textAlign: 'left'}}>
-            <div>
-              <div style={{color: theme.gold, fontSize: '20px', marginBottom: '8px'}}>⏱️</div>
-              <div style={{fontWeight: 700, fontSize: '15px'}}>30 Hours</div>
-              <div style={{fontSize: '13px', color: theme.textMuted}}>of content</div>
-            </div>
-            <div>
-              <div style={{color: theme.gold, fontSize: '20px', marginBottom: '8px'}}>✓</div>
-              <div style={{fontWeight: 700, fontSize: '15px'}}>191 Addicting</div>
-              <div style={{fontSize: '13px', color: theme.textMuted}}>lessons</div>
-            </div>
-            <div>
-              <div style={{color: theme.gold, fontSize: '20px', marginBottom: '8px'}}>⭐</div>
-              <div style={{fontWeight: 700, fontSize: '15px'}}>Earn a certificate</div>
-              <div style={{fontSize: '13px', color: theme.textMuted}}>of completion</div>
-            </div>
-            <div>
-              <div style={{color: theme.gold, fontSize: '20px', marginBottom: '8px'}}>☁️</div>
-              <div style={{fontWeight: 700, fontSize: '15px'}}>Learn online</div>
-              <div style={{fontSize: '13px', color: theme.textMuted}}>at your pace</div>
-            </div>
-          </div>
-        </div>
-      </div>
+              <p style={{ fontSize: '17px', color: 'var(--gray-600)', lineHeight: 1.6, marginBottom: '32px' }}>
+                Start learning with hands-on lessons that build the habits and skills you'll use in every future project.
+              </p>
 
-      {/* REVIEWS SECTION */}
-      <div style={{
-        padding: '100px 24px',
-        backgroundColor: 'rgba(20, 22, 35, 0.5)',
-        borderTop: `1px solid ${theme.border}`,
-        borderBottom: `1px solid ${theme.border}`
-      }}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', textAlign: 'center'}}>
-          <h2 style={{fontFamily: '"Cinzel", serif', fontSize: '36px', fontWeight: 700, marginBottom: '16px'}}>
-            Join 752,371 students in the course
-          </h2>
-          <p style={{fontSize: '16px', color: theme.textMuted, marginBottom: '64px'}}>
-            Read reviews of their learning experiences
-          </p>
-
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px'}}>
-            {reviews.map((rev, i) => (
-              <div key={i} style={{
-                backgroundColor: theme.card,
-                border: `1px solid ${theme.border}`,
-                borderRadius: '8px',
-                padding: '32px',
-                textAlign: 'left',
-                display: 'flex',
-                flexDirection: 'column',
-                transition: 'border-color 0.2s',
-              }}
-              onMouseOver={(e) => e.currentTarget.style.borderColor = theme.gold}
-              onMouseOut={(e) => e.currentTarget.style.borderColor = theme.border}
-              >
-                <p style={{fontSize: '15px', color: theme.text, lineHeight: 1.6, marginBottom: '16px', flex: 1}}>
-                  "{rev.text}"
-                </p>
-                <span style={{fontSize: '12px', color: theme.bluePrimary, textDecoration: 'underline', cursor: 'pointer', marginBottom: '24px'}}>Read full review</span>
-                <div style={{textAlign: 'center', marginBottom: '16px'}}>
-                  <span style={{color: theme.gold}}>{'★'.repeat(rev.rating)}{'☆'.repeat(5-rev.rating)}</span>
-                  <span style={{color: theme.textMuted, fontSize: '13px', marginLeft: '8px'}}>({rev.rating}/5)</span>
-                </div>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px'}}>
-                  <div style={{width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px'}}>
-                    {rev.avatar}
-                  </div>
-                  <div style={{textAlign: 'left'}}>
-                    <div style={{fontSize: '14px', fontWeight: 700, color: theme.text}}>{rev.name}</div>
-                    <div style={{fontSize: '12px', color: theme.textMuted}}>{rev.location}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* SECOND GOLD TRIM */}
-      <div style={{
-        height: '4px',
-        width: '100%',
-        background: 'linear-gradient(90deg, #b45309 0%, #fcd34d 50%, #b45309 100%)',
-      }}></div>
-
-      {/* FEATURES SECTION */}
-      <div style={{padding: '120px 24px', maxWidth: '1000px', margin: '0 auto', textAlign: 'center'}}>
-        <h2 style={{fontFamily: '"Cinzel", serif', fontSize: '36px', fontWeight: 700, marginBottom: '16px'}}>
-          Mediocrity doesn't cut it anymore
-        </h2>
-        <p style={{fontSize: '18px', color: theme.text, fontWeight: 600, maxWidth: '400px', margin: '0 auto 80px', lineHeight: 1.5}}>
-          The only way to become a great developer is to write a lot of code
-        </p>
-
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '64px', textAlign: 'left'}}>
-          {features.map((feat, i) => (
-            <div key={i}>
-              <div style={{fontSize: '24px', color: theme.gold, marginBottom: '16px'}}>{feat.icon}</div>
-              <h3 style={{fontSize: '16px', fontWeight: 700, color: theme.text, marginBottom: '4px'}}>{feat.title}</h3>
-              <p style={{fontSize: '14px', color: theme.textMuted}}>{feat.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* THIRD GOLD TRIM */}
-      <div style={{
-        height: '4px',
-        width: '100%',
-        background: 'linear-gradient(90deg, #b45309 0%, #fcd34d 50%, #b45309 100%)',
-      }}></div>
-
-      {/* CHAPTER LIST */}
-      <div style={{padding: '120px 24px', backgroundColor: 'rgba(20, 22, 35, 0.5)'}}>
-        <div style={{maxWidth: '800px', margin: '0 auto'}}>
-          <h2 style={{fontFamily: '"Cinzel", serif', fontSize: '36px', fontWeight: 700, marginBottom: '24px', textAlign: 'center'}}>
-            What will you learn?
-          </h2>
-          <p style={{fontSize: '15px', color: theme.textMuted, lineHeight: 1.6, textAlign: 'center', marginBottom: '64px', maxWidth: '600px', margin: '0 auto 64px'}}>
-            Learn the basics of the programming language, and why it's one of the most popular out there. You'll get hands-on practice with all the core concepts.
-          </p>
-          
-          <h3 style={{fontFamily: '"Cinzel", serif', fontSize: '24px', fontWeight: 700, textAlign: 'center', marginBottom: '32px'}}>
-            Chapter List
-          </h3>
-
-          <div style={{display: 'flex', flexDirection: 'column'}}>
-            {chapters.map((ch, i) => (
-              <div key={i} style={{display: 'flex', padding: '24px 0', borderBottom: `1px solid ${theme.border}`}}>
-                <div style={{width: '60px', fontSize: '20px', fontWeight: 700, color: theme.textMuted, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  {i + 1}
+              {/* Author row */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '36px' }}>
+                <div style={{
+                  width: '44px', height: '44px', borderRadius: '50%',
+                  background: 'var(--orange-bg)', color: 'var(--orange)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '20px', fontWeight: 700, flexShrink: 0,
+                }}>
+                  🧙‍♂️
                 </div>
                 <div>
-                  <h4 style={{fontSize: '16px', fontWeight: 700, color: theme.text, marginBottom: '4px'}}>{ch.label}</h4>
-                  <p style={{fontSize: '14px', color: theme.textMuted}}>Learn about the core concepts of {ch.label.toLowerCase()} in a hands-on way.</p>
+                  <div style={{ fontSize: '11px', color: 'var(--gray-500)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Generated by</div>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--gray-900)' }}>Groq AI · Journeybuilder</div>
+                </div>
+              </div>
+
+              {/* Rating */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
+                <span style={{ color: 'var(--orange)', fontSize: '16px', letterSpacing: '-1px' }}>★★★★★</span>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--gray-900)' }}>4.9</span>
+                <span style={{ fontSize: '13px', color: 'var(--gray-500)' }}>· Based on 1,240+ learners</span>
+              </div>
+
+              <button
+                onClick={() => router.push(`/journey/${params.id}/map`)}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '10px',
+                  background: 'var(--orange)', color: 'var(--white)',
+                  border: 'none', borderRadius: '12px',
+                  padding: '16px 32px', fontSize: '16px', fontWeight: 700,
+                  cursor: 'pointer', fontFamily: 'var(--font)',
+                  boxShadow: '0 4px 20px rgba(241,89,32,0.3)',
+                  transition: 'transform 0.1s, box-shadow 0.2s',
+                }}
+                onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(241,89,32,0.35)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(241,89,32,0.3)'; }}
+              >
+                Start the Journey
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12H19M19 12L12 5M19 12L12 19"/></svg>
+              </button>
+            </div>
+
+            {/* Right: Stats grid */}
+            <div style={{
+              background: 'var(--white)', borderRadius: '16px',
+              border: '1px solid var(--border)', padding: '32px',
+              display: 'grid', gridTemplateColumns: '1fr 1fr',
+              gap: '28px', flexShrink: 0, minWidth: '280px',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+            }}>
+              {[
+                { icon: '⏱️', label: '30 Hours', sub: 'of content' },
+                { icon: '📚', label: displayChapters.length + ' Chapters', sub: 'in this journey' },
+                { icon: '🏆', label: 'Certificate', sub: 'on completion' },
+                { icon: '🎯', label: 'Self-paced', sub: 'learn your way' },
+              ].map((stat, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <span style={{ fontSize: '22px' }}>{stat.icon}</span>
+                  <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--gray-900)' }}>{stat.label}</span>
+                  <span style={{ fontSize: '12px', color: 'var(--gray-500)' }}>{stat.sub}</span>
+                </div>
+              ))}
+              <div style={{ gridColumn: '1 / -1', borderTop: '1px solid var(--border)', paddingTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Hands-on projects', 'AI-curated curriculum', 'Community support'].map((item, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gray-700)' }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2.5"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CHAPTER LIST */}
+      <div style={{ padding: '80px 24px', borderBottom: '1px solid var(--border)', background: 'var(--white)' }}>
+        <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+          <div style={{ marginBottom: '40px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--gray-900)', letterSpacing: '-0.5px', marginBottom: '10px' }}>
+              What will you learn?
+            </h2>
+            <p style={{ fontSize: '15px', color: 'var(--gray-600)', lineHeight: 1.6 }}>
+              This journey is structured into clear chapters, each building on the last. Every chapter includes lessons, exercises, and a mini-project.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {displayChapters.map((ch: any, i: number) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', gap: '20px',
+                padding: '20px 0',
+                borderBottom: i < displayChapters.length - 1 ? '1px solid var(--border)' : 'none',
+              }}>
+                <div style={{
+                  width: '36px', height: '36px', borderRadius: '50%',
+                  background: 'var(--orange-bg)', color: 'var(--orange)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '13px', fontWeight: 800, flexShrink: 0,
+                }}>
+                  {i + 1}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--gray-900)', marginBottom: '3px' }}>
+                    {ch.label}
+                  </div>
+                  <div style={{ fontSize: '13px', color: 'var(--gray-500)' }}>
+                    Lessons, exercises & a hands-on challenge
+                  </div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gray-300)" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* FEATURES */}
+      <div style={{ padding: '80px 24px', borderBottom: '1px solid var(--border)', background: 'var(--gray-50)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--gray-900)', letterSpacing: '-0.5px', marginBottom: '10px' }}>
+              Why learn with Journeybuilder?
+            </h2>
+            <p style={{ fontSize: '15px', color: 'var(--gray-600)' }}>
+              We believe the only way to become a great developer is to write a lot of real code.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+            {features.map((feat, i) => (
+              <div key={i} style={{
+                background: 'var(--white)',
+                border: '1px solid var(--border)',
+                borderRadius: '12px',
+                padding: '28px',
+                transition: 'border-color 0.2s, box-shadow 0.2s',
+              }}
+              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--orange)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(241,89,32,0.08)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = 'none'; }}
+              >
+                <div style={{ fontSize: '28px', marginBottom: '16px' }}>{feat.icon}</div>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--gray-900)', marginBottom: '6px' }}>{feat.title}</h3>
+                <p style={{ fontSize: '13px', color: 'var(--gray-600)', lineHeight: 1.6 }}>{feat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* REVIEWS */}
+      <div style={{ padding: '80px 24px', borderBottom: '1px solid var(--border)', background: 'var(--white)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--gray-900)', letterSpacing: '-0.5px', marginBottom: '10px' }}>
+              Loved by learners worldwide
+            </h2>
+            <p style={{ fontSize: '15px', color: 'var(--gray-600)' }}>
+              See what others are saying about their learning experience.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+            {reviews.map((rev, i) => (
+              <div key={i} style={{
+                background: 'var(--gray-50)',
+                border: '1px solid var(--border)',
+                borderRadius: '12px', padding: '28px',
+                display: 'flex', flexDirection: 'column', gap: '16px',
+              }}>
+                <div style={{ display: 'flex', gap: '2px' }}>
+                  {Array.from({ length: rev.rating }).map((_, j) => (
+                    <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="var(--orange)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                </div>
+                <p style={{ fontSize: '14px', color: 'var(--gray-700)', lineHeight: 1.65, flex: 1 }}>
+                  "{rev.text}"
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingTop: '8px', borderTop: '1px solid var(--border)' }}>
+                  <div style={{
+                    width: '34px', height: '34px', borderRadius: '50%',
+                    background: 'var(--orange-bg)', color: 'var(--orange)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '11px', fontWeight: 800, flexShrink: 0,
+                  }}>
+                    {rev.initials}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--gray-900)' }}>{rev.name}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--gray-500)' }}>{rev.location}</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -331,46 +312,107 @@ export default function JourneyLandingPage({ params }: { params: { id: string } 
         </div>
       </div>
 
-      {/* FAQ SECTION */}
-      <div style={{padding: '120px 24px', maxWidth: '800px', margin: '0 auto'}}>
-        <h2 style={{fontFamily: '"Cinzel", serif', fontSize: '36px', fontWeight: 700, marginBottom: '16px', textAlign: 'center'}}>
-          Frequently asked Questions
-        </h2>
-        <p style={{fontSize: '16px', color: theme.textMuted, textAlign: 'center', marginBottom: '64px'}}>
-          Got questions? We've got answers
-        </p>
+      {/* FAQ */}
+      <div style={{ padding: '80px 24px', background: 'var(--gray-50)' }}>
+        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--gray-900)', letterSpacing: '-0.5px', marginBottom: '10px' }}>
+              Frequently asked questions
+            </h2>
+            <p style={{ fontSize: '15px', color: 'var(--gray-600)' }}>
+              Got questions? We've got answers.
+            </p>
+          </div>
 
-        <div style={{border: `1px solid ${theme.gold}`, padding: '0 32px'}}>
-          {faqs.map((faq, i) => (
-            <div key={i} style={{borderBottom: i === faqs.length - 1 ? 'none' : `1px solid ${theme.border}`}}>
-              <button 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                style={{
-                  width: '100%', padding: '24px 0', display: 'flex', justifyContent: 'space-between', 
-                  alignItems: 'center', backgroundColor: 'transparent', border: 'none',
-                  color: theme.text, fontSize: '15px', fontWeight: 700, cursor: 'pointer',
-                  textAlign: 'left'
-                }}
-              >
-                {faq.q}
-                <span style={{color: theme.gold, fontSize: '18px', transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s'}}>
-                  {openFaq === i ? '⌄' : '⌄'}
-                </span>
-              </button>
-              <div style={{
-                maxHeight: openFaq === i ? '200px' : '0',
-                overflow: 'hidden',
-                transition: 'max-height 0.3s ease-in-out',
-              }}>
-                <p style={{paddingBottom: '24px', color: theme.textMuted, fontSize: '14px', lineHeight: 1.6}}>
-                  {faq.a}
-                </p>
+          <div style={{
+            background: 'var(--white)', borderRadius: '16px',
+            border: '1px solid var(--border)',
+            overflow: 'hidden',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.04)',
+          }}>
+            {faqs.map((faq, i) => (
+              <div key={i} style={{ borderBottom: i < faqs.length - 1 ? '1px solid var(--border)' : 'none' }}>
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{
+                    width: '100%', padding: '22px 24px',
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    background: 'transparent', border: 'none',
+                    color: 'var(--gray-900)', fontSize: '15px', fontWeight: 600,
+                    cursor: 'pointer', textAlign: 'left', fontFamily: 'var(--font)',
+                    gap: '16px',
+                  }}
+                >
+                  {faq.q}
+                  <svg
+                    width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="var(--orange)" strokeWidth="2"
+                    style={{ flexShrink: 0, transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.25s' }}
+                  >
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div style={{
+                  maxHeight: openFaq === i ? '300px' : '0',
+                  overflow: 'hidden', transition: 'max-height 0.3s ease-in-out',
+                }}>
+                  <p style={{
+                    padding: '0 24px 22px', fontSize: '14px',
+                    color: 'var(--gray-600)', lineHeight: 1.7,
+                  }}>
+                    {faq.a}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
-    </div>
+      {/* BOTTOM CTA */}
+      <div style={{
+        background: 'linear-gradient(135deg, #fff7f3 0%, #fafaf9 100%)',
+        borderTop: '1px solid var(--border)',
+        padding: '80px 24px',
+        textAlign: 'center',
+      }}>
+        <div style={{ maxWidth: '560px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '32px', fontWeight: 800, color: 'var(--gray-900)', marginBottom: '16px', letterSpacing: '-0.5px' }}>
+            Ready to start your journey?
+          </h2>
+          <p style={{ fontSize: '16px', color: 'var(--gray-600)', marginBottom: '36px', lineHeight: 1.6 }}>
+            Jump into your personalized learning path and start building real skills today.
+          </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => router.push(`/journey/${params.id}/map`)}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                background: 'var(--orange)', color: 'var(--white)',
+                border: 'none', borderRadius: '12px',
+                padding: '16px 32px', fontSize: '16px', fontWeight: 700,
+                cursor: 'pointer', fontFamily: 'var(--font)',
+                boxShadow: '0 4px 20px rgba(241,89,32,0.3)',
+              }}
+            >
+              Start the Journey
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12H19M19 12L12 5M19 12L12 19"/></svg>
+            </button>
+            <Link href="/dashboard" style={{ textDecoration: 'none' }}>
+              <button style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                background: 'var(--white)', color: 'var(--gray-700)',
+                border: '1px solid var(--border)', borderRadius: '12px',
+                padding: '16px 28px', fontSize: '16px', fontWeight: 600,
+                cursor: 'pointer', fontFamily: 'var(--font)',
+              }}>
+                Back to Dashboard
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+    </main>
   );
 }
