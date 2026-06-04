@@ -58,13 +58,26 @@ export default function Dashboard() {
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 24px 80px' }}>
         
         {/* Greeting */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--orange-bg)', color: 'var(--orange)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: 700, border: '2px solid var(--orange)' }}>
-            {userInitial}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--orange-bg)', color: 'var(--orange)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: 700, border: '2px solid var(--orange)' }}>
+              {userInitial}
+            </div>
+            <h1 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--gray-700)' }}>
+              Ready to dive into some code, <span style={{ fontWeight: 800, color: 'var(--gray-900)' }}>{userName}</span>?
+            </h1>
           </div>
-          <h1 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--gray-700)' }}>
-            Ready to dive into some code, <span style={{ fontWeight: 800, color: 'var(--gray-900)' }}>{userName}</span>?
-          </h1>
+          <Link href="/">
+            <button style={{
+              background: 'var(--white)', color: 'var(--gray-900)', border: '1px solid var(--border)', borderRadius: '10px', 
+              padding: '10px 20px', fontSize: '14px', fontWeight: 700, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+              transition: 'all 0.2s'
+            }} className="card-hover">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Create New Journey
+            </button>
+          </Link>
         </div>
 
         {/* HERO SECTION */}
