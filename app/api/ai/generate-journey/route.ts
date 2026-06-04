@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       messages: [
         {
           role: 'system',
-          content: `You are a curriculum design expert. When given a learning goal, generate a structured learning journey as JSON.
+          content: `You are a curriculum design expert. When given a learning goal, experience level, and time commitment, generate a structured learning journey as JSON.
 
 Return ONLY valid JSON in this exact format, no markdown, no explanation:
 {
@@ -32,7 +32,9 @@ Rules:
 - Total 15-20 nodes
 - Labels should be concise (3-6 words max)
 - Types must be exactly: "root", "branch", or "leaf"
-- IDs must be sequential strings: "1", "2", "3" etc.`
+- IDs must be sequential strings: "1", "2", "3" etc.
+- IMPORTANT: Adjust the difficulty of the branch and leaf nodes to match the user's experience level (Beginner vs Advanced).
+- IMPORTANT: Adjust the breadth of the topics based on the time commitment (e.g. Intensive means more comprehensive subtopics).`
         },
         {
           role: 'user',
