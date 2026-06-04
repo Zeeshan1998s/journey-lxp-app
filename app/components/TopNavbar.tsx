@@ -52,9 +52,10 @@ export default function TopNavbar({ user }: { user: any }) {
         {/* Center: Navigation Links */}
         <div style={{display: 'flex', alignItems: 'center', height: '100%'}}>
           {['Dashboard', 'Courses', 'Training', 'Pricing', 'Community', 'Leaderboard'].map((item) => {
-            const isActive = item === 'Courses';
+            const itemPath = item === 'Dashboard' ? '/' : `/${item.toLowerCase()}`;
+            const isActive = item === 'Dashboard' ? pathname === '/' : pathname.startsWith(itemPath);
             return (
-              <Link key={item} href="#" style={{
+              <Link key={item} href={itemPath} style={{
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
@@ -149,17 +150,21 @@ export default function TopNavbar({ user }: { user: any }) {
         borderBottom: '1px solid var(--border)',
         gap: '32px'
       }}>
-        {['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths'].map((item, idx) => (
+        {['Courses', 'Backend Path', 'DevOps Path', 'Custom Paths'].map((item, idx) => {
+          // Temporarily just default to no active styling on secondary nav unless it exactly matches a path
+          const isActive = false;
+          return (
           <Link key={item} href="#" style={{
-            color: idx === 0 ? 'var(--gray-900)' : 'var(--gray-600)',
+            color: isActive ? 'var(--gray-900)' : 'var(--gray-600)',
             fontSize: '13px',
-            fontWeight: idx === 0 ? 600 : 500,
+            fontWeight: isActive ? 600 : 500,
             textDecoration: 'none',
             transition: 'color 0.15s'
           }}>
             {item}
           </Link>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
