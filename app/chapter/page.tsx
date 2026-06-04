@@ -5,6 +5,45 @@ import { useJourney } from '../contexts/JourneyContext';
 import { useSearchParams } from 'next/navigation';
 import Editor from '@monaco-editor/react';
 
+const InstructionItem = ({ text, index }: { text: string, index: number }) => {
+  const [checked, setChecked] = useState(false);
+  
+  const renderText = (str: string) => {
+    const parts = str.split(/`([^`]+)`/);
+    return parts.map((part, i) => {
+      if (i % 2 === 1) { 
+        return <code key={i} style={{ background: '#e2e8f0', color: '#0f172a', padding: '2px 6px', borderRadius: '4px', fontFamily: 'monospace', fontSize: '0.9em', border: '1px solid #cbd5e1' }}>{part}</code>;
+      }
+      return <span key={i}>{part}</span>;
+    });
+  };
+
+  const match = text.match(/^(\d+\.)\s*(.*)$/);
+  
+  return (
+    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '8px', opacity: checked ? 0.5 : 1, transition: 'opacity 0.2s' }}>
+      <div style={{ paddingTop: '2px' }}>
+        <input 
+          type="checkbox" 
+          checked={checked} 
+          onChange={(e) => setChecked(e.target.checked)} 
+          style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#0f172a' }} 
+        />
+      </div>
+      <div style={{ fontSize: '15px', color: '#334155', lineHeight: 1.6 }}>
+        {match ? (
+          <>
+            <span style={{ fontWeight: 700, marginRight: '4px', color: '#94a3b8' }}>{match[1]}</span>
+            {renderText(match[2])}
+          </>
+        ) : (
+          renderText(text)
+        )}
+      </div>
+    </div>
+  );
+};
+
 function ChapterContent() {
   const searchParams = useSearchParams();
   const urlTopic = searchParams.get('topic');
@@ -301,13 +340,12 @@ function ChapterContent() {
                         <p key={i} style={{ color: '#475569' }}>{para}</p>
                       ))}
                       
-                      <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', borderLeft: '4px solid #f59e0b' }}>
-                        <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '12px' }}>Instructions:</h3>
-                        <ul style={{ paddingLeft: '20px', color: '#334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ marginTop: '12px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                           {chapter.instructions?.map((inst: string, i: number) => (
-                            <li key={i}>{inst}</li>
+                            <InstructionItem key={i} text={inst} index={i} />
                           ))}
-                        </ul>
+                        </div>
                       </div>
                     </>
                   ) : chapter.sections ? (
