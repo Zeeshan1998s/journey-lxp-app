@@ -2,7 +2,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useJourney } from '../contexts/JourneyContext';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Editor from '@monaco-editor/react';
 
 const InstructionItem = ({ text, index }: { text: string, index: number }) => {
@@ -46,9 +46,10 @@ const InstructionItem = ({ text, index }: { text: string, index: number }) => {
 
 function ChapterContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const urlTopic = searchParams.get('topic');
   
-  const { selectedNode, generatedJourney, artifactCache, setArtifactCache, xp, setXp, gems, setGems, inventory, setInventory, quests, setQuests } = useJourney();
+  const { selectedNode, generatedJourney, artifactCache, setArtifactCache, xp, setXp, gems, setGems, inventory, setInventory, quests, setQuests, completedNodes, setCompletedNodes } = useJourney();
   const topic = urlTopic || selectedNode?.data?.label || generatedJourney?.title || 'Market Research';
   const cacheKey = `chapter_${topic}`;
 
@@ -186,6 +187,16 @@ function ChapterContent() {
     setXp(prev => prev + xpGained + bonusXp);
     if (gemsGained > 0) setGems(prev => prev + gemsGained);
     setQuests(updatedQuests);
+    
+    // Mark as completed
+    if (!completedNodes.includes(topic)) {
+      setCompletedNodes(prev => [...prev, topic]);
+    }
+    
+    // Route back to dashboard
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 1500);
   };
 
   const shopItems = [

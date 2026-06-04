@@ -6,7 +6,7 @@ import { useJourney } from '../contexts/JourneyContext';
 
 export default function Dashboard() {
   const { data: session } = useSession();
-  const { generatedJourney } = useJourney();
+  const { generatedJourney, completedNodes } = useJourney();
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
 
   const userName = session?.user?.name || session?.user?.email?.split('@')[0] || 'Guest';
@@ -15,22 +15,30 @@ export default function Dashboard() {
   const journeyTitle = generatedJourney?.title || 'Back-end Developer Path';
   
   // Extract dynamic chapters from the generated journey
-  const dynamicNodes = generatedJourney?.nodes?.filter((n: any) => n.type === 'branch' || n.type === 'default') || [];
-  const currentTopic = dynamicNodes.length > 1 ? (dynamicNodes[1] as any).data?.label || (dynamicNodes[1] as any).label : 'Chapter 2. Classes';
-
-  const baseChapters = dynamicNodes.length > 0 ? dynamicNodes.map((n: any, i) => ({
-    num: i + 1,
-    title: n.data?.label || n.label || `Module ${i+1}`,
-    progress: i < 2 ? '100%' : (i === 2 ? '45%' : '0%'),
-    pct: i < 2 ? 100 : (i === 2 ? 45 : 0),
-    active: i === 2
-  })) : [
-    { num: 1, title: 'Clean Code', progress: '6 / 6', pct: 100, active: false },
-    { num: 2, title: 'Classes', progress: '9 / 12', pct: 75, active: true },
-    { num: 3, title: 'Encapsulation', progress: '0 / 8', pct: 0, active: false },
-    { num: 4, title: 'Abstraction', progress: '0 / 7', pct: 0, active: false },
-    { num: 5, title: 'Inheritance', progress: '0 / 15', pct: 0, active: false },
+  const dynamicNodes = generatedJourney?.nodes?.filter((n: any) => n.type === 'branch' || n.type === 'default') || [
+    { label: 'Clean Code', type: 'default' },
+    { label: 'Classes', type: 'default' },
+    { label: 'Encapsulation', type: 'default' },
+    { label: 'Abstraction', type: 'default' },
+    { label: 'Inheritance', type: 'default' }
   ];
+  
+  const activeNodeIndex = Math.max(0, dynamicNodes.findIndex((n: any) => !completedNodes.includes(n.data?.label || n.label)));
+  const safeActiveNodeIndex = activeNodeIndex === -1 ? dynamicNodes.length - 1 : activeNodeIndex;
+  
+  const currentTopic = (dynamicNodes[safeActiveNodeIndex] as any)?.data?.label || (dynamicNodes[safeActiveNodeIndex] as any)?.label || 'Chapter';
+
+  const baseChapters = dynamicNodes.map((n: any, i: number) => {
+    const isComp = completedNodes.includes(n.data?.label || n.label);
+    const isAct = i === safeActiveNodeIndex;
+    return {
+      num: i + 1,
+      title: n.data?.label || n.label || `Module ${i+1}`,
+      progress: isComp ? '100%' : (isAct ? '45%' : '0%'),
+      pct: isComp ? 100 : (isAct ? 45 : 0),
+      active: isAct
+    };
+  });
 
   // We can just take the first 4 nodes to mock journeys, or use defaults
   const journeys = dynamicNodes.length > 3 ? dynamicNodes.slice(0, 4).map((n: any, i) => ({
@@ -127,7 +135,7 @@ export default function Dashboard() {
                     View Map
                   </button>
                 </Link>
-                <Link href="/chapter">
+                <Link href={`/chapter?topic=${encodeURIComponent(currentTopic)}`}>
                   <button style={{ 
                     background: 'var(--orange)', color: '#fff', border: 'none', borderRadius: '10px',
                     padding: '12px 24px', fontSize: '14px', fontWeight: 700, cursor: 'pointer',
@@ -150,13 +158,15 @@ export default function Dashboard() {
               </div>
               
               {/* Nodes */}
-              {[14, 15, 16, 17, 18].map((node, i) => {
-                const isCompleted = i < 2;
-                const isActive = i === 2;
+              {dynamicNodes.slice(Math.max(0, safeActiveNodeIndex - 2), Math.max(0, safeActiveNodeIndex - 2) + 5).map((node: any, i: number) => {
+                const nodeLabel = node.data?.label || node.label;
+                const nodeIndex = dynamicNodes.findIndex((n: any) => (n.data?.label || n.label) === nodeLabel);
+                const isCompleted = completedNodes.includes(nodeLabel);
+                const isActive = nodeIndex === safeActiveNodeIndex;
+                const isLocked = !isCompleted && !isActive;
                 
-                return (
-                  <Link href="/chapter" key={node} style={{ textDecoration: 'none' }}>
-                    <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                const content = (
+                    <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: isLocked ? 0.5 : 1 }}>
                       <div style={{ 
                         width: isActive ? '40px' : '32px', height: isActive ? '40px' : '32px',
                         borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -165,16 +175,25 @@ export default function Dashboard() {
                         color: isActive ? '#fff' : (isCompleted ? 'var(--orange)' : 'var(--gray-400)'),
                         fontSize: isActive ? '16px' : '14px', fontWeight: 800,
                         boxShadow: isActive ? '0 0 0 4px rgba(241,89,32,0.1)' : 'none',
-                        transition: 'all 0.2s', cursor: 'pointer'
+                        transition: 'all 0.2s', cursor: isLocked ? 'not-allowed' : 'pointer'
                       }}>
-                        {node}
+                        {isCompleted ? '✓' : (nodeIndex + 1)}
                       </div>
                       {isActive && (
                         <div style={{ position: 'absolute', top: '48px', whiteSpace: 'nowrap', fontSize: '14px', fontWeight: 700, color: 'var(--gray-900)' }}>
-                          {currentTopic}
+                          {nodeLabel}
                         </div>
                       )}
                     </div>
+                );
+
+                if (isLocked) {
+                  return <div key={i}>{content}</div>;
+                }
+
+                return (
+                  <Link href={`/chapter?topic=${encodeURIComponent(nodeLabel)}`} key={i} style={{ textDecoration: 'none' }}>
+                    {content}
                   </Link>
                 );
               })}
@@ -191,8 +210,8 @@ export default function Dashboard() {
           </div>
 
           <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '16px', scrollbarWidth: 'none' }}>
-            {baseChapters.map((ch, i) => (
-              <Link href="/chapter" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+            {baseChapters.map((ch: any, i: number) => (
+              <Link href={`/chapter?topic=${encodeURIComponent(ch.title)}`} key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{ 
                   minWidth: '220px', background: 'var(--white)', border: ch.active ? '1px solid var(--orange)' : '1px solid var(--border)', 
                   borderRadius: '12px', padding: '16px', boxShadow: ch.active ? '0 4px 12px rgba(241,89,32,0.06)' : 'none',

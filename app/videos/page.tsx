@@ -2,11 +2,15 @@
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useJourney } from '../contexts/JourneyContext';
 import { completeContent } from '../actions/gamification';
 
 export default function VideosPage() {
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const [completed, setCompleted] = useState<number[]>([]);
+  const { completedNodes, setCompletedNodes, xp, setXp, gems, setGems, quests, setQuests } = useJourney();
 
   const videos = [
     { id: 1, title: 'Introduction to Core Concepts', author: 'Starweaver Academy', duration: '5:30' },
@@ -25,9 +29,23 @@ export default function VideosPage() {
     // Call Server Action
     const res = await completeContent(`video-${id}`, 'VIDEO');
     if (res.success && res.xpEarned > 0) {
-      // Dispatch custom event to trigger toast
       window.dispatchEvent(new CustomEvent('show-xp-toast', { detail: { xp: res.xpEarned } }));
+      setXp(prev => prev + res.xpEarned);
     }
+  };
+
+  const handleMarkComplete = () => {
+    setCompleted(videos.map(v => v.id));
+    
+    // Hardcode topic completion for now since Videos doesn't parse ?topic= yet
+    const topic = 'Market Research'; // To tie back to dashboard map
+    if (!completedNodes.includes(topic)) {
+      setCompletedNodes(prev => [...prev, topic]);
+    }
+    
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 500);
   };
 
   return (
@@ -88,7 +106,7 @@ export default function VideosPage() {
         </div>
       </div>
       <div className="mark-complete-bar">
-        <button className="mark-complete-btn" onClick={() => setCompleted(videos.map(v => v.id))}>
+        <button className="mark-complete-btn" onClick={handleMarkComplete}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           Mark as Complete
         </button>

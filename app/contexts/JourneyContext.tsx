@@ -45,6 +45,8 @@ interface JourneyContextType {
   setInventory: React.Dispatch<React.SetStateAction<Record<string, number>>>;
   quests: Quest[];
   setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
+  completedNodes: string[];
+  setCompletedNodes: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const defaultQuests: Quest[] = [
@@ -72,6 +74,8 @@ const JourneyContext = createContext<JourneyContextType>({
   setInventory: () => {},
   quests: [],
   setQuests: () => {},
+  completedNodes: [],
+  setCompletedNodes: () => {},
 });
 
 export function JourneyProvider({ children }: { children: React.ReactNode }) {
@@ -88,6 +92,7 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
     potion: 0, armor: 0, salmon: 0, seer_stone: 0, frozen_flame: 0
   });
   const [quests, setQuests] = useState<Quest[]>(defaultQuests);
+  const [completedNodes, setCompletedNodes] = useState<string[]>([]);
 
   return (
     <JourneyContext.Provider value={{ 
@@ -96,7 +101,8 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
       isExpanded, setIsExpanded,
       generatedJourney, setGeneratedJourney,
       artifactCache, setArtifactCache,
-      xp, setXp, gems, setGems, inventory, setInventory, quests, setQuests
+      xp, setXp, gems, setGems, inventory, setInventory, quests, setQuests,
+      completedNodes, setCompletedNodes
     }}>
       {children}
     </JourneyContext.Provider>
