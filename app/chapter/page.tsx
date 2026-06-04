@@ -294,16 +294,20 @@ function ChapterContent() {
                 </div>
               ) : chapter ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <p>Complete the assignment below based on the reading:</p>
-                  {chapter.sections?.map((sec: any, i: number) => (
-                    <div key={i} style={{ display: 'flex', gap: '12px' }}>
-                      <span style={{ color: '#94a3b8', fontWeight: 700 }}>{i+1}.</span>
-                      <div>
-                        <div style={{ color: '#0f172a', fontWeight: 600, marginBottom: '4px' }}>{sec.heading}</div>
-                        <div style={{ color: '#475569' }}>{sec.content}</div>
-                      </div>
-                    </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  {chapter.theory?.map((para: string, i: number) => (
+                    <p key={i} style={{ color: '#475569' }}>{para}</p>
                   ))}
+                  
+                  <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', borderLeft: '4px solid #f59e0b' }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '12px' }}>Instructions:</h3>
+                    <ul style={{ paddingLeft: '20px', color: '#334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {chapter.instructions?.map((inst: string, i: number) => (
+                        <li key={i}>{inst}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
                 </div>
               ) : (
                 <p>Assignment content goes here.</p>
@@ -388,7 +392,11 @@ function ChapterContent() {
               height="100%"
               defaultLanguage="python"
               theme="vs-light"
-              value={activeTab === 'main.py' ? `# Practice coding here!\n\ndef ${topic.toLowerCase().replace(/\\s+/g, '_')}(data):\n    print(f"Executing {data}")\n    return True\n\n# Start your solution below:\n` : `# Tests will run against your main.py\nimport unittest\nfrom main import *\n\nclass TestMain(unittest.TestCase):\n    def test_logic(self):\n        self.assertTrue(True)\n`}
+              value={
+                activeTab === 'main.py' 
+                  ? (chapter?.code_starter || '# Loading starter code...')
+                  : (chapter?.code_test || '# Loading test code...')
+              }
               options={{ minimap: { enabled: false }, fontSize: 14, fontFamily: 'monospace', padding: { top: 16 } }}
             />
           </div>

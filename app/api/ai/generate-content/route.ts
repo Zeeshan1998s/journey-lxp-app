@@ -60,14 +60,21 @@ Return ONLY valid JSON:
     { "id": 1, "title": "PDF Title", "pages": 10, "size": "1.2 MB", "description": "Short description of the PDF content." }
   ]
 }`,
-  chapter: `Generate a comprehensive textbook-style chapter explaining "{topic}".
+  chapter: `Generate an interactive coding challenge explaining "{topic}".
 Return ONLY valid JSON:
 {
-  "title": "Chapter Title",
+  "title": "Topic Name",
   "readTime": "15 min",
-  "sections": [
-    { "id": 1, "heading": "Section Heading", "content": "2-3 paragraphs of detailed explanation." }
-  ]
+  "theory": [
+    "Paragraph 1 explaining the concept simply.",
+    "Paragraph 2 with an example or analogy."
+  ],
+  "instructions": [
+    "1. Do this first step.",
+    "2. Do this second step."
+  ],
+  "code_starter": "def example():\\n    # Write your code here\\n    pass",
+  "code_test": "import unittest\\nfrom main import *\\n\\nclass TestMain(unittest.TestCase):\\n    def test_example(self):\\n        self.assertEqual(example(), True)"
 }`
 };
 

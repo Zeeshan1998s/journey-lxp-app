@@ -15,9 +15,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Linux Fundamentals', 'Ch 5. File System Hierarchy', 'Ch 9. SSH & Remote Access',
+        'Ch 2. Shell Navigation', 'Ch 6. Process Management', 'Ch 10. Networking Basics',
+        'Ch 3. Users & Permissions', 'Ch 7. Package Managers', 'Ch 11. System Services (systemd)',
+        'Ch 4. Text Processing', 'Ch 8. Shell Scripting', 'Ch 12. Capstone: Linux Admin'
       ]
     },
     {
@@ -25,9 +26,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. What are Containers?', 'Ch 5. Docker Volumes', 'Ch 9. Multi-stage Builds',
+        'Ch 2. Installing Docker', 'Ch 6. Docker Networks', 'Ch 10. Docker Compose Basics',
+        'Ch 3. Running First Container', 'Ch 7. Writing Dockerfiles', 'Ch 11. Complex Docker Compose',
+        'Ch 4. Image Management', 'Ch 8. Building Custom Images', 'Ch 12. Capstone: Containerized App'
       ]
     },
     {
@@ -35,9 +37,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Container Orchestration', 'Ch 5. Services & Networking', 'Ch 9. Ingress Controllers',
+        'Ch 2. Kubernetes Architecture', 'Ch 6. Volumes & ConfigMaps', 'Ch 10. RBAC & Security',
+        'Ch 3. Pods & Namespaces', 'Ch 7. Secrets Management', 'Ch 11. Helm Charts',
+        'Ch 4. Deployments & Replicas', 'Ch 8. StatefulSets & DaemonSets', 'Ch 12. Capstone: K8s Cluster'
       ]
     },
     {
@@ -45,9 +48,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Infrastructure as Code', 'Ch 5. Variables & Outputs', 'Ch 9. Workspaces',
+        'Ch 2. Terraform Providers', 'Ch 6. State Management', 'Ch 10. Provisioners',
+        'Ch 3. Provisioning Resources', 'Ch 7. Remote Backends', 'Ch 11. Terraform Cloud',
+        'Ch 4. Data Sources', 'Ch 8. Terraform Modules', 'Ch 12. Capstone: AWS Infra'
       ]
     },
     {
@@ -55,9 +59,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Configuration Management', 'Ch 5. Modules & Tasks', 'Ch 9. Roles & Galaxy',
+        'Ch 2. Ansible Architecture', 'Ch 6. Variables & Facts', 'Ch 10. Ansible Vault',
+        'Ch 3. Inventory Files', 'Ch 7. Conditionals & Loops', 'Ch 11. Custom Modules',
+        'Ch 4. Writing Playbooks', 'Ch 8. Handlers & Templates', 'Ch 12. Capstone: Server Setup'
       ]
     },
     {
@@ -65,9 +70,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Intro to CI/CD', 'Ch 5. Parameterized Builds', 'Ch 9. Multi-branch Pipelines',
+        'Ch 2. Installing Jenkins', 'Ch 6. Jenkins Plugins', 'Ch 10. Distributed Builds (Nodes)',
+        'Ch 3. Freestyle Projects', 'Ch 7. Declarative Pipelines', 'Ch 11. Security & Credentials',
+        'Ch 4. SCM Integration', 'Ch 8. Scripted Pipelines', 'Ch 12. Capstone: CI/CD Pipeline'
       ]
     },
     {
@@ -75,9 +81,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Workflows & Events', 'Ch 5. Matrix Builds', 'Ch 9. Deployment Environments',
+        'Ch 2. Runners & Jobs', 'Ch 6. Caching Dependencies', 'Ch 10. Reusable Workflows',
+        'Ch 3. Actions & Steps', 'Ch 7. Artifacts & Outputs', 'Ch 11. Custom Actions',
+        'Ch 4. Secrets & Environment', 'Ch 8. OIDC AWS Integration', 'Ch 12. Capstone: Prod Release'
       ]
     },
     {
@@ -85,9 +92,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Observability Basics', 'Ch 5. PromQL Basics', 'Ch 9. Alertmanager Setup',
+        'Ch 2. Metrics vs Logs', 'Ch 6. Advanced PromQL', 'Ch 10. Alerting Rules',
+        'Ch 3. Prometheus Architecture', 'Ch 7. Recording Rules', 'Ch 11. Pushgateway',
+        'Ch 4. Exporters & Scraping', 'Ch 8. Service Discovery', 'Ch 12. Capstone: Monitoring'
       ]
     },
     {
@@ -95,9 +103,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Data Visualization', 'Ch 5. Time Series & Graphs', 'Ch 9. User Management',
+        'Ch 2. Connecting Data Sources', 'Ch 6. Tables & Gauges', 'Ch 10. Authentication (OAuth)',
+        'Ch 3. Building Dashboards', 'Ch 7. Dashboard Variables', 'Ch 11. Exporting Dashboards',
+        'Ch 4. Panels & Rows', 'Ch 8. Grafana Alerting', 'Ch 12. Capstone: Metrics Portal'
       ]
     },
     {
@@ -105,9 +114,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Cloud Computing Intro', 'Ch 5. RDS & Databases', 'Ch 9. Elastic Load Balancing',
+        'Ch 2. IAM & Security', 'Ch 6. S3 & Storage', 'Ch 10. Auto Scaling Groups',
+        'Ch 3. VPC & Networking', 'Ch 7. Route 53 (DNS)', 'Ch 11. CloudWatch & Logs',
+        'Ch 4. EC2 Instances', 'Ch 8. SQS & SNS Messaging', 'Ch 12. Capstone: Highly Available App'
       ]
     },
     {
@@ -115,9 +125,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Intro to GCP', 'Ch 5. Cloud Storage', 'Ch 9. Load Balancing',
+        'Ch 2. IAM & Projects', 'Ch 6. Cloud SQL', 'Ch 10. Pub/Sub Messaging',
+        'Ch 3. VPC Networks', 'Ch 7. Cloud Run & Functions', 'Ch 11. Operations Suite',
+        'Ch 4. Compute Engine', 'Ch 8. GKE (Kubernetes)', 'Ch 12. Capstone: Serverless App'
       ]
     },
     {
@@ -125,9 +136,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '⚙️',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Azure Fundamentals', 'Ch 5. Azure Storage', 'Ch 9. Azure Load Balancer',
+        'Ch 2. Azure Active Directory', 'Ch 6. Azure SQL Database', 'Ch 10. Azure Service Bus',
+        'Ch 3. Virtual Networks', 'Ch 7. Azure App Service', 'Ch 11. Azure Monitor',
+        'Ch 4. Virtual Machines', 'Ch 8. AKS (Kubernetes)', 'Ch 12. Capstone: Enterprise App'
       ]
     }
   ];

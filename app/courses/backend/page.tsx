@@ -15,9 +15,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Introduction to Python', 'Ch 5. Lists & Tuples', 'Ch 9. Object-Oriented Programming',
+        'Ch 2. Variables & Data Types', 'Ch 6. Dictionaries & Sets', 'Ch 10. File Handling & IO',
+        'Ch 3. Control Flow (If/Else)', 'Ch 7. Functions & Scope', 'Ch 11. Error Handling & Exceptions',
+        'Ch 4. Loops (For/While)', 'Ch 8. Modules & Packages', 'Ch 12. Capstone: CLI Application'
       ]
     },
     {
@@ -25,9 +26,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Relational Databases', 'Ch 5. Filtering with WHERE', 'Ch 9. Subqueries & CTEs',
+        'Ch 2. Tables & Data Types', 'Ch 6. Sorting & Limiting', 'Ch 10. Indexes & Performance',
+        'Ch 3. INSERT & UPDATE', 'Ch 7. Aggregation & GROUP BY', 'Ch 11. Database Design & Normalization',
+        'Ch 4. Basic SELECT Queries', 'Ch 8. JOINs (Inner, Left, Right)', 'Ch 12. Capstone: E-commerce DB'
       ]
     },
     {
@@ -35,9 +37,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Why Go?', 'Ch 5. Arrays & Slices', 'Ch 9. Goroutines & Concurrency',
+        'Ch 2. Variables & Types', 'Ch 6. Maps & Structs', 'Ch 10. Channels & Select',
+        'Ch 3. Control Structures', 'Ch 7. Pointers & Memory', 'Ch 11. Error Handling in Go',
+        'Ch 4. Functions & Multiple Returns', 'Ch 8. Interfaces & Methods', 'Ch 12. Capstone: Web Server'
       ]
     },
     {
@@ -45,9 +48,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. What are Containers?', 'Ch 5. Docker Volumes', 'Ch 9. Multi-stage Builds',
+        'Ch 2. Installing Docker', 'Ch 6. Docker Networks', 'Ch 10. Docker Compose Basics',
+        'Ch 3. Running First Container', 'Ch 7. Writing Dockerfiles', 'Ch 11. Complex Docker Compose',
+        'Ch 4. Image Management', 'Ch 8. Building Custom Images', 'Ch 12. Capstone: Containerized App'
       ]
     },
     {
@@ -55,9 +59,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Intro to In-Memory DBs', 'Ch 5. Sets & Hashes', 'Ch 9. Redis Pub/Sub',
+        'Ch 2. Installing Redis', 'Ch 6. Sorted Sets', 'Ch 10. Redis Transactions',
+        'Ch 3. Basic Key-Value Operations', 'Ch 7. TTL & Expirations', 'Ch 11. Redis Persistence (RDB/AOF)',
+        'Ch 4. Lists & Queues', 'Ch 8. Caching Strategies', 'Ch 12. Capstone: Caching Layer'
       ]
     },
     {
@@ -65,9 +70,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Advanced SQL Concepts', 'Ch 5. Triggers & Functions', 'Ch 9. JSON & JSONB Data',
+        'Ch 2. Roles & Permissions', 'Ch 6. Views & Materialized Views', 'Ch 10. Full Text Search',
+        'Ch 3. Transactions & ACID', 'Ch 7. Window Functions', 'Ch 11. Backups & Restores',
+        'Ch 4. Constraints & Foreign Keys', 'Ch 8. Query Optimization', 'Ch 12. Capstone: Analytics DB'
       ]
     },
     {
@@ -75,9 +81,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. REST vs GraphQL', 'Ch 5. Resolvers & Data Fetching', 'Ch 9. Pagination in GraphQL',
+        'Ch 2. Schema Definition Language', 'Ch 6. Nested Queries', 'Ch 10. Caching Strategies',
+        'Ch 3. Queries & Aliases', 'Ch 7. Mutations & Inputs', 'Ch 11. Security & Rate Limiting',
+        'Ch 4. Fragments & Variables', 'Ch 8. Subscriptions', 'Ch 12. Capstone: GraphQL API'
       ]
     },
     {
@@ -85,9 +92,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. RPC Fundamentals', 'Ch 5. gRPC Services', 'Ch 9. Metadata & Headers',
+        'Ch 2. Protocol Buffers', 'Ch 6. Server Streaming', 'Ch 10. Interceptors & Middleware',
+        'Ch 3. Compiling Protobufs', 'Ch 7. Client Streaming', 'Ch 11. Load Balancing gRPC',
+        'Ch 4. gRPC vs REST', 'Ch 8. Bidirectional Streaming', 'Ch 12. Capstone: Microservices'
       ]
     },
     {
@@ -95,9 +103,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. HTTP vs WebSockets', 'Ch 5. Sending & Receiving Data', 'Ch 9. Scaling WebSockets',
+        'Ch 2. The WebSocket Protocol', 'Ch 6. Handling Disconnections', 'Ch 10. Authentication',
+        'Ch 3. Handshake & Upgrade', 'Ch 7. Ping/Pong & Heartbeats', 'Ch 11. Fallbacks & Long Polling',
+        'Ch 4. Server Implementation', 'Ch 8. Broadcasting Messages', 'Ch 12. Capstone: Chat Server'
       ]
     },
     {
@@ -105,9 +114,10 @@ export default function ModulesPage() {
       type: 'Guided Project',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Async Architecture', 'Ch 5. Exchanges & Bindings', 'Ch 9. Consumer Groups',
+        'Ch 2. Queue Fundamentals', 'Ch 6. Dead Letter Queues', 'Ch 10. Event-Driven Design',
+        'Ch 3. RabbitMQ Basics', 'Ch 7. Kafka Fundamentals', 'Ch 11. Handling Failures',
+        'Ch 4. Producers & Consumers', 'Ch 8. Topics & Partitions', 'Ch 12. Capstone: Order Pipeline'
       ]
     },
     {
@@ -115,9 +125,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Threat Modeling', 'Ch 5. OAuth & OIDC', 'Ch 9. Data Encryption',
+        'Ch 2. OWASP Top 10', 'Ch 6. CSRF & XSS Prevention', 'Ch 10. Rate Limiting',
+        'Ch 3. Authentication vs AuthZ', 'Ch 7. SQL Injection Mitigation', 'Ch 11. Secure API Design',
+        'Ch 4. JWT & Sessions', 'Ch 8. Password Hashing (Bcrypt)', 'Ch 12. Capstone: Secure Gateway'
       ]
     },
     {
@@ -125,9 +136,10 @@ export default function ModulesPage() {
       type: 'Module',
       icon: '💻',
       chapters: [
-        'Ch 1. Introduction', 'Ch 4. Advanced Concepts',
-        'Ch 2. Core Mechanics', 'Ch 5. Best Practices',
-        'Ch 3. Implementation', 'Ch 6. Capstone'
+        'Ch 1. Why Write Tests?', 'Ch 5. Mocking & Stubbing', 'Ch 9. End-to-End Testing',
+        'Ch 2. Unit Testing Basics', 'Ch 6. Dependency Injection', 'Ch 10. Test Coverage Metrics',
+        'Ch 3. Test Driven Development', 'Ch 7. Testing Databases', 'Ch 11. CI/CD Pipeline Setup',
+        'Ch 4. Integration Testing', 'Ch 8. API Testing', 'Ch 12. Capstone: Full Test Suite'
       ]
     }
   ];
