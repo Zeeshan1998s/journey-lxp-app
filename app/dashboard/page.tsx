@@ -7,16 +7,17 @@ const Dashboard = () => {
   const { generatedJourney } = useJourney();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Dark mode colors for Boot.dev aesthetic
   const theme = {
-    bg: 'var(--gray-50)',
-    card: 'var(--white)',
-    border: 'var(--border, #e6e6e6)',
-    text: 'var(--gray-900)',
-    textMuted: 'var(--gray-600)',
-    primary: 'var(--orange)',
-    primaryHover: 'var(--orange-light)',
-    progressBg: 'var(--gray-100)',
-    progressFill: 'var(--orange)', 
+    bg: '#131422',
+    card: '#1a1b2d',
+    border: '#2c2e43',
+    text: '#e2e8f0',
+    textMuted: '#94a3b8',
+    primary: '#fcd34d', // Gold
+    primaryHover: '#fde68a',
+    progressBg: '#1e293b',
+    progressFill: '#60a5fa', // Blue progress like Boot.dev
   };
 
   const faqs = [
@@ -60,18 +61,16 @@ const Dashboard = () => {
       color: theme.text,
       minHeight: '100vh',
       fontFamily: 'var(--font, system-ui, sans-serif)',
-      overflowY: 'auto'
+      overflowY: 'auto',
+      backgroundImage: 'radial-gradient(circle at 50% 0%, #1c1d33 0%, transparent 70%)'
     }}>
-      
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
-      `}</style>
       
       {/* LEFT SIDEBAR - Journey Hub */}
       <div style={{
         width: '260px',
         borderRight: `1px solid ${theme.border}`,
-        backgroundColor: theme.card,
+        backgroundColor: 'rgba(19, 20, 34, 0.8)',
+        backdropFilter: 'blur(10px)',
         padding: '24px',
         display: 'flex',
         flexDirection: 'column',
@@ -83,7 +82,7 @@ const Dashboard = () => {
             <button style={{
               width: '100%',
               backgroundColor: theme.primary,
-              color: 'var(--white)',
+              color: '#000',
               border: 'none',
               borderRadius: '8px',
               padding: '12px 16px',
@@ -148,8 +147,8 @@ const Dashboard = () => {
           <div style={{width: '48px', height: '48px', borderRadius: '50%', backgroundColor: theme.card, border: `2px solid ${theme.primary}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'}}>
             🧙‍♂️
           </div>
-          <h1 style={{fontSize: '28px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text}}>
-            Welcome back, Zeeshan! Let's get to it!
+          <h1 style={{fontSize: '18px', fontWeight: 500, color: theme.textMuted}}>
+            Welcome back, <span style={{color: theme.text, fontWeight: 700}}>Zeeshan</span>! Let's get to it!
           </h1>
         </div>
 
@@ -180,8 +179,8 @@ const Dashboard = () => {
                 <div style={{display: 'flex', alignItems: 'flex-end', gap: '16px', marginTop: '24px'}}>
                   <div style={{fontSize: '64px', lineHeight: 1}}>🔥</div>
                   <div>
-                    <div style={{fontSize: '14px', color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600}}>Current streak</div>
-                    <div style={{fontSize: '48px', fontWeight: 800, color: theme.text, lineHeight: 1, marginTop: '4px'}}>2 Days</div>
+                    <div style={{fontSize: '12px', color: theme.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em'}}>Current streak</div>
+                    <div style={{fontSize: '32px', fontWeight: 800, color: theme.text, lineHeight: 1}}>2</div>
                   </div>
                 </div>
               </div>
@@ -200,15 +199,15 @@ const Dashboard = () => {
           }}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px'}}>
               <div>
-                <h2 style={{fontSize: '28px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
-                  Back-end Developer Path <span style={{fontSize: '16px', fontFamily: 'system-ui, sans-serif', color: theme.textMuted, fontWeight: 400}}>(Python & Go)</span>
+                <h2 style={{fontSize: '24px', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
+                  Back-end Developer Path <span style={{fontSize: '16px', color: theme.textMuted, fontWeight: 400}}>(Python & Go)</span>
                 </h2>
                 <p style={{fontSize: '15px', color: theme.textMuted}}>Learn Object Oriented Programming - Chapter 2. Classes</p>
               </div>
               <Link href="/journey/1">
                 <button style={{
                   backgroundColor: theme.primary,
-                  color: 'var(--white)',
+                  color: '#000',
                   border: 'none',
                   borderRadius: '24px',
                   padding: '10px 24px',
@@ -216,7 +215,7 @@ const Dashboard = () => {
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'background-color 0.2s',
-                  boxShadow: '0 4px 12px rgba(241, 89, 32, 0.2)'
+                  boxShadow: '0 0 20px rgba(252, 211, 77, 0.2)'
                 }}
                 onMouseOver={(e) => e.currentTarget.style.backgroundColor = theme.primaryHover}
                 onMouseOut={(e) => e.currentTarget.style.backgroundColor = theme.primary}
@@ -236,12 +235,12 @@ const Dashboard = () => {
                   <div key={num} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <div style={{
                       width: '48px', height: '48px', borderRadius: '50%', 
-                      backgroundColor: i < 2 ? theme.primary : (i === 2 ? theme.card : theme.bg),
-                      border: `2px solid ${i < 2 ? theme.primary : (i === 2 ? theme.primary : theme.border)}`,
+                      backgroundColor: i < 2 ? theme.primary : (i === 2 ? '#2563eb' : theme.bg),
+                      border: `2px solid ${i < 2 ? theme.primary : (i === 2 ? '#3b82f6' : theme.border)}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: i < 2 ? 'var(--white)' : theme.text,
+                      color: i < 2 ? '#000' : theme.text,
                       fontSize: '18px', fontWeight: 700,
-                      boxShadow: i === 2 ? '0 0 15px rgba(241, 89, 32, 0.3)' : 'none'
+                      boxShadow: i === 2 ? '0 0 15px rgba(59, 130, 246, 0.5)' : 'none'
                     }}>
                       {num}
                     </div>
@@ -259,7 +258,7 @@ const Dashboard = () => {
 
         {/* Current Course Chapters */}
         <div style={{marginBottom: '48px'}}>
-          <h2 style={{fontSize: '24px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
+          <h2 style={{fontSize: '20px', fontWeight: 700, fontFamily: 'serif', color: theme.text, marginBottom: '8px'}}>
             Learn Object Oriented Programming in Python 🔄
           </h2>
           <p style={{fontSize: '14px', color: theme.textMuted, marginBottom: '24px'}}>Chapters</p>
@@ -293,7 +292,7 @@ const Dashboard = () => {
           
           {/* Left: Path Courses */}
           <div style={{flex: 1}}>
-            <h2 style={{fontSize: '24px', fontFamily: '"Cinzel", serif', fontWeight: 700, color: theme.text, marginBottom: '8px'}}>
+            <h2 style={{fontSize: '20px', fontWeight: 700, fontFamily: 'serif', color: theme.text, marginBottom: '8px'}}>
               Back-end Developer Path
             </h2>
             <p style={{fontSize: '14px', color: theme.textMuted, marginBottom: '24px'}}>Courses</p>
@@ -315,26 +314,24 @@ const Dashboard = () => {
                     boxShadow: course.active ? `0 0 10px ${theme.progressFill}` : 'none'
                   }}></div>
                   <div style={{flex: 1}}>
-                    <div style={{fontSize: '12px', fontWeight: 700, color: theme.primary, textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em'}}>
+                    <div style={{fontSize: '12px', color: theme.textMuted, marginBottom: '4px'}}>
                       {course.title.includes('Guided') ? 'Guided Project' : 'Course'}
                     </div>
-                    <h3 style={{fontSize: '18px', fontWeight: 700, color: course.current > 0 ? theme.text : theme.textMuted, marginBottom: '16px'}}>
-                      {course.title}
-                    </h3>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
-                      <div style={{flex: 1, height: '12px', backgroundColor: theme.progressBg, borderRadius: '6px', overflow: 'hidden', border: `1px solid ${theme.border}`}}>
-                        <div style={{
-                          width: `${(course.current / course.total) * 100}%`, 
-                          height: '100%', 
-                          backgroundColor: theme.progressFill,
-                          borderRadius: '6px',
-                          background: course.current === course.total ? 'linear-gradient(90deg, #f15920, #ff9e70)' : theme.progressFill
-                        }}></div>
-                      </div>
-                      <span style={{fontSize: '13px', fontWeight: 700, color: theme.textMuted}}>🔄 {course.current} / {course.total}</span>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px'}}>
+                      <h3 style={{fontSize: '18px', fontWeight: 600, color: course.current > 0 ? theme.text : theme.textMuted}}>{course.title}</h3>
+                      <span style={{fontSize: '13px', color: theme.textMuted}}>🔄 {course.current} / {course.total}</span>
+                    </div>
+                    <div style={{height: '8px', backgroundColor: theme.progressBg, borderRadius: '4px', overflow: 'hidden'}}>
+                      <div style={{
+                        width: `${(course.current / course.total) * 100}%`, 
+                        height: '100%', 
+                        backgroundColor: theme.progressFill,
+                        borderRadius: '4px',
+                        background: course.current === course.total ? 'linear-gradient(90deg, #60a5fa, #93c5fd)' : theme.progressFill
+                      }}></div>
                     </div>
                   </div>
-                  <div style={{fontSize: '48px', opacity: course.current > 0 ? 1 : 0.5, marginLeft: 'auto'}}>
+                  <div style={{fontSize: '32px', opacity: course.current > 0 ? 1 : 0.5}}>
                     {course.icon}
                   </div>
                 </div>
@@ -454,7 +451,7 @@ const Dashboard = () => {
           </div>
 
           <div style={{textAlign: 'center', color: theme.textMuted, fontSize: '14px'}}>
-            <h2 style={{fontFamily: '"Cinzel", serif', fontSize: '32px', fontWeight: 700, color: theme.primary, marginBottom: '16px'}}>Journeybuilder</h2>
+            <h2 style={{fontFamily: 'serif', fontSize: '32px', color: theme.primary, marginBottom: '16px'}}>Journeybuilder</h2>
             <p>© Journeybuilder 2026</p>
           </div>
         </div>
